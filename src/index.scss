@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+}
+
+@mixin main-font {
+  font-family: 'Arial';
+  font-size: 1.3rem;
+  line-height: 1.9rem;
+  color: #333;
+}
+
+body {
+  margin: 0;
+  font-family: 'Arial';
+}
+
+button {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.no-events {
+  pointer-events: none;
+}
+
+.light-icon {
+  color: #ccc;
+  transition: color .3s;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+
+  &:hover {
+    color: dodgerblue;
+    cursor: pointer;
+  }
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: dodgerblue;
+  color: white;
+  padding: 1rem 3rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    font-weight: 400;
+    background-color: transparent;
+    color: white;
+    border: 0;
+  }
+}
+
+section {
+  padding: 5rem 3rem;
+  flex: 1;
+  overflow-y: scroll;
+
+  header {
+    background-color: white;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    padding: 0rem;
+    padding-bottom: .5rem;
+    font-weight: bold;
+  }
+
+  p.content {
+    font-size: 1.3rem;
+    line-height: 1.9rem;
+    padding: 1.5rem 0;
+    color: #333;
+  }
+
+  textarea.content {
+    width: 100%;
+    padding: 1rem;
+    margin: 5rem 0;
+    border: 1px solid #eee;
+    @include main-font;
+  }
+}
+
+footer {
+  background-color: #eee;
+  display: flex;
+
+  button {
+    width: 100%;
+    background-color: dodgerblue;
+    color: white;
+    padding: 1rem;
+    cursor: pointer;
+    border: 0;
+    font-weight: 400;
+    transition: background-color .3s;
+
+    &.secondary {
+      background-color: rgb(30, 255, 86);
+    }
+
+    &.warning {
+      background-color: rgb(255, 101, 30);
+    }
+
+    &:hover {
+      background-color: rgb(86, 170, 253);
+    }
+  }
+}
