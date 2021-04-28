@@ -8,9 +8,41 @@ body {
   font-family: 'Arial';
 }
 
+path, svg {
+  pointer-events: none;
+}
+
 button {
   font-size: 1rem;
   cursor: pointer;
+  padding: 1rem;
+  display: inline-block;
+  -webkit-transition: color .3s, background-color .3s;
+  transition: color .3s, background-color .3s;
+}
+
+button.primary {
+  background-color: dodgerblue;
+  color: white;
+  border: 0;
+}
+
+button.primary:hover {
+  background-color: #56aafd;
+}
+
+button.tertiary {
+  background-color: transparent;
+  color: #ccc;
+  border: 0;
+}
+
+button.tertiary:hover {
+  color: dodgerblue;
+}
+
+button.small {
+  padding: 0;
 }
 
 .no-events {
@@ -23,7 +55,7 @@ button {
   transition: color .3s;
   background-color: transparent;
   border: 0;
-  padding: 0;
+  margin-left: 1rem;
 }
 
 .light-icon:hover {
@@ -58,6 +90,15 @@ header {
           align-items: center;
 }
 
+header .logo {
+  color: white;
+  text-decoration: none;
+}
+
+header .logo:hover {
+  text-decoration: underline;
+}
+
 header button {
   font-weight: 400;
   background-color: transparent;
@@ -65,12 +106,28 @@ header button {
   border: 0;
 }
 
+header input.title {
+  font-weight: bold;
+  font-size: 1rem;
+  padding: .5rem 1rem;
+  border: 1px solid #eee;
+}
+
+header span.title {
+  font-weight: bold;
+  font-size: 1rem;
+  padding: .5rem 0;
+  border: 1px solid transparent;
+}
+
 section {
-  padding: 5rem 3rem;
+  padding: 5rem 1rem;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
+  margin: auto;
+  width: 100%;
 }
 
 section header {
@@ -92,12 +149,31 @@ section p.content {
 section textarea.content {
   width: 100%;
   padding: 1rem;
-  margin: 5rem 0;
+  margin-bottom: 2rem;
+  height: 15rem;
   border: 1px solid #eee;
   font-family: 'Arial';
   font-size: 1.3rem;
   line-height: 1.9rem;
   color: #333;
+}
+
+section label {
+  display: block;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #ccc;
+}
+
+section .editor-buttons {
+  margin-top: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 footer {
@@ -129,5 +205,21 @@ footer button.warning {
 
 footer button:hover {
   background-color: #56aafd;
+}
+
+.deck-thumbnail {
+  text-decoration: none;
+  color: #333;
+  padding: 1rem;
+  border: 1px solid #eee;
+  margin: 1rem;
+  border-radius: .5rem;
+  display: block;
+}
+
+@media only screen and (min-width: 700px) {
+  section {
+    width: 80ch;
+  }
 }
 /*# sourceMappingURL=index.css.map */

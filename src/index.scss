@@ -14,9 +14,40 @@ body {
   font-family: 'Arial';
 }
 
+path, svg {
+  pointer-events: none;
+}
+
 button {
   font-size: 1rem;
   cursor: pointer;
+  padding: 1rem;
+  display: inline-block;
+  transition: color .3s, background-color .3s;
+
+  &.primary {
+    background-color: dodgerblue;
+    color: white;
+    border: 0;
+
+    &:hover {
+      background-color: rgb(86, 170, 253);
+    }
+  }
+
+  &.tertiary {
+    background-color: transparent;
+    color: #ccc;
+    border: 0;
+
+    &:hover {
+      color: dodgerblue;
+    }
+  }
+
+  &.small {
+    padding: 0;
+  }
 }
 
 .no-events {
@@ -28,7 +59,7 @@ button {
   transition: color .3s;
   background-color: transparent;
   border: 0;
-  padding: 0;
+  margin-left: 1rem;
 
   &:hover {
     color: dodgerblue;
@@ -51,18 +82,43 @@ header {
   justify-content: space-between;
   align-items: center;
 
+  .logo {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   button {
     font-weight: 400;
     background-color: transparent;
     color: white;
     border: 0;
   }
+
+  input.title {
+    font-weight: bold;
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    border: 1px solid #eee;
+  }
+
+  span.title {
+    font-weight: bold;
+    font-size: 1rem;
+    padding: .5rem 0;
+    border: 1px solid transparent;
+  }
 }
 
 section {
-  padding: 5rem 3rem;
+  padding: 5rem 1rem;
   flex: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
+  margin: auto;
+  width: 100%;
 
   header {
     background-color: white;
@@ -83,9 +139,23 @@ section {
   textarea.content {
     width: 100%;
     padding: 1rem;
-    margin: 5rem 0;
+    margin-bottom: 2rem;
+    height: 15rem;
     border: 1px solid #eee;
     @include main-font;
+  }
+
+  label {
+    display: block;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #ccc;
+  }
+
+  .editor-buttons {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -114,5 +184,22 @@ footer {
     &:hover {
       background-color: rgb(86, 170, 253);
     }
+  }
+}
+
+.deck-thumbnail {
+  text-decoration: none;
+  color: #333;
+  padding: 1rem;
+  border: 1px solid #eee;
+  margin: 1rem;
+  border-radius: .5rem;
+  display: block;
+}
+
+
+@media only screen and (min-width: 700px) {
+  section {
+    width: 80ch;
   }
 }

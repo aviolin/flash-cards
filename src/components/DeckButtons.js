@@ -8,6 +8,8 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 const DeckButtons = (props) => {
   if (props.isEditing) {
+    return null;
+
     return (
       <footer>
         <button 

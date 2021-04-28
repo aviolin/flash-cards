@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -6,8 +7,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 const Nav = () => {
   return (
     <header>
-      <span>Flash Decks</span>
-      <button><FontAwesomeIcon icon={faPlus} /> &nbsp;New Deck</button>
+      <Link to="/" className="logo">Flash Decks</Link>
+      <button className="small"><FontAwesomeIcon icon={faPlus} /> &nbsp;New Deck</button>
     </header>
   )
 }
