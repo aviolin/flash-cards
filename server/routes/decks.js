@@ -1,51 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const Deck = require('../models/Deck');
+const ObjectId = require('mongodb').ObjectID;
 
-router.get('/', async (req, res) => {
-  console.log(req.body);
-  const deck = new Deck({
-    cards: [
-      {
-        id: 0,
-        front: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, distinctio odio natus quis sapiente ullam unde fuga ipsam rem quibusdam exercitationem, optio officiis esse nobis sequi perferendis dolor corrupti dolore asperiores laborum! Pariatur, ipsa dicta error repellendus ad molestiae laboriosam aspernatur architecto vero nulla sed hic repellat iste cupiditate aperiam odit corporis, illo magnam, voluptatum fuga. Autem dolores obcaecati consequatur!",
-        back: "Itatum fuga. Autem dolores obcaecati consequatur! Quae, distinctio odio natus quis sapiente ullam unde fuga ipsam rem quibusdam exercitationem, optio officiis esse nobis sequi perferendis dolor corrupti dolore asperiores laborum! Pariatur, ipsa dicta error repellendus ad molestiae laboriosam aspernatur architecto vero nulla sed hic repellat iste cupiditate aperiam odit corporis, illo magnam, voluptatum fuga. Autem dolores obcaecati consequatur! Quae, distinctio odio natus quis sapiente ullam unde fuga ipsam rem quibusdam exercitationem, optio officiis esse nobis sequi perferendis dolor corrupti dolore asperiores laborum! Pariatur, ipsa dicta error repellendus ad molestiae laboriosam aspernatur architecto vero nulla sed hic repellat iste cupiditate aperiam odit corporis, illo magnam, voluptatum fuga. Autem dolores obcaecati consequatur!",
-      },
-      {
-        id: 1,
-        front: "Testing njdfkjadthe front",
-        back: "The baack!",
-      },
-      {
-        id: 2,
-        front: "Tasdfesting the front",
-        back: "Thesdf back!",
-      },
-    ],
-    title: "Historical Facts",
-  });
 
-  /* try {
-    const savedDeck = await deck.save();
-    res.json(savedDeck);
-  } catch (err) {
-    res.json({ message: err });
-  } */
-  try {
-    const decks = await Deck.find();
-    res.json(decks);
-  } catch (err) {
-    res.json({ message: err });
-  }
-  
-  //res.send("Decks!");
-})
-
+// GET ALL DECK TITLES AND IDS
 router.get('/info', async(req, res) => {
-
   try {
     const decks = await Deck.find();
-
     const deckTitles = decks.map(deck => {
       return {
         title: deck.title,
@@ -54,15 +16,14 @@ router.get('/info', async(req, res) => {
     })
     console.log(deckTitles);
     res.json(deckTitles);
-
-
   } catch (err) {
     console.log("here")
     res.json({ message: err });
   }
-
 })
 
+
+// GET A DECK BY ID
 router.get('/:deckId', async (req, res) => {
   console.log(req.params.deckId);
   try {
@@ -74,21 +35,109 @@ router.get('/:deckId', async (req, res) => {
 })
 
 
-router.patch('/:deckId', async (req, res) => {
-  var index = req.body.cardId;
-  var setValue = {};
-  setValue['cards.' + index] = { 
-    id: +req.body.cardId,
-    front: req.body.front,
-    back: req.body.back,
+// GET ALL DECKS
+router.get('/', async (req, res) => {
+  console.log(req.body);
+  console.log(new ObjectId());
+  try {
+    const decks = await Deck.find();
+    res.json(decks);
+  } catch (err) {
+    res.json({ message: err });
   }
+})
 
+
+// CREATE A DECK
+router.post('/', async (req, res) => {
+  try {
+    const deck = new Deck({
+      title: req.body.title
+    });
+    const savedDeck = deck.save();
+    res.json(savedDeck);
+  } catch (err) {
+    res.json({ message: err });
+  }
+})
+
+
+// ADD CARD TO DECK
+router.patch('/:deckId/add', async (req, res) => {
+  try {
+    const query = { _id: req.params.deckId };
+    const updateDocument = {
+      $push: { 
+        cards: {
+          id: new ObjectId(),
+          front: req.body.front,
+          back: req.body.back,
+        } 
+      }
+    }
+    const updatedDeck = await Deck.updateOne(query, updateDocument);
+    res.json(updatedDeck);
+  } catch (err) {
+    res.json({ message: err });
+  }
+})
+
+// DELETE CARD FROM DECK
+router.patch('/:deckId/delete/:cardId', async (req, res) => {
+  try {
+    const query = { _id: req.params.deckId }
+
+    const updateDocument = {
+      $pull: {
+        'cards': { 'id': ObjectId(req.params.cardId) }
+      }
+    }
+    const updatedDeck = await Deck.updateOne(query, updateDocument);
+    
+    res.json(updatedDeck);
+
+    console.log("Removed card: ", req.params.cardId);
+  } catch (err) {
+    res.json({ message: err });
+  }
+})
+
+
+// UPDATE A CARD IN A DECK
+router.patch('/:deckId/card/:cardId', async (req, res) => {
+  try {
+    console.log(req.body, req.params);
+    const query = { _id: req.params.deckId, "cards.id": ObjectId(req.params.cardId) };
+    const updateDocument = {
+      $set: { "cards.$.front": req.body.front, "cards.$.back": req.body.back }
+    }
+    const updatedDeck = await Deck.updateOne(query, updateDocument);
+    res.json(updatedDeck);
+    console.log("Updated deck with ID: ", req.params.deckId);
+  } catch (err) {
+    res.json({ message: err });
+  }
+})
+
+
+// UPDATE A DECK
+router.patch('/:deckId', async (req, res) => {
   try {
     const updatedDeck = await Deck.updateOne({ _id: req.params.deckId },
-      { $set: setValue }
+      { $set: { title: req.body.title } }
     )
-    console.log(updatedDeck);
     res.json(updatedDeck);
+  } catch (err) {
+    res.json({ message: err });
+  }
+})
+
+
+// DELETE DECK
+router.delete('/:deckId', async (req, res) => {
+  try {
+    const deletedDeck = await Deck.deleteOne({ _id: req.params.deckId });
+    res.json(deletedDeck);
   } catch (err) {
     res.json({ message: err });
   }
