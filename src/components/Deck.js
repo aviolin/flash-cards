@@ -5,31 +5,37 @@ import DeckButtons from './DeckButtons';
 import DeckContent from './DeckContent';
 import DeckHeader from './DeckHeader';
 
-//import { data } from '../data';
-
 const Deck = () => {
   let { deckId } = useParams();
 
   const [data, setData] = useState({});
   const [isFetched, setIsFetched] = useState(false);
+  const [cardId, setCardId] = useState(0);
+  const [isShowingBack, setIsShowingBack] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isAddingCard, setIsAddingCard] = useState(false);
 
+  
   useEffect(() => {
 
     if (isFetched) return;
 
+    console.log("fetching...");
+
     fetch('http://localhost:5000/decks/' + deckId)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
         setData(res);
+        console.log("Length", res.cards.length);
+        if (res.cards.length == 0) {
+          setIsAddingCard(true);
+        }
         setIsFetched(true);
+        console.log("fetched")
       });
 
-    }, [isFetched])
-
-  const [cardId, setCardId] = useState(0);
-  const [isShowingBack, setIsShowingBack] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+    }, [isFetched]
+  );
 
   const handleButtons = (event) => {
     console.log(event.target.name)
@@ -47,11 +53,13 @@ const Deck = () => {
         return;
       case "cancel":
         setIsEditing(false);
+        setIsAddingCard(data.cards.length > 0 ? false : true );
         return;
       case "toggle-back":
         setIsShowingBack(!isShowingBack);
         return;
-      case "save":
+      case "add-card":
+        setIsAddingCard(true);
         return;
       default: 
         return;
@@ -59,8 +67,12 @@ const Deck = () => {
   }
 
   const updateDeck = () => {
+
+    setCardId(0); // hacky
+
     setIsFetched(false);
     setIsEditing(false);
+    setIsAddingCard(false);
   }
 
   if (!isFetched) return null;
@@ -69,28 +81,32 @@ const Deck = () => {
     <>
       <section>
         <DeckHeader 
-          cardId={cardId}
-          title={data.title}
-          cardIndex={(data.cards[cardId].id + 1) + "/" + data.cards.length}
+          title={isEditing ? "Editing Card" : isAddingCard ? "Creating Card" : data.title + " - " + (cardId+1 + "/" + data.cards.length)}
           onClick={handleButtons}
           isEditing={isEditing}
+          isAddingCard={isAddingCard}
+          showCancel={data.cards.length > 0 ? true : false}
+          deckId={deckId}
         />
         
         <DeckContent 
-          frontText={data.cards[cardId].front}
-          backText={data.cards[cardId].back}
+          frontText={isAddingCard ? "" : data.cards[cardId].front}
+          backText={isAddingCard ? "" : data.cards[cardId].back}
           onClick={handleButtons}
           isEditing={isEditing}
+          isAddingCard={isAddingCard}
           isShowingBack={isShowingBack}
           data={data}
-          cardId={cardId}
           update={updateDeck}
           deckId={deckId}
+          cardId={data.cards[cardId]?.id}
         />
+        
       </section>
-      <DeckButtons 
+      {<DeckButtons 
         isEditing={ isEditing }
-        onClick={ handleButtons } />
+        isAddingCard={isAddingCard}
+        onClick={ handleButtons } />}
     </>
   )
 }

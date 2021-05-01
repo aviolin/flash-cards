@@ -7,48 +7,33 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 const DeckButtons = (props) => {
-  if (props.isEditing) {
+  if (props.isEditing || props.isAddingCard) {
     return null;
-
-    return (
-      <footer>
-        <button 
-          className="warning"
-          name="cancel"
-          onClick={ props.onClick }
-        >
-          <FontAwesomeIcon icon={faTimes} />&nbsp;
-          Cancel
-        </button>
-        <button 
-          className="secondary"
-          name="save"
-          onClick={ props.onClick }
-        >Save &nbsp;
-          <FontAwesomeIcon icon={faSave} />
-        </button>
-      </footer>
-    )
   }
 
   return (
-    <footer>
+    <div className="slider-buttons">
       <button 
-        className="primary"
+        className="light"
         name="previous"
         onClick={ props.onClick }
       >
-        <FontAwesomeIcon icon={faArrowLeft} />&nbsp;
-        Previous
+        <FontAwesomeIcon icon={faArrowLeft} />
       </button>
       <button 
-        className="primary"
+        className=""
+        name="toggle-back"
+        onClick={ props.onClick }
+      >Flip 
+      </button>
+      <button 
+        className="light"
         name="next"
         onClick={ props.onClick }
-      >Next &nbsp;
+      >
         <FontAwesomeIcon icon={faArrowRight} />
       </button>
-    </footer>
+    </div>
   )
 }
 

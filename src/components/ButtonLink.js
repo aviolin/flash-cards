@@ -5,17 +5,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 
-const DeckThumbnail = (props) => {
+const ButtonLink = (props) => {
+  let classes = 'btn-link';
+  if (props.accent) {
+    classes += ' accent';
+  }
+
   return (
-    <Link to={"/deck/" + props.id} className="deck-thumbnail">
+    <Link to={props.to} className={classes}>
       <div>
-        <div><FontAwesomeIcon icon={faGraduationCap} className="icon" />
-          <h3>{props.title}</h3>
-        </div>
-        <FontAwesomeIcon icon={faChevronRight} />
+        <FontAwesomeIcon icon={faGraduationCap} className="icon" />&nbsp;
+        {props.title}
       </div>
+      <FontAwesomeIcon icon={faChevronRight} />
     </Link>
   )
 }
 
-export default DeckThumbnail;
+export default ButtonLink;

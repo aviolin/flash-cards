@@ -12,6 +12,11 @@
 body {
   margin: 0;
   font-family: 'Arial';
+  background-color: white;
+}
+
+h2 {
+  color: #ccc;
 }
 
 path, svg {
@@ -187,14 +192,48 @@ footer {
   }
 }
 
+.thumbnail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .deck-thumbnail {
   text-decoration: none;
   color: #333;
   padding: 1rem;
   border: 1px solid #eee;
-  margin: 1rem;
   border-radius: .5rem;
   display: block;
+  background-color: #f9f9f9;
+  transition: .3s;
+
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  path {
+    fill: #aaa;
+  }
+
+  .icon {
+    margin-right: 1rem;
+
+    path {
+      fill: dodgerblue;
+    }
+  }
+
+  &:hover {
+    background-color: #eee;
+  }
 }
 
 

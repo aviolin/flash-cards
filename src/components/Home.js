@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import useFetch from './useFetch';
 
-import DeckThumbnail from './DeckThumbnail';
+import ButtonLink from './ButtonLink';
 
 const Home = () => {
   const [isFetched, setIsFetched] = useState(false);
-  const [deckElements, setDeckElements] = useState(null);
+  const [buttons, setButtons] = useState(null);
 
+  
 
   useEffect(() => {
     if (isFetched) return;
     fetch('http://localhost:5000/decks/info')
       .then(res => res.json())
-      .then((res) => setDeckElements(res.map(deck => {
+      .then((res) => setButtons(res.map(deck => {
         return (
-          <DeckThumbnail 
+          <ButtonLink 
+            key={deck.id}
             title={deck.title}
-            id={deck.id}
+            to={"/deck/" + deck.id}
           />
         )
       })));
@@ -24,7 +27,19 @@ const Home = () => {
   }, [isFetched])
 
   return (
-    <section>{deckElements}</section>
+    <section>
+      <header>
+        <h2>Welcome back, John!</h2>
+      </header>
+      <div className="button-list">
+        { isFetched ? buttons : "Loading.........."}
+        <ButtonLink 
+          title="New Deck"
+          to="/new"
+          accent={true}
+        />
+      </div>
+    </section>
   )
 }
 

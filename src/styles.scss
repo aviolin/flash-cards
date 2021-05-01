@@ -1,0 +1,335 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+button.btn-icon {
+  border: 0;
+  background-color: transparent;
+  color: #999;
+  transition: .3s;
+
+  &:hover {
+    color: purple;
+  }
+}
+
+path, svg {
+  pointer-events: none;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+h2 {
+  text-align: center;
+  color: purple;
+  margin: 0;
+}
+
+header {
+  margin: 5rem 0 2rem 0;
+
+  .buttons {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  &.navbar {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background-color: white;
+
+    .logo {
+      color: purple;
+      text-decoration: none;
+      font-weight: 900;
+    }
+  }
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  flex: 1;
+
+   
+
+/*   height: 100%;
+ */ /*  display: grid; */
+}
+
+input[type=text],
+textarea {
+  padding: 1rem;
+  border-radius: .5rem;  
+  border: 1px solid #eee;
+  font-size: 1rem;
+  margin-bottom: 3rem;
+  background-color: #f9f9f9;
+}
+
+textarea {
+  height: 10rem;
+}
+
+label {
+  color: purple;
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+
+  button {
+    padding: 1rem;
+    background-color: purple;
+    border: 1px solid purple;
+    border-radius: .5rem;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: .3s;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(163, 0, 163);
+    }
+
+    &.secondary {
+      margin: 1rem 0;
+      background-color: #f9f9f9;
+      color: purple;
+      border: 1px solid #eee;
+      width: 100%;
+    }
+  }
+}
+
+.button-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.btn-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: .5rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: .3s;
+
+  path {
+    fill: #999;
+  }
+
+  &:hover {
+    background-color: #eee;
+  }
+
+  &.accent {
+    font-weight: bold;
+    background-color: purple;
+    color: white;
+    border: 1px solid purple;
+
+    path {
+      fill: white;
+    }
+
+    &:hover {
+      background-color: rgb(163, 0, 163);
+    }
+  }
+}
+
+.btn-circle {
+  text-align: center;
+  padding: 1rem;
+  background-color: purple;
+  color: white;
+  border: 1px solid purple;
+  border-radius: .5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.card {
+  border-radius: .5rem;
+  border: 1px solid #eee;
+  padding: 1rem 1rem;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+  max-height: 50vh;
+  
+
+  p {
+    font-size: 1rem;
+  }
+
+  header {
+    margin: 0;
+    color: #999;
+    text-align: center;
+  }
+}
+
+.slider-buttons {
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+
+  position: fixed;
+  bottom: 0;
+
+  button {
+    padding: 1rem;
+    background-color: purple;
+    border: 1px solid purple;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    width: 5rem;
+    height: 5rem;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: .3s;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(163, 0, 163);
+    }
+
+    &.light {
+      background-color: #f9f9f9;
+      color: purple;
+      border-color: #eee;
+      width: 4rem;
+      height: 4rem;
+
+      &:hover {
+        background-color: #eee;
+      }
+    }
+
+    
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+
+  div {
+    display: inline-block;
+  }
+
+  input[type="radio"] {
+    display: none;
+
+    + label {
+      color: #333;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+
+      span {
+        display: inline-block;
+        width: 3rem;
+        height: 3rem;
+       /*  margin: -1px 4px 0 0; */
+      
+        /* vertical-align: middle; */
+        cursor: pointer;
+        border-radius: .5rem;
+        border: 1px solid #eee;
+/*         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+ */        /* background-repeat: no-repeat;
+        background-position: center; */
+        text-align: center;
+        line-height: 44px;
+        background-color: #f9f9f9;
+
+        transition: .3s;
+      }
+    }
+
+    /* &#color-1 + label span {
+      background-color: green;
+    }
+
+    &#color-2 + label span {
+      background-color: purple;
+    } */
+
+    &:checked + label span {
+      background-color: purple;
+      path {
+        fill: white;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+@media only screen and (min-width: 700px) {
+  section {
+    margin: auto;
+    width: 60ch;
+  }
+}

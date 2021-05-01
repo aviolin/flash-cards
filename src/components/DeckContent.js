@@ -32,93 +32,87 @@ const DeckContent = (props) => {
 
   const saveCard = async (event) => {
     event.preventDefault();
-    
-    console.log("Patching...");
-    const json = JSON.stringify(Object.fromEntries(new FormData(form.current)));
+    let URI = 'http://localhost:5000/decks/' + props.deckId + "/card/" + props.cardId;
 
-    let response = await fetch('http://localhost:5000/decks/' + props.deckId, {
+    if (props.isAddingCard) {
+      URI = 'http://localhost:5000/decks/' + props.deckId + "/add";
+    }
+    
+    const json = JSON.stringify(Object.fromEntries(new FormData(form.current)));
+    let response = await fetch(URI, {
       method: 'PATCH',
       body: json,
       headers: {
         'Content-Type': 'application/json'
       }
     })
-
-    console.log("Patched!");
     props.update();
   }
 
-  if (props.isEditing) {
+   const deleteCard = async (event) => {
+    const URI = 'http://localhost:5000/decks/' + props.deckId + '/delete/' + props.cardId;
+    let response = await fetch(URI, {
+      method: 'PATCH',
+    })
+    props.update(); 
+  }
+
+  if (props.isEditing || props.isAddingCard) {
     return(
-      <form ref={form} onSubmit={saveCard} >
-        <input type="hidden" name="cardId" value={props.cardId}/>
-        <div>
-          <label htmlFor="front">Front:</label>
-          <textarea 
-            className="content"
-            id="front"
-            name="front"
-            value={frontText}
-            onChange={handleInput}
-          />
-        </div><div>
-          <label htmlFor="back">Back:</label>
-          <textarea 
-            id="back"
-            name="back"
-            className="content"
-            value={backText}
-            onChange={handleInput}
-          />
-        </div>
-        <div className="editor-buttons">
-          <button
-            className="primary"
-            onClick={saveCard}
-            name="save"
-          >
-            <FontAwesomeIcon icon={faSave} className="no-events" /> Save Changes
-          </button>
-          <button
-            className="tertiary"
-            //onClick={props.onClick}
-            name="delete-card"
-          >
-            <FontAwesomeIcon icon={faTrash} className="no-events" /> Delete Card
-          </button>
-        </div>
-      </form>
+      <>
+        <form ref={form} onSubmit={saveCard} >
+          
+            <label htmlFor="front">Front text:</label>
+            <textarea 
+              id="front"
+              name="front"
+              value={frontText}
+              onChange={handleInput}
+            />
+          
+            <label htmlFor="back">Back text:</label>
+            <textarea 
+              id="back"
+              name="back"
+              value={backText}
+              onChange={handleInput}
+            />
+          
+          
+            <button
+              className=""
+              name="save"
+            >
+              <FontAwesomeIcon icon={faSave} /> Save
+            </button>
+          
+        </form>
+        <form className="">
+        { props.isAddingCard ? null : 
+          <div>
+            <button
+              className="secondary"
+              onClick={deleteCard}
+              name="delete-card"
+            >
+              <FontAwesomeIcon icon={faTrash} /> Delete Card
+            </button>
+          </div>
+        }
+        </form>
+      </>
     )
   }
 
   return (
-    <>
+    <div className="card">
+      <header>
+        { props.isShowingBack ? "back" : "front" }
+      </header>
       <p className="content">
-        { props.frontText }
+        { props.isShowingBack ? props.backText : props.frontText }
       </p>
-      { props.isShowingBack ? 
-        <>
-          <button 
-            className="light-icon"
-            name="toggle-back"
-            onClick={props.onClick}
-          ><FontAwesomeIcon icon={faTimes} /> Hide back
-          </button>
-          <p className="content">
-            { props.backText }
-          </p>
-          
-          
-        </>
-        :
-        <button 
-          className="light-icon"
-          name="toggle-back"
-          onClick={props.onClick}
-        ><FontAwesomeIcon icon={faQuestion} /> Show back         
-        </button> 
-      }
-    </>
+    </div>
   )
 }
 

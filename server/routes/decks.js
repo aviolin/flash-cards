@@ -11,13 +11,13 @@ router.get('/info', async(req, res) => {
     const deckTitles = decks.map(deck => {
       return {
         title: deck.title,
+        category: deck.category,
         id: deck._id
       }
     })
     console.log(deckTitles);
     res.json(deckTitles);
   } catch (err) {
-    console.log("here")
     res.json({ message: err });
   }
 })
@@ -52,7 +52,8 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const deck = new Deck({
-      title: req.body.title
+      title: req.body.title,
+      category: req.body.category
     });
     const savedDeck = deck.save();
     res.json(savedDeck);
@@ -124,7 +125,7 @@ router.patch('/:deckId/card/:cardId', async (req, res) => {
 router.patch('/:deckId', async (req, res) => {
   try {
     const updatedDeck = await Deck.updateOne({ _id: req.params.deckId },
-      { $set: { title: req.body.title } }
+      { $set: { title: req.body.title, category: req.body.category } }
     )
     res.json(updatedDeck);
   } catch (err) {
