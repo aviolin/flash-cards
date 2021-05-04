@@ -7,7 +7,7 @@ const DeckSchema = mongoose.Schema({
   },
   category: {
     type: String,
-    required: true,
+    required: false,
   },
   cards: [],
 })

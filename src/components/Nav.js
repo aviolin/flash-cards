@@ -7,12 +7,11 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faBolt } from '@fortawesome/free-solid-svg-icons';
 
-const Nav = () => {
+const Nav = (props) => {
   return (
     <header className="navbar">
-      <button className="btn-icon"><FontAwesomeIcon icon={faBars} /></button>
-      <Link to="/" className="logo">flash <FontAwesomeIcon icon={faBolt} /> cards</Link>
-      <button className="btn-icon"><FontAwesomeIcon icon={faUser} /></button>
+      <Link to="/" className="logo"><FontAwesomeIcon icon={faBolt} /> flashcards</Link>
+      {/* <button className="btn-icon"><FontAwesomeIcon icon={faUser} /></button> */}
     </header>
   )
 }

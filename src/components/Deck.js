@@ -1,40 +1,35 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import DeckButtons from './DeckButtons';
-import DeckContent from './DeckContent';
-import DeckHeader from './DeckHeader';
+import Card from './Card';
+import Editor from './Editor';
+import Loader from './Loader';
 
-const Deck = () => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
+const Deck = (props) => {
   let { deckId } = useParams();
 
-  const [data, setData] = useState({});
-  const [isFetched, setIsFetched] = useState(false);
   const [cardId, setCardId] = useState(0);
   const [isShowingBack, setIsShowingBack] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
+  const [deck, setDeck] = useState(null);
 
-  
   useEffect(() => {
-
-    if (isFetched) return;
-
-    console.log("fetching...");
-
-    fetch('http://localhost:5000/decks/' + deckId)
-      .then(res => res.json())
-      .then(res => {
-        setData(res);
-        console.log("Length", res.cards.length);
-        if (res.cards.length == 0) {
+    for (let i = 0; i < props.cache.length; i++) {
+      if (props.cache[i]._id == deckId) {
+        setDeck(props.cache[i]);
+        if (props.cache[i].cards.length == 0) {
           setIsAddingCard(true);
         }
-        setIsFetched(true);
-        console.log("fetched")
-      });
-
-    }, [isFetched]
+        return;
+      }
+    }
+    }, [props.cache, deckId]
   );
 
   const handleButtons = (event) => {
@@ -42,20 +37,20 @@ const Deck = () => {
     switch (event.target.name) {
       case "previous":
         setIsShowingBack(false);
-        setCardId(cardId <= 0 ? data.cards.length - 1 : cardId - 1);
+        setCardId(cardId <= 0 ? deck.cards.length - 1 : cardId - 1);
         return;
       case "next":
         setIsShowingBack(false);
-        setCardId(cardId >= data.cards.length - 1 ? 0 : cardId + 1);
+        setCardId(cardId >= deck.cards.length - 1 ? 0 : cardId + 1);
         return;
       case "edit":
         setIsEditing(true);
         return;
       case "cancel":
         setIsEditing(false);
-        setIsAddingCard(data.cards.length > 0 ? false : true );
+        setIsAddingCard(deck.cards.length > 0 ? false : true );
         return;
-      case "toggle-back":
+      case "toggle":
         setIsShowingBack(!isShowingBack);
         return;
       case "add-card":
@@ -66,48 +61,54 @@ const Deck = () => {
     }
   }
 
-  const updateDeck = () => {
+  const update = (data = null) => {
+    if (data) 
+      props.updateCache(data);
 
     setCardId(0); // hacky
-
-    setIsFetched(false);
     setIsEditing(false);
     setIsAddingCard(false);
   }
 
-  if (!isFetched) return null;
+  if (deck == null) return <Loader />;
 
   return (
-    <>
-      <section>
-        <DeckHeader 
-          title={isEditing ? "Editing Card" : isAddingCard ? "Creating Card" : data.title + " - " + (cardId+1 + "/" + data.cards.length)}
+    <section>
+      <button 
+          className="btn-change left"
+          name="previous"
           onClick={handleButtons}
-          isEditing={isEditing}
-          isAddingCard={isAddingCard}
-          showCancel={data.cards.length > 0 ? true : false}
-          deckId={deckId}
-        />
-        
-        <DeckContent 
-          frontText={isAddingCard ? "" : data.cards[cardId].front}
-          backText={isAddingCard ? "" : data.cards[cardId].back}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} size="2x" className="icon" />
+        </button>
+        <button 
+          className="btn-change right"
+          name="next"
           onClick={handleButtons}
-          isEditing={isEditing}
-          isAddingCard={isAddingCard}
-          isShowingBack={isShowingBack}
-          data={data}
-          update={updateDeck}
-          deckId={deckId}
-          cardId={data.cards[cardId]?.id}
-        />
-        
-      </section>
-      {<DeckButtons 
-        isEditing={ isEditing }
+        >
+          <FontAwesomeIcon icon={faArrowRight} size="2x" className="icon" />
+        </button>
+      {isEditing || isAddingCard ? 
+      <Editor
+        onClick={handleButtons}
+        frontText={isAddingCard ? "" : deck.cards[cardId].front}
+        backText={isAddingCard ? "" : deck.cards[cardId].back}
+        deckId={deckId}
+        cardId={deck.cards[cardId]?.id}
         isAddingCard={isAddingCard}
-        onClick={ handleButtons } />}
-    </>
+        update={update}
+      />
+      :
+      <Card 
+        isShowingBack={isShowingBack}
+        frontText={deck.cards[cardId].front}
+        backText={deck.cards[cardId].back}
+        title={deck.title}
+        onClick={handleButtons}
+      />
+      }
+      
+    </section>
   )
 }
 

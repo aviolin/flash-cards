@@ -5,20 +5,74 @@
 
 body {
   margin: 0;
+  background-color: #eee;
+}
+
+main {
+  display: flex;
+  flex: 1;
 }
 
 button {
   cursor: pointer;
-}
 
-button.btn-icon {
-  border: 0;
-  background-color: transparent;
-  color: #999;
-  transition: .3s;
+  &.btn-icon {
+    border: 0;
+    background-color: transparent;
+    color: #999;
+    transition: .3s;
+  
+    &:hover {
+      color: purple;
+    }
+  }
 
-  &:hover {
-    color: purple;
+  &.btn-secondary {
+    border: 0;
+    background-color: transparent;
+    color: #999;
+    width: 100%;
+    padding: 1rem;
+    transition: .3s;
+
+    &:hover {
+      color: purple;
+    }
+  }
+
+  &.btn-change {
+    width: 4rem;
+    height: 4rem;
+    display: grid;
+    place-content: center;
+    border: 0;
+    background-color: transparent;
+    position: absolute;
+    transition: .3s;
+    border-radius: 50%;
+/*     box-shadow : 0 .5rem 1rem rgba(0, 0, 0, .1);
+ */    z-index: 10;
+    top: calc(50% - 2.5rem);
+
+    &.left {
+      left: -6rem;
+    }
+
+    &.right {
+      right: -6rem;
+    }
+
+    .icon {
+      color: #ccc;
+      transition: .3s;
+    }
+
+    &:hover {
+      background-color: white;
+      .icon {
+        color: purple;
+      }
+    }
   }
 }
 
@@ -32,7 +86,7 @@ path, svg {
   height: 100vh;
 }
 
-h2 {
+h1 {
   text-align: center;
   color: purple;
   margin: 0;
@@ -47,22 +101,21 @@ header {
   }
 
   &.navbar {
-    padding: 1rem;
+    padding: 1rem 1rem;
     border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    text-align: center;
     margin: 0;
-    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     background-color: white;
+    box-shadow : 0 .5rem 1rem rgba(0, 0, 0, .1);
 
     .logo {
       color: purple;
       text-decoration: none;
       font-weight: 900;
+      font-size: 1.2rem;
     }
   }
 }
@@ -70,13 +123,18 @@ header {
 section {
   display: flex;
   flex-direction: column;
-  padding: 0 1rem;
-  flex: 1;
+  height: 100%;
+  position: relative;
+  justify-content: center;
 
-   
+  &.landing {
+    text-align: center;
 
-/*   height: 100%;
- */ /*  display: grid; */
+    p {
+      color: purple;
+      font-size: 1.2rem;
+    }
+  }
 }
 
 input[type=text],
@@ -128,21 +186,53 @@ form {
       width: 100%;
     }
   }
+
+  &#new-deck {
+    margin: 3rem 0;
+
+    > div {
+      display: flex;
+    }
+
+    input[type=text] {
+      margin-bottom: 0;
+      flex: 1;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: 0;
+    }
+
+    button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      background-color: #f9f9f9;
+      border: 0;
+      color: purple;
+      border: 1px solid #eee;
+      border-left: 0;
+
+      &:hover {
+        background-color: purple;
+        color: white;
+      }
+    }
+  }
 }
 
 .button-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    margin-bottom: 1rem;
+  }
 }
 
 .btn-link {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border: 1px solid #eee;
+  padding: .5rem 1rem;
   border-radius: .5rem;
   text-decoration: none;
   color: #333;
@@ -185,79 +275,71 @@ form {
 }
 
 .card {
-  border-radius: .5rem;
-  border: 1px solid #eee;
-  padding: 1rem 1rem;
-  background-color: #f9f9f9;
+  padding: 5rem;
+  margin: 5rem 0;
+  background-color: white;
   overflow-y: auto;
-  max-height: 50vh;
-  
+  height: 50%;
+  position: relative;
+  transition: .5s;
 
   p {
-    font-size: 1rem;
+    font-size: 1.0rem;
   }
 
   header {
     margin: 0;
     color: #999;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
   }
 }
 
-.slider-buttons {
+.editor {
+  padding: 5rem;
+  background-color: white;
+  overflow-y: auto;
+  position: relative;
+  transition: .5s;
+  
+
+  header {
+    margin: 0;
+    color: #999;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+  }
+}
+
+
+
+
+.loader {
   width: 100%;
-  display: flex;
-  padding: 1rem;
-  gap: 2rem;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem 0;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  
 
-  position: fixed;
-  bottom: 0;
-
-  button {
-    padding: 1rem;
-    background-color: purple;
-    border: 1px solid purple;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    width: 5rem;
-    height: 5rem;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    transition: .3s;
-    font-size: 1rem;
-    cursor: pointer;
-
-    &:hover {
-      background-color: rgb(163, 0, 163);
-    }
-
-    &.light {
-      background-color: #f9f9f9;
-      color: purple;
-      border-color: #eee;
-      width: 4rem;
-      height: 4rem;
-
-      &:hover {
-        background-color: #eee;
-      }
-    }
-
-    
+  .loader-icon {
+    color: purple;
+    animation: spin 1s linear infinite;
   }
 }
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
 
-
-
-
-
-
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 
 
@@ -321,8 +403,77 @@ form {
 }
 
 
+.sidebar {
+  width: 25rem;
+  background-color: white;
+  height: 100%;
+  padding: 1rem;
+  margin-left: -25rem;
+  transition: .3s;
+  position: relative;
+
+  &.open {
+    margin-left: 0rem;
+  }
+
+  .btn-sidebar {
+    position: absolute;
+    right: -5rem;
+    color: #ccc;
+    border: 0;
+    padding: 1rem;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    transition: .3s;
+    /* box-shadow : 0 .5rem 1rem rgba(0, 0, 0, .1); */
+    background-color: transparent;
+    display: grid;
+    place-content: center;
 
 
+    &:hover {
+      color: purple;
+      background-color: white;
+    }
+  }
+}
+
+
+
+
+
+.curl {
+	width:5rem;
+	height:5rem;
+	position: absolute;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-content: center;
+  border: 0;
+	
+	background : 
+		linear-gradient(
+			135deg, 
+			#fff, 
+			#f9f9f9 50%, 
+			#ddd 50%, 
+      #eee 55%,
+		);
+	box-shadow : 0 0 1rem rgba(0, 0, 0, .3);
+
+  .icon {
+    color: #ccc;
+    transition: .3s;
+  }
+
+  &:hover {
+    .icon {
+      color: purple;
+    }
+  }
+}
 
 
 

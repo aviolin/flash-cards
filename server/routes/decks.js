@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectID;
 
 
 // GET ALL DECK TITLES AND IDS
-router.get('/info', async(req, res) => {
+/* router.get('/info', async(req, res) => {
   try {
     const decks = await Deck.find();
     const deckTitles = decks.map(deck => {
@@ -21,7 +21,7 @@ router.get('/info', async(req, res) => {
     res.json({ message: err });
   }
 })
-
+ */
 
 // GET A DECK BY ID
 router.get('/:deckId', async (req, res) => {
@@ -56,7 +56,8 @@ router.post('/', async (req, res) => {
       category: req.body.category
     });
     const savedDeck = deck.save();
-    res.json(savedDeck);
+    const updatedData = await Deck.find();
+    res.json({ response: savedDeck, data: updatedData });
   } catch (err) {
     res.json({ message: err });
   }
@@ -77,7 +78,8 @@ router.patch('/:deckId/add', async (req, res) => {
       }
     }
     const updatedDeck = await Deck.updateOne(query, updateDocument);
-    res.json(updatedDeck);
+    const updatedData = await Deck.find();
+    res.json({ response: updatedDeck, data: updatedData });
   } catch (err) {
     res.json({ message: err });
   }
@@ -94,9 +96,8 @@ router.patch('/:deckId/delete/:cardId', async (req, res) => {
       }
     }
     const updatedDeck = await Deck.updateOne(query, updateDocument);
-    
-    res.json(updatedDeck);
-
+    const updatedData = await Deck.find();
+    res.json({ response: updatedDeck, data: updatedData });
     console.log("Removed card: ", req.params.cardId);
   } catch (err) {
     res.json({ message: err });
@@ -107,13 +108,13 @@ router.patch('/:deckId/delete/:cardId', async (req, res) => {
 // UPDATE A CARD IN A DECK
 router.patch('/:deckId/card/:cardId', async (req, res) => {
   try {
-    console.log(req.body, req.params);
     const query = { _id: req.params.deckId, "cards.id": ObjectId(req.params.cardId) };
     const updateDocument = {
       $set: { "cards.$.front": req.body.front, "cards.$.back": req.body.back }
     }
     const updatedDeck = await Deck.updateOne(query, updateDocument);
-    res.json(updatedDeck);
+    const updatedData = await Deck.find();
+    res.json({ response: updatedDeck, data: updatedData });
     console.log("Updated deck with ID: ", req.params.deckId);
   } catch (err) {
     res.json({ message: err });
@@ -127,7 +128,8 @@ router.patch('/:deckId', async (req, res) => {
     const updatedDeck = await Deck.updateOne({ _id: req.params.deckId },
       { $set: { title: req.body.title, category: req.body.category } }
     )
-    res.json(updatedDeck);
+    const updatedData = await Deck.find();
+    res.json({ response: updatedDeck, data: updatedData });
   } catch (err) {
     res.json({ message: err });
   }
@@ -138,7 +140,8 @@ router.patch('/:deckId', async (req, res) => {
 router.delete('/:deckId', async (req, res) => {
   try {
     const deletedDeck = await Deck.deleteOne({ _id: req.params.deckId });
-    res.json(deletedDeck);
+    const updatedData = await Deck.find();
+    res.json({ response: deletedDeck, data: updatedData });
   } catch (err) {
     res.json({ message: err });
   }

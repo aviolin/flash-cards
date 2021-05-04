@@ -4,7 +4,7 @@ const useFetch = (url, options) => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [cache, setCache] = useState(null);
+  //const [cache, setCache] = useState(null);
 
   useEffect(() => {
     const doFetch = async () => {
@@ -13,7 +13,7 @@ const useFetch = (url, options) => {
         const res = await fetch(url, options);
         const json = await res.json();
         setResponse(json);
-        setCache(json);
+        //setCache(json);
       } catch (err) {
         setError(err);
       } finally {
@@ -23,7 +23,7 @@ const useFetch = (url, options) => {
     doFetch();
   }, []);
 
-  return { response, error, loading, cache };
+  return { response, error, loading };
 }
 
 export default useFetch;
