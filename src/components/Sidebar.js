@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faBars, faChevronRight, faBolt } from '@fortawesome/free-solid-svg-icons';
 
-import ButtonLink from './ButtonLink';
+import SelectableDeck from './SelectableDeck';
 
 const Sidebar = (props) => {
   const [buttons, setButtons] = useState(null);
@@ -12,22 +12,21 @@ const Sidebar = (props) => {
   const form = useRef(null);
 
   useEffect(() => {
-    console.log(props.cache);
-
     setButtons(props.cache.map(deck => {
         return (
-          <ButtonLink 
+          <SelectableDeck 
             key={deck._id}
             title={deck.title}
-            to={"/" + deck._id}
-            category={deck.category}
             toggleDeck={props.toggleDeck}
             id={deck._id}
+            selectedDecks={props.selectedDecks}
+            handleButtons={props.handleButtons}
+            length={deck.cards.length}
           />
         )
       }
     ))
-  }, [props.cache])
+  }, [props.cache, props.selectedDecks])
 
   const createDeck = async event => {
     event.preventDefault();
@@ -54,13 +53,16 @@ const Sidebar = (props) => {
 
   return (
     <div className={props.isOpen ? "sidebar open" : "sidebar"}>
+      
       {/* <Header title="Welcome back, John!" /> */}
       <button 
         className="btn-sidebar"
-        onClick={props.toggleSidebar}
+        name="toggle-sidebar"
+        onClick={props.onClick}
       >
         <FontAwesomeIcon icon={faBars} size="2x" />
       </button>
+      <Link to="/" className="logo">Flash <FontAwesomeIcon icon={faBolt} /> Cards</Link>
       <form 
         ref={form}
         id="new-deck" 
@@ -86,6 +88,13 @@ const Sidebar = (props) => {
       <ul className="button-list">
         {buttons}
       </ul>
+      <button
+        className="btn-primary"
+        name="shuffle"
+        onClick={props.onClick}
+      >
+        Shuffle!&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faChevronRight} />
+      </button>
     </div>
   )
 }

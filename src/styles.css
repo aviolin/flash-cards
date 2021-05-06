@@ -34,6 +34,25 @@ button.btn-icon:hover {
   color: purple;
 }
 
+button.btn-primary {
+  padding: 1rem;
+  background-color: purple;
+  border: 1px solid purple;
+  border-radius: .5rem;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  -webkit-transition: .3s;
+  transition: .3s;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+button.btn-primary:hover {
+  background-color: #a300a3;
+}
+
 button.btn-secondary {
   border: 0;
   background-color: transparent;
@@ -56,22 +75,20 @@ button.btn-change {
   place-content: center;
   border: 0;
   background-color: transparent;
-  position: absolute;
+  position: fixed;
   -webkit-transition: .3s;
   transition: .3s;
   border-radius: 50%;
-  /*     box-shadow : 0 .5rem 1rem rgba(0, 0, 0, .1);
- */
   z-index: 10;
-  top: calc(50% - 2.5rem);
+  bottom: 1rem;
 }
 
 button.btn-change.left {
-  left: -6rem;
+  left: 1rem;
 }
 
 button.btn-change.right {
-  right: -6rem;
+  right: 1rem;
 }
 
 button.btn-change .icon {
@@ -85,6 +102,23 @@ button.btn-change:hover {
 }
 
 button.btn-change:hover .icon {
+  color: purple;
+}
+
+button.btn-x {
+  /* position: absolute; */
+  top: 0;
+  right: 1rem;
+  background-color: transparent;
+  border: 0;
+  color: #ccc;
+  padding: 0;
+  -webkit-transition: .3s;
+  transition: .3s;
+  margin-left: 1rem;
+}
+
+button.btn-x:hover {
   color: purple;
 }
 
@@ -111,6 +145,7 @@ h1 {
 
 header {
   margin: 5rem 0 2rem 0;
+  /* remove? */
 }
 
 header .buttons {
@@ -119,6 +154,7 @@ header .buttons {
 }
 
 header.navbar {
+  display: none;
   padding: 1rem 1rem;
   border-bottom: 1px solid #eee;
   text-align: center;
@@ -147,6 +183,7 @@ section {
       -ms-flex-direction: column;
           flex-direction: column;
   height: 100%;
+  width: 100%;
   position: relative;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -211,12 +248,17 @@ form button:hover {
   background-color: #a300a3;
 }
 
-form button.secondary {
+form button.btn-secondary {
   margin: 1rem 0;
   background-color: #f9f9f9;
-  color: purple;
+  color: #ca0000;
   border: 1px solid #eee;
   width: 100%;
+}
+
+form button.btn-secondary:hover {
+  color: red;
+  background-color: #f0f0f0;
 }
 
 form#new-deck {
@@ -237,6 +279,7 @@ form#new-deck input[type=text] {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-right: 0;
+  min-width: 0;
 }
 
 form#new-deck button {
@@ -260,7 +303,65 @@ form#new-deck button:hover {
 }
 
 .button-list li {
-  margin-bottom: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  margin: .5rem 0;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: .5rem;
+  -webkit-transition: .2s;
+  transition: .2s;
+  border: 1px solid transparent;
+}
+
+.button-list li label {
+  color: #333;
+  pointer-events: none;
+}
+
+.button-list li input[type=checkbox] {
+  display: none;
+}
+
+.button-list li input[type=checkbox] + label span {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1rem;
+  display: inline-block;
+  background-color: transparent;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.button-list li input[type=checkbox]:checked + label span {
+  background-color: purple;
+  border: 2px solid purple;
+}
+
+.button-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.button-list li:hover input[type=checkbox] + label span {
+  background-color: purple;
+}
+
+.button-list li.selected {
+  background-color: #f9f9f9;
+  border-color: #eee;
+}
+
+.button-list li.selected label {
+  color: purple;
+}
+
+.button-list li.selected:hover {
+  background-color: #f0f0f0;
 }
 
 .btn-link {
@@ -316,15 +417,47 @@ form#new-deck button:hover {
   font-weight: bold;
 }
 
-.card {
-  padding: 5rem;
-  margin: 5rem 0;
-  background-color: white;
-  overflow-y: auto;
-  height: 50%;
+.card-wrapper {
   position: relative;
+  /* height: calc(100% - 12rem); */
+  height: 25rem;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.card-wrapper > div {
+  height: 100%;
+  width: 100%;
+}
+
+.card-wrapper.fill {
+  height: 100vh;
+}
+
+.card {
+  padding: 5rem 1rem;
+  background-color: white;
   -webkit-transition: .5s;
   transition: .5s;
+  overflow-y: auto;
+  margin: 1rem 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .card p {
@@ -337,20 +470,35 @@ form#new-deck button:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid #eee;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  background-color: transparent;
+  padding: 1rem 2rem;
+}
+
+.card header h2 {
+  font-size: 1rem;
+  color: #ccc;
+  margin-left: 1rem;
 }
 
 .editor {
-  padding: 5rem;
+  padding: 5rem 1rem;
   background-color: white;
-  overflow-y: auto;
   position: relative;
   -webkit-transition: .5s;
   transition: .5s;
+  overflow-y: auto;
+  height: 100vh;
+  z-index: 100;
 }
 
 .editor header {
@@ -363,7 +511,6 @@ form#new-deck button:hover {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-bottom: 2rem;
-  border-bottom: 1px solid #eee;
 }
 
 .loader {
@@ -402,83 +549,23 @@ form#new-deck button:hover {
   }
 }
 
-.categories {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 3rem;
-}
-
-.categories div {
-  display: inline-block;
-}
-
-.categories input[type="radio"] {
-  display: none;
-  /* &#color-1 + label span {
-      background-color: green;
-    }
-
-    &#color-2 + label span {
-      background-color: purple;
-    } */
-}
-
-.categories input[type="radio"] + label {
-  color: #333;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-}
-
-.categories input[type="radio"] + label span {
-  display: inline-block;
-  width: 3rem;
-  height: 3rem;
-  /*  margin: -1px 4px 0 0; */
-  /* vertical-align: middle; */
-  cursor: pointer;
-  border-radius: .5rem;
-  border: 1px solid #eee;
-  /*         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
- */
-  /* background-repeat: no-repeat;
-        background-position: center; */
-  text-align: center;
-  line-height: 44px;
-  background-color: #f9f9f9;
-  -webkit-transition: .3s;
-  transition: .3s;
-}
-
-.categories input[type="radio"]:checked + label span {
-  background-color: purple;
-}
-
-.categories input[type="radio"]:checked + label span path {
-  fill: white;
-}
-
 .sidebar {
-  width: 25rem;
+  width: 100%;
   background-color: white;
   height: 100%;
   padding: 1rem;
-  margin-left: -25rem;
+  margin-left: -100%;
   -webkit-transition: .3s;
   transition: .3s;
-  position: relative;
-}
-
-.sidebar.open {
-  margin-left: 0rem;
+  position: fixed;
+  z-index: 99;
+  padding-top: 5rem;
 }
 
 .sidebar .btn-sidebar {
-  position: absolute;
-  right: -5rem;
+  position: fixed;
+  right: 1rem;
+  top: .8rem;
   color: #ccc;
   border: 0;
   padding: 1rem;
@@ -487,11 +574,11 @@ form#new-deck button:hover {
   height: 4rem;
   -webkit-transition: .3s;
   transition: .3s;
-  /* box-shadow : 0 .5rem 1rem rgba(0, 0, 0, .1); */
   background-color: transparent;
   display: -ms-grid;
   display: grid;
   place-content: center;
+  z-index: 99;
 }
 
 .sidebar .btn-sidebar:hover {
@@ -499,19 +586,41 @@ form#new-deck button:hover {
   background-color: white;
 }
 
+.sidebar.open {
+  margin-left: 0rem;
+}
+
+.sidebar .logo {
+  color: purple;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 1.2rem;
+  padding: 1rem 0;
+  display: block;
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  -webkit-transition: .3s;
+  transition: .3s;
+  z-index: 99;
+}
+
+.sidebar .logo:hover {
+  color: #a300a3;
+}
+
 .curl {
   width: 5rem;
   height: 5rem;
   position: absolute;
-  right: 0;
+  right: 1rem;
   bottom: 0;
   display: -ms-grid;
   display: grid;
   place-content: center;
   border: 0;
-  background: linear-gradient(135deg, #fff, #f9f9f9 50%, #ddd 50%, #eee 55%);
-  -webkit-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
-          box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #f9f9f9, #f9f9f9 50%, #ddd 50%, #eee 55%);
+  /* box-shadow : 0 0 1rem rgba(0, 0, 0, .3); */
 }
 
 .curl .icon {
@@ -524,10 +633,73 @@ form#new-deck button:hover {
   color: purple;
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 768px) {
+  .sidebar {
+    max-width: 50%;
+  }
+  .card-wrapper {
+    margin: auto;
+    max-height: 25rem;
+    width: 66%;
+  }
+  button.btn-change {
+    width: 4rem;
+    height: 4rem;
+    position: absolute;
+    top: calc(50% - 2.5rem);
+  }
+  button.btn-change.left {
+    left: -6rem;
+  }
+  button.btn-change.right {
+    right: -6rem;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .card-wrapper {
+    height: calc(100% - 12rem);
+  }
+}
+
+@media only screen and (min-width: 960px) {
   section {
     margin: auto;
-    width: 60ch;
+    /* width: 60ch; */
+  }
+  .card-wrapper {
+    max-width: 60ch;
+  }
+  .card-wrapper.fill {
+    max-width: 100%;
+  }
+  .card {
+    padding: 5rem;
+    /* margin: 5rem 1rem; */
+  }
+  .editor {
+    padding: 5rem;
+  }
+  .editor > *, .editor > .btn-secondary {
+    margin: auto;
+    max-width: 60ch;
+  }
+  .editor header {
+    margin: 2rem auto;
+  }
+  .sidebar {
+    position: relative;
+    width: 30rem;
+    margin-left: -30rem;
+  }
+  .sidebar .btn-sidebar {
+    position: absolute;
+    right: -5rem;
+  }
+  .sidebar .logo {
+    position: absolute;
+    left: initial;
+    right: -15rem;
   }
 }
 /*# sourceMappingURL=styles.css.map */

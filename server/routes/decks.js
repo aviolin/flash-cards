@@ -74,6 +74,7 @@ router.patch('/:deckId/add', async (req, res) => {
           id: new ObjectId(),
           front: req.body.front,
           back: req.body.back,
+          deckId: req.params.deckId
         } 
       }
     }

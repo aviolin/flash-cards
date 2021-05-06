@@ -11,11 +11,17 @@ import useFetch from './components/useFetch';
 const App = () => {
   const { response, error, loading } = useFetch('http://localhost:5000/decks');
 
-  //const [curDeckId, setCurDeckId] = useState(null);
+  const [curDeckId, setCurDeckId] = useState(null);
   const [cache, setCache] = useState(null);
   const [selectedDecks, setSelectedDecks] = useState([]);
-
+  const [shuffledCards, setShuffledCards] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const [isShowingBack, setIsShowingBack] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isAddingCard, setIsAddingCard] = useState(false);
+  const [cardId, setCardId] = useState(0);
+
 
   useEffect(() => {
     if (!response) return;
@@ -23,25 +29,77 @@ const App = () => {
     setCache(response);
   }, [response])
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+  const toggleDeck = (event, deck) => {
+    setSelectedDecks(decks => {
+      if (decks.includes(deck)) {
+        return decks.filter(ele => ele != deck)
+      } else {
+        return [...decks, deck];
+      }
+    })
   }
 
-  const toggleDeck = (deck) => {
-    console.log("TOGGLE")
-    if (selectedDecks.includes(deck)) {
-      /* setSelectedDecks(decks => {
-        console.log("?", selectedDecks);
-        return decks.splice(decks.indexOf(deck), 1);
-      }) */
-    } else {
-      setSelectedDecks(decks => [...decks, deck]);
+  const handleButtons = (event) => {
+    console.log(event.target.name)
+    switch (event.target.name) {
+      case "previous":
+        setIsShowingBack(false);
+        setCardId(cardId <= 0 ? shuffledCards.length - 1 : cardId - 1);
+        return;
+      case "next":
+        setIsShowingBack(false);
+        setCardId(cardId >= shuffledCards.length - 1 ? 0 : cardId + 1);
+        return;
+      case "edit":
+        setIsEditing(true);
+        return;
+      case "cancel":
+        setIsEditing(false);
+        setIsAddingCard(false);
+        return;
+      case "toggle":
+        setIsShowingBack(!isShowingBack);
+        return;
+      case "add-card":
+        setCurDeckId(event.target.value);
+        setIsAddingCard(true);
+        return;
+      case "shuffle":
+        let decks = cache.filter(deck => selectedDecks.includes(deck._id) )
+        let cards = [];
+        decks.forEach(deck => cards = [...cards, ...deck.cards])
+        setShuffledCards(cards);
+        setCardId(0);
+        setIsSidebarOpen(false);
+        return;
+      case "toggle-sidebar":
+        setIsSidebarOpen(!isSidebarOpen);
+        return;
+      case "exit":
+        setShuffledCards([]);
+        setIsSidebarOpen(true);
+      default: 
+        return;
     }
   }
 
-  useEffect(() => {
-    console.log("Decks: ", selectedDecks);
-  }, [selectedDecks])
+  const update = (data = null) => {
+    if (data) 
+      setCache(data);
+
+    setCardId(0); // hacky
+    setIsEditing(false);
+    setIsAddingCard(false);
+  }
+
+  const updateShuffled = (newCard) => {
+    setShuffledCards(cards => {
+      return cards.map(card => {
+        if (card.id == newCard.id) return newCard;
+        else return card;
+      })
+    })
+  }
 
   if (!cache) {
     return (
@@ -62,15 +120,26 @@ const App = () => {
           <Sidebar
             isOpen={isSidebarOpen}
             cache={cache}
+            onClick={handleButtons}
             updateCache={setCache}
-            toggleSidebar={toggleSidebar}
             toggleDeck={toggleDeck}
+            selectedDecks={selectedDecks}
+            isAddingCard={isAddingCard}
+            handleButtons={handleButtons}
           />
           <Switch>
             <Route path="/:deckId?">
               <Deck 
                 cache={cache}
-                updateCache={setCache}
+                update={update}
+                shuffledCards={shuffledCards}
+                handleButtons={handleButtons}
+                isAddingCard={isAddingCard}
+                isShowingBack={isShowingBack}
+                isEditing={isEditing}
+                cardId={cardId}
+                curDeckId={curDeckId}
+                updateShuffled={updateShuffled}
               />
             </Route>
             <Route path="/">

@@ -41,6 +41,10 @@ const Editor = (props) => {
       }
     })
     let res = await response.json();
+    if (res.data != undefined && !props.isAddingCard) {
+      console.log("Front", form.current.front.value)
+      props.updateShuffled({ id: props.cardId, front: form.current.front.value, back: form.current.back.value, deckId: props.deckId})
+    }
     props.update(res.data)
   }
 
@@ -56,18 +60,16 @@ const Editor = (props) => {
   return (
     <div className="editor">
       <header>
-        {props.isAddingCard ? "Create Card" : "Card Editor"}
-        <div>    
-          <button
-            className="btn-icon"
-            name="cancel"
-            onClick={ props.onClick }
-          >
-            <FontAwesomeIcon icon={faTimes} />
-          </button>
-          {props.children}
-        </div>
+        {props.isAddingCard ? "Creating Card" : "Editing Card"}
+        <button
+          className="btn-x"
+          name="cancel"
+          onClick={props.onClick}
+        >
+          <FontAwesomeIcon icon={faTimes} size="2x" className="icon" />
+        </button>
       </header>
+     
       <form ref={form} onSubmit={saveCard}>
         <label htmlFor="front">Front text:</label>
         <textarea 
@@ -85,6 +87,7 @@ const Editor = (props) => {
         />
         <button>Save Changes</button>
       </form>
+      <form>
       <button
         className="btn-secondary"
         name="delete"
@@ -92,6 +95,7 @@ const Editor = (props) => {
       >
         <FontAwesomeIcon icon={faTrash} /> Delete Card
       </button>
+      </form>
     </div>
   )
 }
