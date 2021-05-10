@@ -1,17 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { faBolt } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBolt } from '@fortawesome/free-solid-svg-icons';
 
 const Nav = (props) => {
   return (
     <header className="navbar">
-      <Link to="/" className="logo">flash <FontAwesomeIcon icon={faBolt} /> cards</Link>
-      {/* <button className="btn-icon"><FontAwesomeIcon icon={faUser} /></button> */}
+      <a href="/" className="logo">
+        Flash <FontAwesomeIcon icon={faBolt} /> Cards
+      </a>
+      <button 
+        className="btn-icon"
+        name="toggle-sidebar"
+        onClick={props.onClick}
+      >
+        <FontAwesomeIcon icon={faBars} size="2x" />
+      </button>
     </header>
   )
 }

@@ -1,38 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
+import Container from './components/Container';
 import Deck from './components/Deck';
 import Loader from './components/Loader';
 import Nav from './components/Nav';
 import Sidebar from './components/Sidebar';
-
 import useFetch from './components/useFetch';
 
 const App = () => {
-  const { response, error, loading } = useFetch('http://localhost:5000/decks');
+  const { response } = useFetch('http://localhost:5000/decks');
 
   const [curDeckId, setCurDeckId] = useState(null);
   const [cache, setCache] = useState(null);
   const [selectedDecks, setSelectedDecks] = useState([]);
   const [shuffledCards, setShuffledCards] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
   const [isShowingBack, setIsShowingBack] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [cardId, setCardId] = useState(0);
 
-
   useEffect(() => {
     if (!response) return;
-
     setCache(response);
   }, [response])
 
   const toggleDeck = (event, deck) => {
     setSelectedDecks(decks => {
       if (decks.includes(deck)) {
-        return decks.filter(ele => ele != deck)
+        return decks.filter(ele => ele !== deck)
       } else {
         return [...decks, deck];
       }
@@ -63,6 +58,7 @@ const App = () => {
       case "add-card":
         setCurDeckId(event.target.value);
         setIsAddingCard(true);
+        setIsSidebarOpen(false);
         return;
       case "shuffle":
         let decks = cache.filter(deck => selectedDecks.includes(deck._id) )
@@ -78,6 +74,7 @@ const App = () => {
       case "exit":
         setShuffledCards([]);
         setIsSidebarOpen(true);
+        return;
       default: 
         return;
     }
@@ -92,10 +89,16 @@ const App = () => {
     setIsAddingCard(false);
   }
 
-  const updateShuffled = (newCard) => {
+  const updateShuffled = (newCard, del=false) => {
+    if (del) {
+      setShuffledCards(cards => {
+        return cards.filter(card => card.id !== newCard.id);
+      })
+      return;
+    }
     setShuffledCards(cards => {
       return cards.map(card => {
-        if (card.id == newCard.id) return newCard;
+        if (card.id === newCard.id) return newCard;
         else return card;
       })
     })
@@ -103,54 +106,44 @@ const App = () => {
 
   if (!cache) {
     return (
-      <Router>
-        <div className="app">
-          <Nav />
-          <Loader />
-        </div>
-      </Router>
+      <div className="app">
+        <Nav />
+        <Loader />
+      </div>
     )
   }
 
   return (
-    <Router>
-      <div className="app">
-        <Nav />
-        <main>
-          <Sidebar
-            isOpen={isSidebarOpen}
+    <div className="app">
+      <Nav onClick={handleButtons}/>
+      <main>
+        <Sidebar
+          isOpen={isSidebarOpen}
+          cache={cache}
+          onClick={handleButtons}
+          updateCache={setCache}
+          toggleDeck={toggleDeck}
+          selectedDecks={selectedDecks}
+          isAddingCard={isAddingCard}
+          handleButtons={handleButtons}
+          update={update}
+        />
+        <Container>
+          <Deck 
             cache={cache}
+            update={update}
+            shuffledCards={shuffledCards}
             onClick={handleButtons}
-            updateCache={setCache}
-            toggleDeck={toggleDeck}
-            selectedDecks={selectedDecks}
             isAddingCard={isAddingCard}
-            handleButtons={handleButtons}
+            isShowingBack={isShowingBack}
+            isEditing={isEditing}
+            cardId={cardId}
+            curDeckId={curDeckId}
+            updateShuffled={updateShuffled}
           />
-          <Switch>
-            <Route path="/:deckId?">
-              <Deck 
-                cache={cache}
-                update={update}
-                shuffledCards={shuffledCards}
-                handleButtons={handleButtons}
-                isAddingCard={isAddingCard}
-                isShowingBack={isShowingBack}
-                isEditing={isEditing}
-                cardId={cardId}
-                curDeckId={curDeckId}
-                updateShuffled={updateShuffled}
-              />
-            </Route>
-            <Route path="/">
-              <section class="landing">
-                <p>Select or create a deck to get started.</p>
-              </section>
-            </Route>
-          </Switch>
-        </main>
+        </Container>
+      </main>
       </div>
-    </Router>
   )
 }
 

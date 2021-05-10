@@ -55,7 +55,7 @@ router.post('/', async (req, res) => {
       title: req.body.title,
       category: req.body.category
     });
-    const savedDeck = deck.save();
+    const savedDeck = await deck.save();
     const updatedData = await Deck.find();
     res.json({ response: savedDeck, data: updatedData });
   } catch (err) {
@@ -125,15 +125,19 @@ router.patch('/:deckId/card/:cardId', async (req, res) => {
 
 // UPDATE A DECK
 router.patch('/:deckId', async (req, res) => {
+  console.log("DBody", req.body);
+  console.log("Id", req.params.deckId);
   try {
     const updatedDeck = await Deck.updateOne({ _id: req.params.deckId },
-      { $set: { title: req.body.title, category: req.body.category } }
+      { $set: { title: req.body.title } }
     )
     const updatedData = await Deck.find();
     res.json({ response: updatedDeck, data: updatedData });
   } catch (err) {
     res.json({ message: err });
   }
+
+  
 })
 
 

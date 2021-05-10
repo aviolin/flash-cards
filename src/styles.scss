@@ -1,3 +1,12 @@
+$color-primary: black;
+$color-primary-light: #666;
+$color-background: #eee;
+$color-light: white;
+$color-off-light: #f9f9f9;
+$color-medium: #eee;
+
+$border-radius: .5rem;
+
 * {
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
@@ -5,7 +14,7 @@
 
 body {
   margin: 0;
-  background-color: #eee;
+  background-color: $color-background;
 }
 
 main {
@@ -13,48 +22,49 @@ main {
   flex: 1;
 }
 
+path, svg {
+  pointer-events: none;
+}
+
+/* Buttons */
+
 button {
   cursor: pointer;
+  border: 0;
+  background-color: transparent;
+  transition: .3s;
+  font-size: 1rem;
+  padding: 0;
+  color: #999;
 
   &.btn-icon {
-    border: 0;
-    background-color: transparent;
     color: #999;
-    transition: .3s;
   
     &:hover {
-      color: purple;
+      color: $color-primary;
     }
   }
 
   &.btn-primary {
     padding: 1rem;
-    background-color: purple;
-    border: 1px solid purple;
-    border-radius: .5rem;
-    text-decoration: none;
-    color: white;
+    background-color: $color-primary;
+    border-radius: $border-radius;
+    color: $color-light;
     font-weight: bold;
-    transition: .3s;
-    font-size: 1rem;
-    cursor: pointer;
     width: 100%;
 
     &:hover {
-      background-color: rgb(163, 0, 163);
+      background-color: $color-primary-light;
     }
   }
 
   &.btn-secondary {
-    border: 0;
-    background-color: transparent;
     color: #999;
     width: 100%;
     padding: 1rem;
-    transition: .3s;
 
     &:hover {
-      color: purple;
+      color: red;
     }
   }
 
@@ -63,10 +73,7 @@ button {
     height: 4rem;
     display: grid;
     place-content: center;
-    border: 0;
-    background-color: transparent;
     position: fixed;
-    transition: .3s;
     border-radius: 50%;
     z-index: 10;
     bottom: 1rem;
@@ -80,158 +87,72 @@ button {
     }
 
     .icon {
-      color: #ccc;
       transition: .3s;
     }
 
     &:hover {
-      background-color: white;
+      background-color: $color-light;
       .icon {
-        color: purple;
+        color: $color-primary;
       }
     }
   }
 
+  &.btn-save {
+    right: 2rem;
+    bottom: 1rem;
+    color: $color-light;
+    background-color: $color-primary;
+    border-radius: $border-radius;
+    width: 100%;
+
+    &:hover {
+      background-color: $color-primary-light;
+    }
+  }
+
   &.btn-x {
-    /* position: absolute; */
-    top: 0;
-    right: 1rem;
-    background-color: transparent;
-    border: 0;
-    color: #ccc;
-    padding: 0;
-    transition: .3s;
     margin-left: 1rem;
 
     &:hover {
-      color: purple;
+      color: $color-primary;
     }
   }
 }
 
-path, svg {
-  pointer-events: none;
-}
-
-.app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-h1 {
-  text-align: center;
-  color: purple;
-  margin: 0;
-}
-
-header {
-  margin: 5rem 0 2rem 0;
-
-  .buttons {
-    text-align: center;
-    margin-top: 1rem;
-  }
-
-
-  /* remove? */
-  &.navbar {
-    display: none;
-    padding: 1rem 1rem;
-    border-bottom: 1px solid #eee;
-    text-align: center;
-    margin: 0;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    background-color: white;
-    box-shadow : 0 .5rem 1rem rgba(0, 0, 0, .1);
-
-    .logo {
-      color: purple;
-      text-decoration: none;
-      font-weight: 900;
-      font-size: 1.2rem;
-    }
-  }
-}
-
-section {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  position: relative;
-  justify-content: center;
-
-  &.landing {
-    text-align: center;
-
-    p {
-      color: purple;
-      font-size: 1.2rem;
-    }
-  }
-}
+/* End Buttons */
 
 input[type=text],
+input[type=password],
 textarea {
   padding: 1rem;
-  border-radius: .5rem;  
-  border: 1px solid #eee;
+  border-radius: $border-radius;  
+  border: 1px solid $color-medium;
   font-size: 1rem;
-  margin-bottom: 3rem;
-  background-color: #f9f9f9;
+  margin-bottom: 1rem;
+  background-color: $color-off-light;
 }
 
 textarea {
-  height: 10rem;
+  height: 100%;
+  width: 100%;
 }
 
 label {
-  color: purple;
-  font-weight: bold;
+  color: #aaa;
+  font-weight: 400;
+  margin: 1rem 0;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   width: 100%;
-
-  button {
-    padding: 1rem;
-    background-color: purple;
-    border: 1px solid purple;
-    border-radius: .5rem;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    transition: .3s;
-    font-size: 1rem;
-    cursor: pointer;
-
-    &:hover {
-      background-color: rgb(163, 0, 163);
-    }
-
-    &.btn-secondary {
-      margin: 1rem 0;
-      background-color: #f9f9f9;
-      color: rgb(202, 0, 0);
-      border: 1px solid #eee;
-      width: 100%;
-
-      &:hover {
-        color: red;
-        background-color: #f0f0f0;
-      }
-      
-    }
-  }
+  height: 100%;
 
   &#new-deck {
-    margin: 3rem 0;
+    margin-bottom: 2rem;
+    height: auto;
 
     > div {
       display: flex;
@@ -247,23 +168,134 @@ form {
     }
 
     button {
+      border-radius: $border-radius;
+
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-      background-color: #f9f9f9;
+      background-color: $color-off-light;
       border: 0;
-      color: purple;
-      border: 1px solid #eee;
+      color: $color-primary;
+      border: 1px solid $color-medium;
       border-left: 0;
+      width: 3rem;
+      transition: .3s;
 
       &:hover {
-        background-color: purple;
-        color: white;
+        background-color: $color-primary;
+        color: $color-light;
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+  }
+
+  &.mini {
+    padding: 0;
+
+    input {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      min-width: 0;
+    }
+  }
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  padding-bottom: 5rem;
+}
+
+/* Card Component */
+
+.card-wrapper {
+  width: 100vw;
+  padding: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  background-color: $color-light;
+  transition: .5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; 
+  height: 25rem;
+  
+  p {
+    word-break: break-word;
+    hyphens: auto;
+    overflow-y: auto;
+  }
+
+  header {
+    color: #999;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    position: relative;
+    width: 100%;
+    padding: 1rem 2rem;
+
+    div {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  footer {
+    position: relative;
+    width: 100%;
+    height: 5rem;
+  }
+
+  .curl {
+    width:4rem;
+    height:4rem;
+    position: absolute;
+    right: -1rem;
+    bottom: -1rem;
+    display: grid;
+    place-content: center;
+    background : 
+      linear-gradient(
+        135deg, 
+        $color-off-light, 
+        $color-off-light 50%, 
+        #ddd 50%, 
+        $color-medium 55%,
+      );
+
+    .icon {
+      color: #999;
+      transition: .3s;
+    }
+
+    &:hover {
+      .icon {
+        color: $color-primary;
       }
     }
   }
 }
 
-.button-list {
+/* End Card Component */
+
+/* DeckList Component */
+
+.deck-list {
   list-style-type: none;
   padding: 0;
 
@@ -274,10 +306,10 @@ form {
     margin: .5rem 0;
     padding: 1rem;
     cursor: pointer;
-    border-radius: .5rem;
+    border-radius: $border-radius;
     transition: .2s;
     border: 1px solid transparent;
-
+ 
     label {
       color: #333;
       pointer-events: none;
@@ -291,7 +323,6 @@ form {
           height: 1rem;
           margin-right: 1rem;
           display: inline-block;
-
           background-color: transparent;
           border: 2px solid #ccc;
           border-radius: 4px;
@@ -299,156 +330,33 @@ form {
       }
 
       &:checked + label span{
-        background-color: purple;
-        border: 2px solid purple;
+        background-color: $color-primary;
+        border: 2px solid $color-primary;
       }
     }
 
     &:hover {
-      background-color: #f0f0f0;
-
-      input[type=checkbox] + label span{
-        background-color: purple;
-      }
+      background-color: $color-medium;
     }
 
     &.selected {
-      background-color: #f9f9f9;
-      border-color: #eee;
+      background-color: $color-off-light;
+      border-color: $color-medium;
 
       label {
-        color: purple;
+        color: $color-primary;
       }
 
       &:hover {
-        background-color: #f0f0f0;
+        background-color: $color-medium;
       }
-
-      
     }
   }
 }
 
-.btn-link {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: .5rem 1rem;
-  border-radius: .5rem;
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  transition: .3s;
+/* End DeckList Component */
 
-  path {
-    fill: #999;
-  }
-
-  &:hover {
-    background-color: #eee;
-  }
-
-  &.accent {
-    font-weight: bold;
-    background-color: purple;
-    color: white;
-    border: 1px solid purple;
-
-    path {
-      fill: white;
-    }
-
-    &:hover {
-      background-color: rgb(163, 0, 163);
-    }
-  }
-}
-
-.btn-circle {
-  text-align: center;
-  padding: 1rem;
-  background-color: purple;
-  color: white;
-  border: 1px solid purple;
-  border-radius: .5rem;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.card-wrapper {
-  position: relative;
-  /* height: calc(100% - 12rem); */
-  height: 25rem;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  > div {
-    height: 100%;
-    width: 100%;
-  }
-
-  &.fill {
-    height: 100vh;
-  }
-}
-
-.card {
-  padding: 5rem 1rem;
-  background-color: white;
-  transition: .5s;
-  overflow-y: auto;
-  margin: 1rem 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  p {
-    font-size: 1.0rem;
-  }
-
-  header {
-    margin: 0;
-    color: #999;
-    display: flex;
-    justify-content: flex-end;
-    align-items:baseline;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    background-color: transparent;
-    padding: 1rem 2rem;
-
-    h2 {
-      font-size: 1rem;
-      color: #ccc;
-      margin-left: 1rem;
-    }
-  }
-}
-
-.editor {
-  padding: 5rem 1rem;
-  background-color: white;
-  position: relative;
-  transition: .5s;
-  overflow-y: auto;
-  height: 100vh;
-  z-index: 100;
-
-  header {
-    margin: 0;
-    color: #999;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-  }
-}
-
-
-
+/* Loader Component */
 
 .loader {
   width: 100%;
@@ -458,7 +366,7 @@ form {
   
 
   .loader-icon {
-    color: purple;
+    color: $color-primary;
     animation: spin 1s linear infinite;
   }
 }
@@ -473,172 +381,92 @@ form {
   }
 }
 
+/* End Loader Component */
 
+/* Nav Component */
+
+.navbar {
+  padding: 1rem;
+  border-bottom: 1px solid $color-medium;
+  width: 100%;
+  background-color: $color-light;
+  box-shadow : 0 .5rem .5rem rgba(0, 0, 0, .05);
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .logo {
+    color: $color-primary;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 1.2rem;
+  }
+}
+
+/* End Nav Component */
+
+/* Sidebar Component */
 
 .sidebar {
   width: 100%;
-  background-color: white;
+  background-color: $color-light;
   height: 100%;
-  padding: 1rem;
   margin-left: -100%;
   transition: .3s;
   position: fixed;
   z-index: 99;
-  padding-top: 5rem;
-
-  .btn-sidebar {
-    position: fixed;
-    right: 1rem;
-    top: .8rem;
-    color: #ccc;
-    border: 0;
-    padding: 1rem;
-    border-radius: 50%;
-    width: 4rem;
-    height: 4rem;
-    transition: .3s;
-    background-color: transparent;
-    display: grid;
-    place-content: center;
-    z-index: 99;
-
-
-    &:hover {
-      color: purple;
-      background-color: white;
-    }
-
-
-  }
+  padding: 5rem 1rem 1rem 1rem;
+  overflow-y: auto;
+  top:0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &.open {
     margin-left: 0rem;
   }
-
-  .logo {
-    color: purple;
-    text-decoration: none;
-    font-weight: 900;
-    font-size: 1.2rem;
-    padding: 1rem 0;
-    display: block;
-    position: fixed;
-    left: 1rem;
-    top: 1rem;
-    transition: .3s;
-    z-index: 99;
-
-    &:hover {
-      color: rgb(163, 0, 163);
-    }
-  }
 }
 
+/* End Sidebar Component */
 
 
 
-
-.curl {
-	width:5rem;
-	height:5rem;
-	position: absolute;
-  right: 1rem;
-  bottom: 0;
-  display: grid;
-  place-content: center;
-  border: 0;
-	
-	background : 
-		linear-gradient(
-			135deg, 
-			#f9f9f9, 
-			#f9f9f9 50%, 
-			#ddd 50%, 
-      #eee 55%,
-		);
-	/* box-shadow : 0 0 1rem rgba(0, 0, 0, .3); */
-
-  .icon {
-    color: #ccc;
-    transition: .3s;
-  }
-
-  &:hover {
-    .icon {
-      color: purple;
-    }
-  }
-}
-
+/* Media Queries */
 
 @media only screen and (min-width: 768px) {
-  .sidebar {
-    max-width: 50%;
-  }
 
   .card-wrapper {
-    margin: auto;
-    max-height: 25rem;
-    width: 66%;
+    width: 50vw;
   }
 
   button {
-  
     &.btn-change {
       width: 4rem;
       height: 4rem;
       position: absolute;
       top: calc(50% - 2.5rem);
-  
-      &.left {
-        left: -6rem;
-      }
-  
-      &.right {
-        right: -6rem;
-      }
     }
   }
 
-}
-
-@media only screen and (max-width: 400px) {
-  .card-wrapper {
-    height: calc(100% - 12rem);
+  .sidebar {
+    padding: 5rem 10rem;
   }
 }
 
 @media only screen and (min-width: 960px) {
 
-  section {
-    margin: auto;
-    /* width: 60ch; */
-  }
-
-  .card-wrapper {
-    max-width: 60ch;
-
-    &.fill {
-      max-width: 100%;
-    }
-
-  }
-
   .card {
-    padding: 5rem;
-    /* margin: 5rem 1rem; */
-  }
+    padding: 4rem 5rem;
 
-  .editor {
-    padding: 5rem;
-
-    > *, > .btn-secondary {
-      margin: auto;
-      max-width: 60ch;
+    header div {
+      top: -3rem;
+      right: -4rem;
     }
 
-    header {
-      margin: 2rem auto;
+    .curl {
+      right: -5rem;
+      bottom: -4rem;
     }
   }
 
@@ -646,16 +474,6 @@ form {
     position: relative;
     width: 30rem;
     margin-left: -30rem;
-  
-    .btn-sidebar {
-      position: absolute;
-      right: -5rem;
-    }
-  
-    .logo {
-      position: absolute;
-      left: initial;
-      right: -15rem;
-    }
+    padding: 1rem 1rem;
   }
 }

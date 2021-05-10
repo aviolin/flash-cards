@@ -1,100 +1,97 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faBars, faChevronRight, faBolt } from '@fortawesome/free-solid-svg-icons';
+import { faRandom } from '@fortawesome/free-solid-svg-icons';
 
 import SelectableDeck from './SelectableDeck';
+import DeckCreator from './DeckCreator';
+import DeckEditor from './DeckEditor';
+import DeckList from './DeckList';
+import Button from './Button';
 
-const Sidebar = (props) => {
+import APIClass from '../API';
+const API = new APIClass();
+
+const Sidebar = ({
+  isOpen,
+  cache,
+  onClick,
+  updateCache,
+  toggleDeck,
+  selectedDecks,
+  isAddingCard,
+  handleButtons,
+  update,
+}) => {
   const [buttons, setButtons] = useState(null);
-  const [title, setTitle] = useState("");
-
-  const form = useRef(null);
+  const [isEditing, setIsEditing] = useState(null);
 
   useEffect(() => {
-    setButtons(props.cache.map(deck => {
+    setButtons(cache.map(deck => {
         return (
           <SelectableDeck 
             key={deck._id}
             title={deck.title}
-            toggleDeck={props.toggleDeck}
+            toggleDeck={toggleDeck}
             id={deck._id}
-            selectedDecks={props.selectedDecks}
-            handleButtons={props.handleButtons}
+            selectedDecks={selectedDecks}
+            handleButtons={handleButtons}
             length={deck.cards.length}
+            update={update}
+            setIsEditing={() => {
+              setIsEditing(deck._id);
+            }}
           />
         )
       }
     ))
-  }, [props.cache, props.selectedDecks])
+  }, [cache, selectedDecks, handleButtons, toggleDeck, update])
 
-  const createDeck = async event => {
+  const createDeckWrapper = async (event) => {
     event.preventDefault();
+    const res = await API.createDeck(event);
+    updateCache(res.data);
+  }
 
-    const method = 'POST';
-    const URI = 'http://localhost:5000/decks/';
-    if (form.current.deckId) {
-      method = 'PATCH';
-      URI += form.current.deckId;
-    }
+  const deleteDeckWrapper = async (event) => {
+    const res = await API.deleteDeck(event, isEditing);
+    update(res.data)
+    setIsEditing(null);
+  }
 
-    const json = JSON.stringify(Object.fromEntries(new FormData(form.current)));
-    const response = await fetch(URI, {
-      method: method,
-      body: json,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const res = await response.json();
+  const updateDeckWrapper = async (event) => {
+    const res = await API.updateDeck(event, isEditing, event.target.form.title.value);
+    update(res.data)
+    setIsEditing(null);
+  }
 
-    props.updateCache(res.data);
+  if (isEditing != null) {
+    return (
+      <div className={isOpen ? "sidebar open" : "sidebar"}>
+        <DeckEditor 
+          updateDeck={updateDeckWrapper}
+          deleteDeck={deleteDeckWrapper}
+          setIsEditing={setIsEditing}
+        />
+      </div>
+    )
   }
 
   return (
-    <div className={props.isOpen ? "sidebar open" : "sidebar"}>
-      
-      {/* <Header title="Welcome back, John!" /> */}
-      <button 
-        className="btn-sidebar"
-        name="toggle-sidebar"
-        onClick={props.onClick}
-      >
-        <FontAwesomeIcon icon={faBars} size="2x" />
-      </button>
-      <Link to="/" className="logo">Flash <FontAwesomeIcon icon={faBolt} /> Cards</Link>
-      <form 
-        ref={form}
-        id="new-deck" 
-        onSubmit={createDeck}
-      >
-        <label htmlFor="title">Create a new deck:</label>
-        <div>
-          <input 
-            type="text"
-            id="title"
-            name="title"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-            placeholder="New Deck TItle"
-            autoComplete="off"
-          />
-          <button>
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
-        </div>
-      </form>
-      <label>My decks:</label>
-      <ul className="button-list">
-        {buttons}
-      </ul>
-      <button
-        className="btn-primary"
-        name="shuffle"
-        onClick={props.onClick}
-      >
-        Shuffle!&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faChevronRight} />
-      </button>
+    <div className={isOpen ? "sidebar open" : "sidebar"}>
+      <div>
+        <DeckCreator 
+          createDeck={createDeckWrapper}
+        />
+        <DeckList>
+          {buttons}
+        </DeckList>
+      </div>
+      <Button
+        type="shuffle"
+        classes="btn-primary"
+        onClick={onClick}
+        view={<><FontAwesomeIcon icon={faRandom} /> Shuffle!</>}
+      />
     </div>
   )
 }
