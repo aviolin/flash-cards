@@ -128,8 +128,19 @@ const App = () => {
           handleButtons={handleButtons}
           update={update}
         />
-        <Container>
-          <Deck 
+        <Container
+          cache={cache}
+          update={update}
+          shuffledCards={shuffledCards}
+          onClick={handleButtons}
+          isAddingCard={isAddingCard}
+          isShowingBack={isShowingBack}
+          isEditing={isEditing}
+          cardId={cardId}
+          curDeckId={curDeckId}
+          updateShuffled={updateShuffled}
+        />
+          {/* <Deck 
             cache={cache}
             update={update}
             shuffledCards={shuffledCards}
@@ -140,8 +151,7 @@ const App = () => {
             cardId={cardId}
             curDeckId={curDeckId}
             updateShuffled={updateShuffled}
-          />
-        </Container>
+          /> */}
       </main>
       </div>
   )
