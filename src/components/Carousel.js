@@ -3,8 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 const WRAP_BUFFER = 50;
 
 const Carousel = ({
-  shuffledCards,
-  animTime=.5
+  leftButtonText="<",
+  rightButtonText=">",
+  animTime=.5,
+  items,
+  previousCallback,
+  nextCallback
 }) => {
   const [index, setIndex] = useState(0);
   const [carouselItems, setCarouselItems] = useState([]);
@@ -13,49 +17,26 @@ const Carousel = ({
   const carousel = useRef(null);
 
   useEffect(() => {
-    let deck = shuffledCards.map((ele) => {
+    let modifiedItems = items.map((ele) => {
       return (
         <div 
           className="carousel__item"
-          key={ele.id}  
-          id={ele.id}
+          key={ele.key}
         >
-          <div className="carousel__card">
-            Test {ele.id}
-          </div>
+          {ele}
         </div>
       )
     });
 
-    if (shuffledCards.length > 0) {
-
-      let firstCard = shuffledCards[0];
-      let lastCard = shuffledCards[shuffledCards.length - 1];
-      
-      deck.unshift(
-        <div 
-          className="carousel__item"
-          key="end-clone"  
-        >
-          <div className="carousel__card">
-            Test {lastCard.id}
-          </div>
-        </div>
-      );
-      deck.push(
-        <div 
-          className="carousel__item"
-          key="begin-clone"  
-        >
-          <div className="carousel__card">
-            Test {firstCard.id}
-          </div>
-        </div>
-      );
+    if (items.length > 0) {
+      let firstItem = React.cloneElement(modifiedItems[0], { key: "first" });
+      let lastItem = React.cloneElement(modifiedItems[modifiedItems.length - 1], { key: "last" });
+      modifiedItems.unshift(lastItem);
+      modifiedItems.push(firstItem);
     }
 
-    setCarouselItems(deck);
-  }, [shuffledCards]);
+    setCarouselItems(modifiedItems);
+  }, [items]);
 
   useEffect(() => {
     if (carouselItems.length < 3) return;
@@ -86,9 +67,15 @@ const Carousel = ({
 
     if (event.target.name === "right") {
       setIndex(idx => idx + 1);
+      if (nextCallback != undefined) {
+        nextCallback(index-1);
+      }
       
     } else if (event.target.name === "left") {
       setIndex(idx => idx - 1);
+      if (previousCallback != undefined) {
+        previousCallback(index-1);
+      }
     }
     setCanSlide(false);
     setTimeout(() => setCanSlide(true), animTime * 1000 + WRAP_BUFFER);
@@ -106,19 +93,21 @@ const Carousel = ({
        }}
       >
         {carouselItems}
-        <button 
-          className="left"
-          onClick={(event) => handleClick(event)}
-          name="left"
-          disabled={!canSlide}
-        >{"<"}</button>
-        <button 
-          className="right"
-          onClick={(event) => handleClick(event)}
-          name="right"
-          disabled={!canSlide}
-        >{">"}</button>
+        
       </div>
+      <div className="spacer"></div>
+      <button 
+        className="btn-carousel left"
+        onClick={(event) => handleClick(event)}
+        name="left"
+        disabled={!canSlide}
+      >{leftButtonText}</button>
+      <button 
+        className="btn-carousel right"
+        onClick={(event) => handleClick(event)}
+        name="right"
+        disabled={!canSlide}
+      >{rightButtonText}</button>
     </div>
   )
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import Card from './Card';
-import CardEditor from './CardEditor';
+import FlippableCard from './FlippableCard';
+import Carousel from './Carousel';
 
 const Deck = ({ 
   cache,
@@ -12,57 +12,77 @@ const Deck = ({
   isAddingCard,
   isShowingBack,
   isEditing,
-  cardId,
   curDeckId,
-  updateShuffled
+  updateShuffled,
+  slideCallback
 }) => {
   const [deck, setDeck] = useState(null);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    if (shuffledCards.length > 0) {
+    if (shuffledCards.length > 0 && !isAddingCard) {
       setDeck({ cards: shuffledCards, title: "Shuffled Cards" })
+
+      setCards(shuffledCards.map((ele) => {
+        return (
+          <FlippableCard 
+            key={ele.id}
+            frontText={isAddingCard ? "" : ele.front}
+            backText={isAddingCard ? "" : ele.back}
+            onClick={onClick}
+            isFlipped={isShowingBack}
+            isEditing={isEditing}
+            cardId={isAddingCard ? "" : ele.id}
+            deckId={isAddingCard ? curDeckId : ele.deckId}
+
+            isAddingCard={isAddingCard}
+            update={update}
+            updateShuffled={updateShuffled}
+          />
+        )
+      }));
+
       update();
     } else {
       setDeck(null)
+      if (isAddingCard) {
+        setCards([
+          <FlippableCard 
+            frontText={""}
+            backText={""}
+            onClick={onClick}
+            isFlipped={isShowingBack}
+            isEditing={true}
+            cardId={""}
+            deckId={curDeckId}
+            isAddingCard={true}
+            update={update}
+            updateShuffled={updateShuffled}
+          />
+        ])
+      }
     }
 
-    }, [cache, shuffledCards] // adding update ruins it
+    }, [cache, shuffledCards, isShowingBack, update, onClick, isEditing, isAddingCard, curDeckId]
   );
 
   if (deck == null && !isAddingCard) return (
     <section className="landing">
-        <p>Shuffle a deck to get started.</p>
-      </section>
+      <p>Shuffle a deck to get started.</p>
+    </section>
   );
 
   return (
     <>
-      <Card 
-        isShowingBack={isShowingBack}
+      <Carousel 
+        items={cards}
         onClick={onClick}
-        frontText={isAddingCard ? "" : deck.cards[cardId].front}
-        backText={isAddingCard ? "" : deck.cards[cardId].back}
-        deckId={isAddingCard ? curDeckId : deck.cards[cardId].deckId}
-        cardId={isAddingCard ? "" : deck.cards[cardId]?.id}
-        isAddingCard={isAddingCard}
-        isEditing={isEditing}
-        update={update}
-        updateShuffled={updateShuffled}
+        leftButtonText={<FontAwesomeIcon icon={faArrowLeft} />}
+        rightButtonText={<FontAwesomeIcon icon={faArrowRight} />}
+        animTime={.3}
+        previousCallback={slideCallback}
+        nextCallback={slideCallback}
       />
-      <button 
-        className="btn-change left"
-        name="previous"
-        onClick={onClick}
-      >
-        <FontAwesomeIcon icon={faArrowLeft} size="2x" className="icon" />
-      </button>
-      <button 
-        className="btn-change right"
-        name="next"
-        onClick={onClick}
-      >
-        <FontAwesomeIcon icon={faArrowRight} size="2x" className="icon" />
-      </button>
     </>
   )
 }

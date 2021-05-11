@@ -4,9 +4,13 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
-  background-color: #eee;
+  background-color: #f9f9f9;
 }
 
 main {
@@ -20,6 +24,11 @@ main {
 
 path, svg {
   pointer-events: none;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.2rem;
 }
 
 /* Buttons */
@@ -63,39 +72,6 @@ button.btn-secondary {
 
 button.btn-secondary:hover {
   color: red;
-}
-
-button.btn-change {
-  width: 4rem;
-  height: 4rem;
-  display: -ms-grid;
-  display: grid;
-  place-content: center;
-  position: fixed;
-  border-radius: 50%;
-  z-index: 10;
-  bottom: 1rem;
-}
-
-button.btn-change.left {
-  left: 1rem;
-}
-
-button.btn-change.right {
-  right: 1rem;
-}
-
-button.btn-change .icon {
-  -webkit-transition: .3s;
-  transition: .3s;
-}
-
-button.btn-change:hover {
-  background-color: white;
-}
-
-button.btn-change:hover .icon {
-  color: black;
 }
 
 button.btn-save {
@@ -227,95 +203,82 @@ form.mini input {
   height: 100%;
   display: -ms-grid;
   display: grid;
-  place-content: center;
-  padding-bottom: 5rem;
 }
 
 /* Card Component */
-.card-wrapper {
+/* .card-wrapper {
   width: 100vw;
   padding: 1rem;
 }
 
 .card {
   padding: 1rem;
-  background-color: white;
-  -webkit-transition: .5s;
+  background-color: $color-light;
   transition: .5s;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; 
   height: 25rem;
-}
+  
+  p {
+    word-break: break-word;
+    hyphens: auto;
+    overflow-y: auto;
+  }
 
-.card p {
-  word-break: break-word;
-  -webkit-hyphens: auto;
-      -ms-hyphens: auto;
-          hyphens: auto;
-  overflow-y: auto;
-}
+  header {
+    color: $color-medium-dark;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    position: relative;
+    width: 100%;
+    padding: 1rem 2rem;
 
-.card header {
-  color: #999;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  -webkit-box-align: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
-  position: relative;
-  width: 100%;
-  padding: 1rem 2rem;
-}
+    div {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
 
-.card header div {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
+  footer {
+    position: relative;
+    width: 100%;
+    height: 5rem;
+  }
 
-.card footer {
-  position: relative;
-  width: 100%;
-  height: 5rem;
-}
+  .curl {
+    width:4rem;
+    height:4rem;
+    position: absolute;
+    right: -1rem;
+    bottom: -1rem;
+    display: grid;
+    place-content: center;
+    background : 
+      linear-gradient(
+        135deg, 
+        $color-off-light, 
+        $color-off-light 50%, 
+        #ddd 50%, 
+        $color-medium 55%,
+      );
 
-.card .curl {
-  width: 4rem;
-  height: 4rem;
-  position: absolute;
-  right: -1rem;
-  bottom: -1rem;
-  display: -ms-grid;
-  display: grid;
-  place-content: center;
-  background: linear-gradient(135deg, #f9f9f9, #f9f9f9 50%, #ddd 50%, #eee 55%);
-}
+    .icon {
+      color: $color-medium-dark;
+      transition: .3s;
+    }
 
-.card .curl .icon {
-  color: #999;
-  -webkit-transition: .3s;
-  transition: .3s;
+    &:hover {
+      .icon {
+        color: $color-primary;
+      }
+    }
+  }
 }
-
-.card .curl:hover .icon {
-  color: black;
-}
-
+ */
 /* End Card Component */
 /* DeckList Component */
 .deck-list {
@@ -482,33 +445,59 @@ form.mini input {
   overflow: hidden;
   width: 100%;
   height: 100%;
-  background-color: #f9f9f9;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  /* &__card {
+    width: 50vw;
+    background-color: white;
+    height: 25rem;
+    display: grid;
+    place-content: center;
+  } */
 }
 
-.carousel button {
+.carousel .spacer {
+  height: 7rem;
+}
+
+.carousel button.btn-carousel {
   position: absolute;
-  z-index: 99;
+  z-index: 9;
   width: 5rem;
   height: 5rem;
   color: white;
   font-size: 3rem;
   background-color: #999;
-  top: 50%;
+  bottom: 1rem;
   margin: 0 1rem;
   display: -ms-grid;
   display: grid;
   place-content: center;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #999;
 }
 
-.carousel button.left {
+.carousel button.btn-carousel:hover {
+  color: black;
+  background-color: white;
+}
+
+.carousel button.btn-carousel.left {
   left: 0;
 }
 
-.carousel button.right {
+.carousel button.btn-carousel.right {
   right: 0;
 }
 
-.carousel button:disabled {
+.carousel button.btn-carousel:disabled {
   opacity: .5;
 }
 
@@ -528,19 +517,124 @@ form.mini input {
 .carousel__item {
   width: 100%;
   height: 100%;
-  background-color: #f9f9f9;
-  display: -ms-grid;
-  display: grid;
-  place-content: center;
+  /* display: grid;
+    place-content: center; */
 }
 
-.carousel__card {
-  width: 50vw;
+.flippable {
+  background-color: transparent;
+  height: 100%;
+  width: 100vw;
+  -webkit-perspective: 1500px;
+          perspective: 1500px;
+  padding: 1rem;
+}
+
+.flippable__inner {
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: -webkit-transform .3s;
+  transition: -webkit-transform .3s;
+  transition: transform .3s;
+  transition: transform .3s, -webkit-transform .3s;
+  text-align: center;
+}
+
+.flippable.flipped .flippable__inner {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.flippable .flippable__content {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background-color: white;
-  height: 25rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1rem;
+}
+
+.flippable .flippable__content.back {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.flippable p {
+  word-break: break-word;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+  overflow-y: auto;
+}
+
+.flippable header {
+  color: #999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.flippable header:first-child {
+  font-weight: bold;
+  color: #999;
+}
+
+.flippable header:last-child {
+  /* */
+}
+
+.flippable footer {
+  position: relative;
+  width: 100%;
+  height: 4rem;
+}
+
+.flippable .curl {
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  right: -1rem;
+  bottom: -1rem;
   display: -ms-grid;
   display: grid;
   place-content: center;
+  background: linear-gradient(135deg, #f9f9f9, #f9f9f9 50%, #ddd 50%, #f9f9f9 55%);
+}
+
+.flippable .curl .icon {
+  color: #999;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.flippable .curl:hover .icon {
+  color: black;
 }
 
 /* Media Queries */
@@ -548,11 +642,24 @@ form.mini input {
   .card-wrapper {
     width: 50vw;
   }
-  button.btn-change {
-    width: 4rem;
-    height: 4rem;
-    position: absolute;
-    top: calc(50% - 2.5rem);
+  .carousel button.btn-carousel {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+  }
+  .carousel .spacer {
+    display: none;
+  }
+  .carousel__item {
+    display: -ms-grid;
+    display: grid;
+    place-content: center;
+  }
+  .flippable {
+    width: 50vw;
+  }
+  .flippable__inner {
+    height: 25rem;
   }
   .sidebar {
     padding: 5rem 10rem;

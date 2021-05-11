@@ -1,15 +1,20 @@
 $color-primary: black;
 $color-primary-light: #666;
-$color-background: #eee;
+$color-background: #f9f9f9;
 $color-light: white;
 $color-off-light: #f9f9f9;
 $color-medium: #eee;
+$color-medium-dark: #999;
 
 $border-radius: .5rem;
 
 * {
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
+}
+
+html {
+  height: 100%;
 }
 
 body {
@@ -26,6 +31,11 @@ path, svg {
   pointer-events: none;
 }
 
+h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
 /* Buttons */
 
 button {
@@ -35,10 +45,10 @@ button {
   transition: .3s;
   font-size: 1rem;
   padding: 0;
-  color: #999;
+  color: $color-medium-dark;
 
   &.btn-icon {
-    color: #999;
+    color: $color-medium-dark;
   
     &:hover {
       color: $color-primary;
@@ -59,42 +69,12 @@ button {
   }
 
   &.btn-secondary {
-    color: #999;
+    color: $color-medium-dark;
     width: 100%;
     padding: 1rem;
 
     &:hover {
       color: red;
-    }
-  }
-
-  &.btn-change {
-    width: 4rem;
-    height: 4rem;
-    display: grid;
-    place-content: center;
-    position: fixed;
-    border-radius: 50%;
-    z-index: 10;
-    bottom: 1rem;
-
-    &.left {
-      left: 1rem;
-    }
-
-    &.right {
-      right: 1rem;
-    }
-
-    .icon {
-      transition: .3s;
-    }
-
-    &:hover {
-      background-color: $color-light;
-      .icon {
-        color: $color-primary;
-      }
     }
   }
 
@@ -212,13 +192,11 @@ form {
   width: 100%;
   height: 100%;
   display: grid;
-  place-content: center;
-  padding-bottom: 5rem;
 }
 
 /* Card Component */
 
-.card-wrapper {
+/* .card-wrapper {
   width: 100vw;
   padding: 1rem;
 }
@@ -240,7 +218,7 @@ form {
   }
 
   header {
-    color: #999;
+    color: $color-medium-dark;
     display: flex;
     justify-content: flex-end;
     align-items: baseline;
@@ -279,7 +257,7 @@ form {
       );
 
     .icon {
-      color: #999;
+      color: $color-medium-dark;
       transition: .3s;
     }
 
@@ -290,7 +268,7 @@ form {
     }
   }
 }
-
+ */
 /* End Card Component */
 
 /* DeckList Component */
@@ -436,20 +414,34 @@ form {
   overflow: hidden;
   width: 100%;
   height: 100%;
-  background-color: $color-off-light;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 
-  button {
+  .spacer {
+    height: 7rem;
+  }
+
+  button.btn-carousel {
     position: absolute;
-    z-index: 99;
+    z-index: 9;
     width: 5rem;
     height: 5rem;
     color: white;
     font-size: 3rem;
-    background-color: #999;
-    top: 50%;
+    background-color: $color-medium-dark;
+    bottom: 1rem;
     margin: 0 1rem;
     display: grid;
     place-content: center;
+    border-radius: 50%;
+    background-color: transparent;
+    color: $color-medium-dark;
+
+    &:hover {
+      color: $color-primary;
+      background-color: white;
+    }
 
     &.left {
       left: 0;
@@ -475,19 +467,121 @@ form {
   &__item {
     width: 100%;
     height: 100%;
-    background-color: $color-off-light;
-    display: grid;
-    place-content: center;
+    /* display: grid;
+    place-content: center; */
   }
 
-  &__card {
+  /* &__card {
     width: 50vw;
     background-color: white;
     height: 25rem;
     display: grid;
     place-content: center;
+  } */
+}
+
+
+
+
+.flippable {
+  background-color: transparent;
+  height: 100%;
+  width: 100vw;
+  perspective: 1500px;
+  padding: 1rem;
+
+  &__inner {
+    position: relative;
+    transform-style: preserve-3d;
+    width: 100%;
+    height: 100%;
+    transition: transform .3s;
+    text-align: center;
+  }
+
+  &.flipped &__inner {
+    transform: rotateY(180deg);
+  }
+
+  .flippable__content {
+    backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 1rem;
+  
+    &.back {
+      transform: rotateY(180deg);
+    }
+  }
+
+  p {
+    word-break: break-word;
+    hyphens: auto;
+    overflow-y: auto;
+  }
+
+  header {
+    color: $color-medium-dark;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    &:first-child {
+      font-weight: bold;
+      color: $color-medium-dark;
+    }
+
+    &:last-child {
+      /* */
+    }
+  }
+
+  footer {
+    position: relative;
+    width: 100%;
+    height: 4rem;
+  }
+
+  .curl {
+    width:4rem;
+    height:4rem;
+    position: absolute;
+    right: -1rem;
+    bottom: -1rem;
+    display: grid;
+    place-content: center;
+    background : 
+      linear-gradient(
+        135deg, 
+        $color-off-light, 
+        $color-off-light 50%, 
+        #ddd 50%, 
+        $color-off-light 55%,
+      );
+
+    .icon {
+      color: $color-medium-dark;
+      transition: .3s;
+    }
+
+    &:hover {
+      .icon {
+        color: $color-primary;
+      }
+    }
   }
 }
+
 
 
 /* Media Queries */
@@ -498,12 +592,27 @@ form {
     width: 50vw;
   }
 
-  button {
-    &.btn-change {
-      width: 4rem;
-      height: 4rem;
-      position: absolute;
-      top: calc(50% - 2.5rem);
+  .carousel {
+    button.btn-carousel {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .spacer {
+      display: none;
+    }
+
+    &__item {
+      display: grid;
+      place-content: center;
+    }
+  }
+
+  .flippable {
+    width: 50vw;
+
+    &__inner {
+      height: 25rem;
     }
   }
 

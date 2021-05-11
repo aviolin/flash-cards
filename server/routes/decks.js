@@ -3,26 +3,6 @@ const router = express.Router();
 const Deck = require('../models/Deck');
 const ObjectId = require('mongodb').ObjectID;
 
-
-// GET ALL DECK TITLES AND IDS
-/* router.get('/info', async(req, res) => {
-  try {
-    const decks = await Deck.find();
-    const deckTitles = decks.map(deck => {
-      return {
-        title: deck.title,
-        category: deck.category,
-        id: deck._id
-      }
-    })
-    console.log(deckTitles);
-    res.json(deckTitles);
-  } catch (err) {
-    res.json({ message: err });
-  }
-})
- */
-
 // GET A DECK BY ID
 router.get('/:deckId', async (req, res) => {
   console.log(req.params.deckId);
@@ -43,7 +23,7 @@ router.get('/', async (req, res) => {
     const decks = await Deck.find();
     res.json(decks);
   } catch (err) {
-    res.json({ message: err });
+    res.json({ message: err.toString(), wtf: "WTF" });
   }
 })
 

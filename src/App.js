@@ -17,7 +17,7 @@ const App = () => {
   const [isShowingBack, setIsShowingBack] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
-  const [cardId, setCardId] = useState(0);
+  //const [cardId, setCardId] = useState(0);
 
   useEffect(() => {
     if (!response) return;
@@ -37,14 +37,6 @@ const App = () => {
   const handleButtons = (event) => {
     console.log(event.target.name)
     switch (event.target.name) {
-      case "previous":
-        setIsShowingBack(false);
-        setCardId(cardId <= 0 ? shuffledCards.length - 1 : cardId - 1);
-        return;
-      case "next":
-        setIsShowingBack(false);
-        setCardId(cardId >= shuffledCards.length - 1 ? 0 : cardId + 1);
-        return;
       case "edit":
         setIsEditing(true);
         return;
@@ -65,7 +57,6 @@ const App = () => {
         let cards = [];
         decks.forEach(deck => cards = [...cards, ...deck.cards])
         setShuffledCards(cards);
-        setCardId(0);
         setIsSidebarOpen(false);
         return;
       case "toggle-sidebar":
@@ -84,8 +75,8 @@ const App = () => {
     if (data) 
       setCache(data);
 
-    setCardId(0); // hacky
-    setIsEditing(false);
+    //setCardId(0); // hacky
+    //setIsEditing(false);
     setIsAddingCard(false);
   }
 
@@ -102,6 +93,11 @@ const App = () => {
         else return card;
       })
     })
+  }
+
+  const slideCallback = (idx) => {
+    console.log(idx);
+    setIsShowingBack(false);
   }
 
   if (!cache) {
@@ -128,19 +124,8 @@ const App = () => {
           handleButtons={handleButtons}
           update={update}
         />
-        <Container
-          cache={cache}
-          update={update}
-          shuffledCards={shuffledCards}
-          onClick={handleButtons}
-          isAddingCard={isAddingCard}
-          isShowingBack={isShowingBack}
-          isEditing={isEditing}
-          cardId={cardId}
-          curDeckId={curDeckId}
-          updateShuffled={updateShuffled}
-        />
-          {/* <Deck 
+        <Container>
+          <Deck 
             cache={cache}
             update={update}
             shuffledCards={shuffledCards}
@@ -148,12 +133,13 @@ const App = () => {
             isAddingCard={isAddingCard}
             isShowingBack={isShowingBack}
             isEditing={isEditing}
-            cardId={cardId}
             curDeckId={curDeckId}
             updateShuffled={updateShuffled}
-          /> */}
+            slideCallback={slideCallback}
+          />
+        </Container>
       </main>
-      </div>
+    </div>
   )
 }
 
