@@ -20,13 +20,27 @@ const Deck = ({
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
+    let frontTitle = "Front:";
+    let backTitle = "Back:";
+    if (isAddingCard) {
+      frontTitle = "New card, front:";
+      backTitle = "New card, back:";
+    }
+    if (isEditing) {
+      frontTitle = "Editing front:";
+      backTitle = "Editing back:";
+    }
+
     if (shuffledCards.length > 0 && !isAddingCard) {
       setDeck({ cards: shuffledCards, title: "Shuffled Cards" })
+
 
       setCards(shuffledCards.map((ele) => {
         return (
           <FlippableCard 
             key={ele.id}
+            frontTitle={frontTitle}
+            backTitle={backTitle}
             frontText={isAddingCard ? "" : ele.front}
             backText={isAddingCard ? "" : ele.back}
             onClick={onClick}
@@ -42,12 +56,14 @@ const Deck = ({
         )
       }));
 
-      update();
+      //update();
     } else {
       setDeck(null)
       if (isAddingCard) {
         setCards([
           <FlippableCard 
+            frontTitle={frontTitle}
+            backTitle={backTitle}
             frontText={""}
             backText={""}
             onClick={onClick}
@@ -82,6 +98,7 @@ const Deck = ({
         animTime={.3}
         previousCallback={slideCallback}
         nextCallback={slideCallback}
+        showButtons={isEditing || isAddingCard ? false : true}
       />
     </>
   )

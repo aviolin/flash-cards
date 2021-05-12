@@ -205,81 +205,6 @@ form.mini input {
   display: grid;
 }
 
-/* Card Component */
-/* .card-wrapper {
-  width: 100vw;
-  padding: 1rem;
-}
-
-.card {
-  padding: 1rem;
-  background-color: $color-light;
-  transition: .5s;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center; 
-  height: 25rem;
-  
-  p {
-    word-break: break-word;
-    hyphens: auto;
-    overflow-y: auto;
-  }
-
-  header {
-    color: $color-medium-dark;
-    display: flex;
-    justify-content: flex-end;
-    align-items: baseline;
-    position: relative;
-    width: 100%;
-    padding: 1rem 2rem;
-
-    div {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-  }
-
-  footer {
-    position: relative;
-    width: 100%;
-    height: 5rem;
-  }
-
-  .curl {
-    width:4rem;
-    height:4rem;
-    position: absolute;
-    right: -1rem;
-    bottom: -1rem;
-    display: grid;
-    place-content: center;
-    background : 
-      linear-gradient(
-        135deg, 
-        $color-off-light, 
-        $color-off-light 50%, 
-        #ddd 50%, 
-        $color-medium 55%,
-      );
-
-    .icon {
-      color: $color-medium-dark;
-      transition: .3s;
-    }
-
-    &:hover {
-      .icon {
-        color: $color-primary;
-      }
-    }
-  }
-}
- */
-/* End Card Component */
 /* DeckList Component */
 .deck-list {
   list-style-type: none;
@@ -325,6 +250,13 @@ form.mini input {
 .deck-list li input[type=checkbox]:checked + label span {
   background-color: black;
   border: 2px solid black;
+}
+
+.deck-list li .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
 }
 
 .deck-list li:hover {
@@ -401,6 +333,7 @@ form.mini input {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 0;
 }
 
 .navbar .logo {
@@ -521,6 +454,31 @@ form.mini input {
     place-content: center; */
 }
 
+header {
+  color: #999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+header:first-child {
+  font-weight: bold;
+  color: #999;
+}
+
+header:last-child {
+  /* */
+}
+
 .flippable {
   background-color: transparent;
   height: 100%;
@@ -582,31 +540,6 @@ form.mini input {
       -ms-hyphens: auto;
           hyphens: auto;
   overflow-y: auto;
-}
-
-.flippable header {
-  color: #999;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  position: relative;
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-.flippable header:first-child {
-  font-weight: bold;
-  color: #999;
-}
-
-.flippable header:last-child {
-  /* */
 }
 
 .flippable footer {

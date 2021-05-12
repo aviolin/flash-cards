@@ -17,7 +17,6 @@ const App = () => {
   const [isShowingBack, setIsShowingBack] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
-  //const [cardId, setCardId] = useState(0);
 
   useEffect(() => {
     if (!response) return;
@@ -42,7 +41,11 @@ const App = () => {
         return;
       case "cancel":
         setIsEditing(false);
-        setIsAddingCard(false);
+
+        if (isAddingCard) {
+          setIsSidebarOpen(true);
+          setIsAddingCard(false);
+        }
         return;
       case "toggle":
         setIsShowingBack(!isShowingBack);
@@ -50,6 +53,7 @@ const App = () => {
       case "add-card":
         setCurDeckId(event.target.value);
         setIsAddingCard(true);
+        setIsShowingBack(false);
         setIsSidebarOpen(false);
         return;
       case "shuffle":
@@ -72,12 +76,12 @@ const App = () => {
   }
 
   const update = (data = null) => {
-    if (data) 
+    console.log("UPDATE");
+    if (data) {
       setCache(data);
-
-    //setCardId(0); // hacky
-    //setIsEditing(false);
-    setIsAddingCard(false);
+      setIsEditing(false);
+      setIsAddingCard(false);
+    }
   }
 
   const updateShuffled = (newCard, del=false) => {
@@ -95,8 +99,7 @@ const App = () => {
     })
   }
 
-  const slideCallback = (idx) => {
-    console.log(idx);
+  const slideCallback = (index) => {
     setIsShowingBack(false);
   }
 

@@ -11,7 +11,7 @@ const SelectableDeck = ({
   handleButtons,
   length,
   update,
-  setIsEditing
+  setDeckToEdit
 }) => {
   return (
     <li 
@@ -30,12 +30,12 @@ const SelectableDeck = ({
           {title} ({length})
         </label>
       </div>
-      <div>
+      <div className="buttons">
         <button 
           className="btn-icon"
           onClick={event => {
             event.stopPropagation();
-            setIsEditing();
+            setDeckToEdit();
           }}
         >
           <FontAwesomeIcon icon={faEdit} />

@@ -8,7 +8,8 @@ const Carousel = ({
   animTime=.5,
   items,
   previousCallback,
-  nextCallback
+  nextCallback,
+  showButtons=true
 }) => {
   const [index, setIndex] = useState(0);
   const [carouselItems, setCarouselItems] = useState([]);
@@ -96,18 +97,24 @@ const Carousel = ({
         
       </div>
       <div className="spacer"></div>
-      <button 
-        className="btn-carousel left"
-        onClick={(event) => handleClick(event)}
-        name="left"
-        disabled={!canSlide}
-      >{leftButtonText}</button>
-      <button 
-        className="btn-carousel right"
-        onClick={(event) => handleClick(event)}
-        name="right"
-        disabled={!canSlide}
-      >{rightButtonText}</button>
+      {showButtons ?
+        <>
+          <button 
+            className="btn-carousel left"
+            onClick={(event) => handleClick(event)}
+            name="left"
+            disabled={!canSlide}
+          >{leftButtonText}</button>
+          <button 
+            className="btn-carousel right"
+            onClick={(event) => handleClick(event)}
+            name="right"
+            disabled={!canSlide}
+          >{rightButtonText}</button>
+        </>
+        :
+        null
+      }
     </div>
   )
 }

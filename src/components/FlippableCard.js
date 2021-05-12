@@ -8,6 +8,8 @@ import CardContent from './CardContent';
 
 const FlippableCard = ({
   onClick,
+  frontTitle,
+  backTitle,
   frontText,
   backText,
   isEditing,
@@ -21,14 +23,14 @@ const FlippableCard = ({
 
 }) => {
   const header = isEditing ? (
-    <Header title="Editing front:">
+    <Header title={frontTitle}>
       <Button 
         type="cancel" 
         onClick={onClick}
       />
     </Header>
   ) : (
-    <Header title="Front:">
+    <Header title={frontTitle}>
       <Button 
         type="edit" 
         onClick={onClick}
@@ -40,7 +42,7 @@ const FlippableCard = ({
     </Header>
   )
 
-  const backHeader = React.cloneElement(header, { title: isEditing ? "Editing back:" : "Back:" });
+  const backHeader = React.cloneElement(header, { title: backTitle });
 
   const editor = (
     <CardEditor 

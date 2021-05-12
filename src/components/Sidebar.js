@@ -18,15 +18,14 @@ const Sidebar = ({
   updateCache,
   toggleDeck,
   selectedDecks,
-  isAddingCard,
   handleButtons,
   update,
 }) => {
-  const [buttons, setButtons] = useState(null);
-  const [isEditing, setIsEditing] = useState(null);
+  const [deckList, setDeckList] = useState(null);
+  const [deckToEdit, setDeckToEdit] = useState(null);
 
   useEffect(() => {
-    setButtons(cache.map(deck => {
+    setDeckList(cache.map(deck => {
         return (
           <SelectableDeck 
             key={deck._id}
@@ -37,8 +36,8 @@ const Sidebar = ({
             handleButtons={handleButtons}
             length={deck.cards.length}
             update={update}
-            setIsEditing={() => {
-              setIsEditing(deck._id);
+            setDeckToEdit={() => {
+              setDeckToEdit({ id: deck._id, title: deck.title });
             }}
           />
         )
@@ -53,24 +52,25 @@ const Sidebar = ({
   }
 
   const deleteDeckWrapper = async (event) => {
-    const res = await API.deleteDeck(event, isEditing);
+    const res = await API.deleteDeck(event, deckToEdit.id);
     update(res.data)
-    setIsEditing(null);
+    setDeckToEdit(null);
   }
 
   const updateDeckWrapper = async (event) => {
-    const res = await API.updateDeck(event, isEditing, event.target.form.title.value);
+    const res = await API.updateDeck(event, deckToEdit.id, event.target.form.title.value);
     update(res.data)
-    setIsEditing(null);
+    setDeckToEdit(null);
   }
 
-  if (isEditing != null) {
+  if (deckToEdit != null) {
     return (
       <div className={isOpen ? "sidebar open" : "sidebar"}>
         <DeckEditor 
           updateDeck={updateDeckWrapper}
           deleteDeck={deleteDeckWrapper}
-          setIsEditing={setIsEditing}
+          deckToEdit={deckToEdit}
+          setDeckToEdit={setDeckToEdit}
         />
       </div>
     )
@@ -83,7 +83,7 @@ const Sidebar = ({
           createDeck={createDeckWrapper}
         />
         <DeckList>
-          {buttons}
+          {deckList}
         </DeckList>
       </div>
       <Button

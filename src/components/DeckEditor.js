@@ -1,24 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import Button from './Button';
+import Header from './Header';
 
 const DeckEditor = (props) => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(props.deckToEdit.title);
+
+  useEffect(() => {
+    
+  }, [])
 
   return (
     <div>
-      <Button 
-        type="cancel"
-        onClick={event => {
-          event.stopPropagation();
-          props.setIsEditing(null);
-        }}
-        view={<FontAwesomeIcon icon={faArrowLeft} size="2x" />}
-      />
+      <Header title="Editing Deck">
+        <Button 
+          type="cancel"
+          onClick={event => {
+            event.stopPropagation();
+            props.setDeckToEdit(null);
+          }}
+          view={<FontAwesomeIcon icon={faArrowLeft} size="2x" />}
+        />
+      </Header>
       <form className="mini">
-        <label htmlFor="title">Editing deck:</label>
+        <label htmlFor="title">Title:</label>
         <input
           className="edit-title"
           type="text"
