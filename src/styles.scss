@@ -31,6 +31,10 @@ path, svg {
   pointer-events: none;
 }
 
+h1 {
+  font-weight: 900;
+}
+
 h2 {
   margin: 0;
   font-size: 1.2rem;
@@ -425,6 +429,39 @@ header {
 
   &:last-child {
     /* */
+  }
+}
+
+header.hero {
+  flex-direction: column;
+  justify-content: center;
+  color: $color-primary;
+  height: 30vh;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 100%;
+  max-width: 60ch;
+  margin: auto;
+
+  form {
+    height: auto;
+
+    input {
+      background-color: white;
+    }
+
+    input[type=checkbox] {
+      margin-right: 1rem;
+    }
+
+    .form-row {
+      margin-bottom: 2rem;
+    }
   }
 }
 

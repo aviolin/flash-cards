@@ -26,6 +26,10 @@ path, svg {
   pointer-events: none;
 }
 
+h1 {
+  font-weight: 900;
+}
+
 h2 {
   margin: 0;
   font-size: 1.2rem;
@@ -477,6 +481,51 @@ header:first-child {
 
 header:last-child {
   /* */
+}
+
+header.hero {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: black;
+  height: 30vh;
+}
+
+.login {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 1rem;
+  width: 100%;
+  max-width: 60ch;
+  margin: auto;
+}
+
+.login form {
+  height: auto;
+}
+
+.login form input {
+  background-color: white;
+}
+
+.login form input[type=checkbox] {
+  margin-right: 1rem;
+}
+
+.login form .form-row {
+  margin-bottom: 2rem;
 }
 
 .flippable {

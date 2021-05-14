@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Container from './components/Container';
 import Deck from './components/Deck';
 import Loader from './components/Loader';
+import Login from './components/Login';
 import Nav from './components/Nav';
+import Signup from './components/Signup';
 import Sidebar from './components/Sidebar';
+import Test from './components/Test';
 import useFetch from './components/useFetch';
 
 const App = () => {
@@ -13,7 +16,7 @@ const App = () => {
   const [cache, setCache] = useState(null);
   const [selectedDecks, setSelectedDecks] = useState([]);
   const [shuffledCards, setShuffledCards] = useState([]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isShowingBack, setIsShowingBack] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
@@ -116,7 +119,7 @@ const App = () => {
     <div className="app">
       <Nav onClick={handleButtons}/>
       <main>
-        <Sidebar
+        {/* <Sidebar
           isOpen={isSidebarOpen}
           cache={cache}
           onClick={handleButtons}
@@ -126,9 +129,13 @@ const App = () => {
           isAddingCard={isAddingCard}
           handleButtons={handleButtons}
           update={update}
-        />
+        /> */}
         <Container>
-          <Deck 
+          <Test />
+          {/* <Signup 
+          
+          /> */}
+          {/* <Deck 
             cache={cache}
             update={update}
             shuffledCards={shuffledCards}
@@ -139,7 +146,7 @@ const App = () => {
             curDeckId={curDeckId}
             updateShuffled={updateShuffled}
             slideCallback={slideCallback}
-          />
+          /> */}
         </Container>
       </main>
     </div>
