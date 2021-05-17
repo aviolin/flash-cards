@@ -1,16 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
+
+import { dbMethods } from '../firebase/dbMethods';
+import { firebaseAuth } from '../provider/AuthProvider';
 
 import Button from './Button';
 import Header from './Header';
 
 const DeckEditor = (props) => {
+  const { user } = useContext(firebaseAuth);
   const [title, setTitle] = useState(props.deckToEdit.title);
 
-  useEffect(() => {
-    
-  }, [])
+  const updateDeck = (event) => {
+    event.preventDefault();
+    dbMethods.updateDeck(user, props.deckToEdit.id, title)
+  }
+
+  const deleteDeck = (event) => {
+    event.preventDefault();
+    dbMethods.deleteDeck(user, props.deckToEdit.id);
+  }
 
   return (
     <div>
@@ -37,13 +47,13 @@ const DeckEditor = (props) => {
         />
         <button 
           className="btn-primary"
-          onClick={props.updateDeck}
+          onClick={updateDeck}
         >
           Update
         </button>
         <button 
           className="btn-secondary"
-          onClick={props.deleteDeck}
+          onClick={deleteDeck}
         >
           <FontAwesomeIcon icon={faTrash} /> Delete
         </button>

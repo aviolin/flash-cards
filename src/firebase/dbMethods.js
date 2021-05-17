@@ -6,139 +6,113 @@ export const dbMethods = {
 
   // SEND TO DATABASE
   createDeck: (user, title) => {
-    const newDeck = {
-      title,
-      owner: user.uid,
-      cards: []
+    if (!user) {
+      console.log("No user selected.");
+      return;
     }
 
-    db.collection('decks').add(newDeck)
-    .then(res => {
-      console.log("Created new deck: ", res)
+    const document = db.collection('decks').doc();
 
-      db.collection('users').doc(user.uid).update({
-        decks: firebase.firestore.FieldValue.arrayUnion(res.id)
-      })
-      .then(res => {
-        console.log("Deck successfully added to user.");
-      })
-      .catch(err => {
-        console.error("Something went wrong adding deck to user: ", err.message);
-      });
+    const newDeck = {
+      id: document.id,
+      title,
+      owner: user.uid,
+      public: false,
+    }
 
-    })
+    document.set(newDeck)
+    .then(console.log("Created new deck."))
     .catch(err => {
       console.error("Error creating deck: ", err.message);
     });
   },
 
-  deleteDeck: (user, id) => {
-   db.collection('decks').doc(id).delete()
-    .then((res) => {
-      console.log("Deck successfully deleted.");
+  deleteDeck: (user, deckId) => {
+    if (!user) {
+      console.log("No user selected.");
+      return;
+    }
 
-      // For security and performance, must manually 
-      // purge 'cards' subcollections from deleted decks.
-      
-      db.collection('users').doc(user.uid).update({
-        decks: firebase.firestore.FieldValue.arrayRemove(id)
-      })
-      .then(res => {
-        console.log("User updated.");
-      })
-      .catch(err => {
-        console.error("Something went wrong updating the user: ", err.message);
-      })
-
-    })
+    db.collection('decks').doc(deckId).delete()
+    .then(console.log("Deck successfully deleted."))
     .catch(err => {
       console.error("Error deleting deck: ", err.message);
     });
   },
 
-  updateDeck: (deckId, title) => {
+  updateDeck: (user, deckId, title) => {
+    if (!user) {
+      console.log("No user selected.");
+      return;
+    }
+
     const updatedDeck = {
       title
     }
 
     db.collection('decks').doc(deckId).update(updatedDeck)
-    .then(res => {
-      console.log("Updated deck with id: ", deckId)
-    })
+    .then(console.log("Updated deck with id: ", deckId))
     .catch(err => {
       console.error("Error updating document: ", err.message);
     });
-
   },
 
-  createCard: (deckId, front, back) => {
-    const newCard = {
-      front,
-      back
+  createCard: (user, deckId, front, back) => {
+    if (!user) {
+      console.log("No user selected.");
+      return;
     }
 
-    db.collection('decks').doc(deckId).collection('cards').add(newCard)
-    .then(res => {
-      console.log("New card created with id: ", res.id);
-    })
+    const document = db.collection('cards').doc();
+
+    const newCard = {
+      id: document.id,
+      deckId,
+      owner: user.uid,
+      front,
+      back,
+    }
+
+    document.set(newCard)
+    .then(console.log("New card created."))
     .catch(err => {
       console.error("Error creating card: ", err.message);
     });
   },
 
-  updateCard: (deckId, cardId, front, back) => {
+  updateCard: (user, cardId, front, back) => {
+    if (!user) {
+      console.log("No user selected.");
+      return;
+    }
+
     const updatedCard = {
       front,
       back
     }
+    console.log("CardId: ", cardId);
 
-    db.collection('decks').doc(deckId).collection('cards').doc(cardId).update(updatedCard)
+
+    db.collection('cards').doc(cardId).update(updatedCard)
+    
     .then(res => {
       console.log("Updated card with id: ", cardId);
     })
     .catch(err => {
-      console.log("Error updating card: ", err.message);
+      console.error("Error updating card: ", err.message);
     })
   },
 
-  deleteCard: (deckId, cardId) => {
-    db.collection('decks').doc(deckId).collection('cards').doc(cardId).delete()
-    .then(res => {
-      console.log("Card successfully deleted.")
-    })
+  deleteCard: (user, cardId) => {
+    if (!user) {
+      console.log("No user selected.");
+      return;
+    }
+
+    db.collection('cards').doc(cardId).delete()
+    .then(console.log("Card successfully deleted."))
     .catch(err => {
       console.error("Error deleting card: ", err.message);
     });
   },
-
-  // GET FROM DATABASE
-  getUserData: async (userId) => {
-    return db.collection('users').doc(userId).get();
-    /* .then(user => {
-      if (user.exists) {
-        //console.log("User data: ", user.data());
-        //return user.data();
-      } else {
-        console.log("User does not exist.");
-      }
-    })
-    .catch(err => {
-      console.error("Error getting user: ", err.message);
-    }); */
-  },
-
-  getDeck: (deckId) => {
-    db.collection('decks').doc(deckId).get()
-    .then(deck => {
-      if (deck.exists) {
-        console.log("Deck data: ", deck.data());
-        return deck.data();
-      } else {
-        console.log("Deck does not exist.");
-      }
-    })
-    .catch(err => {
-      console.error("Error getting deck: ", err.message);
-    })
-  }
 }

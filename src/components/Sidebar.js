@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRandom } from '@fortawesome/free-solid-svg-icons';
 
-import SelectableDeck from './SelectableDeck';
 import DeckCreator from './DeckCreator';
 import DeckEditor from './DeckEditor';
 import DeckList from './DeckList';
@@ -13,43 +12,14 @@ const API = new APIClass();
 
 const Sidebar = ({
   isOpen,
-  cache,
+  decks,
   onClick,
-  updateCache,
-  toggleDeck,
   selectedDecks,
+  setSelectedDecks,
   handleButtons,
   update,
 }) => {
-  const [deckList, setDeckList] = useState(null);
   const [deckToEdit, setDeckToEdit] = useState(null);
-
-  useEffect(() => {
-    setDeckList(cache.map(deck => {
-        return (
-          <SelectableDeck 
-            key={deck._id}
-            title={deck.title}
-            toggleDeck={toggleDeck}
-            id={deck._id}
-            selectedDecks={selectedDecks}
-            handleButtons={handleButtons}
-            length={deck.cards.length}
-            update={update}
-            setDeckToEdit={() => {
-              setDeckToEdit({ id: deck._id, title: deck.title });
-            }}
-          />
-        )
-      }
-    ))
-  }, [cache, selectedDecks, handleButtons, toggleDeck, update])
-
-  const createDeckWrapper = async (event) => {
-    event.preventDefault();
-    const res = await API.createDeck(event);
-    updateCache(res.data);
-  }
 
   const deleteDeckWrapper = async (event) => {
     const res = await API.deleteDeck(event, deckToEdit.id);
@@ -79,12 +49,14 @@ const Sidebar = ({
   return (
     <div className={isOpen ? "sidebar open" : "sidebar"}>
       <div>
-        <DeckCreator 
-          createDeck={createDeckWrapper}
+        <DeckCreator />
+        <DeckList
+          decks={decks}
+          selectedDecks={selectedDecks}
+          setSelectedDecks={setSelectedDecks}
+          handleButtons={handleButtons}
+          setDeckToEdit={setDeckToEdit}
         />
-        <DeckList>
-          {deckList}
-        </DeckList>
       </div>
       <Button
         type="shuffle"

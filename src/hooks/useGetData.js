@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import firebase from 'firebase';
-import { db } from '../firebase/firebaseIndex';
 import { dbMethods } from '../firebase/dbMethods';
 
 export const useGetCollection = (collection="users") => {
@@ -21,25 +20,6 @@ export const useGetCollection = (collection="users") => {
   return [collectionDocs];
 }
 
-export const useGetOwnedDecks = (userId) => {
-  const [ownedDecks, setOwnedDecks] = useState([]);
-  const db = firebase.firestore();
-
-  useEffect(() => {
-    if (!userId) return;
-    console.log('here/')
-
-    db.collection('decks').where("id", "==", userId)
-    .then((querySnapshot) => {
-      let arr = [];
-      querySnapshot.docs.map(deck => arr.push({ id: deck.id, value: deck.data() }));
-      setOwnedDecks(arr[0]);
-    });
-  }, [db]);
-
-  return [ownedDecks]; 
-}
-
 export const useGetUserData = (user) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -51,6 +31,7 @@ export const useGetUserData = (user) => {
     dbMethods.getUserData(user.uid)
     .then(users => {
       setData(users.data());
+      console.log(users.data());
     })
     .catch(err => {
       console.error("Error getting user data: ", err.message);

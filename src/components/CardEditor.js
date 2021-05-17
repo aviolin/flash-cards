@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCheck } from '@fortawesome/free-solid-svg-icons';
-import APIClass from '../API';
-const API = new APIClass();
+
+import { dbMethods } from '../firebase/dbMethods';
+import { firebaseAuth } from '../provider/AuthProvider';
 
 const CardEditor = ({
-  onClick,
   frontText,
   backText,
-  deckId,
   cardId,
+  deckId,
   isAddingCard,
-  update,
-  updateShuffled,
-  isBack
+  isBack,
 }) => {
+  const { user } = useContext(firebaseAuth);
 
   const [front, setFront] = useState('');
   const [back, setBack] = useState('');
@@ -33,24 +32,21 @@ const CardEditor = ({
     }
   }
 
-  const saveCardWrapper = async (event) => {
-    const submitData = { front, back, id: cardId }
-    console.log(submitData);
-    const res = await API.saveCard(event, deckId, cardId, submitData);
-
-    if (res.data !== undefined && !isAddingCard) {
-      updateShuffled({ id: cardId, front, back, deckId: deckId})
+  const updateCard = (event) => {
+    event.preventDefault();
+    if (!isAddingCard) {
+      console.log("Card to update: ", cardId);
+      dbMethods.updateCard(user, cardId, front, back)
+    } else {
+      console.log("Creating new card.");
+      console.log(deckId);
+      dbMethods.createCard(user, deckId, front, back)
     }
-    update(res.data);
   }
 
-  const deleteCardWrapper = async (event) => {
-    const res = await API.deleteCard(event, deckId, cardId);
-
-    if (res.data !== undefined) {
-      updateShuffled({ id: cardId, front, back, deckId: deckId}, true)
-    }
-    update(res.data);
+  const deleteCard = (event) => {
+    event.preventDefault();
+    dbMethods.deleteCard(user, cardId);
   }
 
   return (
@@ -76,14 +72,14 @@ const CardEditor = ({
         <button 
           className="btn-save"
           name="save"
-          onClick={saveCardWrapper}
+          onClick={updateCard}
         >    
           <FontAwesomeIcon icon={faCheck} size="1x" className="icon" /> Save
         </button>
         <button
           className="btn-secondary"
           name="delete"
-          onClick={deleteCardWrapper}
+          onClick={deleteCard}
         >
           <FontAwesomeIcon icon={faTrash} /> Delete Card
         </button>

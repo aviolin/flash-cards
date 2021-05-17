@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Container from './components/Container';
 import Deck from './components/Deck';
 import Loader from './components/Loader';
@@ -6,25 +6,24 @@ import Login from './components/Login';
 import Nav from './components/Nav';
 import Signup from './components/Signup';
 import Sidebar from './components/Sidebar';
+
 import Test from './components/Test';
-import useFetch from './components/useFetch';
+import useOnSnapshot from './hooks/useOnSnapshot';
+import { firebaseAuth } from './provider/AuthProvider';
 
 const App = () => {
-  const { response } = useFetch('http://localhost:5000/decks');
+  const { user } = useContext(firebaseAuth);
+  const { data: cache } = useOnSnapshot('users', user.uid);
+  const { data: deckData } = useOnSnapshot('decks');
+  const [userdecks, setUserDecks] = useState([]);
 
   const [curDeckId, setCurDeckId] = useState(null);
-  const [cache, setCache] = useState(null);
   const [selectedDecks, setSelectedDecks] = useState([]);
   const [shuffledCards, setShuffledCards] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isShowingBack, setIsShowingBack] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
-
-  useEffect(() => {
-    if (!response) return;
-    setCache(response);
-  }, [response])
 
   const toggleDeck = (event, deck) => {
     setSelectedDecks(decks => {
@@ -81,7 +80,7 @@ const App = () => {
   const update = (data = null) => {
     console.log("UPDATE");
     if (data) {
-      setCache(data);
+      //setCache(data);
       setIsEditing(false);
       setIsAddingCard(false);
     }
@@ -107,6 +106,7 @@ const App = () => {
   }
 
   if (!cache) {
+    console.log(cache);
     return (
       <div className="app">
         <Nav />
@@ -131,7 +131,7 @@ const App = () => {
           update={update}
         /> */}
         <Container>
-          <Test />
+          {/* <Test /> */}
           {/* <Signup 
           
           /> */}

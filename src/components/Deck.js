@@ -5,36 +5,33 @@ import FlippableCard from './FlippableCard';
 import Carousel from './Carousel';
 
 const Deck = ({ 
-  cache,
-  update,
   shuffledCards,
   onClick,
   isAddingCard,
-  isShowingBack,
-  isEditing,
-  curDeckId,
-  updateShuffled,
-  slideCallback
+  isEditingCard,
+  curSelectedDeck,
 }) => {
-  const [deck, setDeck] = useState(null);
   const [cards, setCards] = useState([]);
+  const [isCardFlipped, setIsCardFlipped] = useState(false);
+
+  useEffect(() => {
+    console.log(isCardFlipped);
+  }, [isCardFlipped])
 
   useEffect(() => {
     let frontTitle = "Front:";
     let backTitle = "Back:";
+
     if (isAddingCard) {
       frontTitle = "New card, front:";
       backTitle = "New card, back:";
     }
-    if (isEditing) {
+    if (isEditingCard) {
       frontTitle = "Editing front:";
       backTitle = "Editing back:";
     }
 
     if (shuffledCards.length > 0 && !isAddingCard) {
-      setDeck({ cards: shuffledCards, title: "Shuffled Cards" })
-
-
       setCards(shuffledCards.map((ele) => {
         return (
           <FlippableCard 
@@ -44,21 +41,16 @@ const Deck = ({
             frontText={isAddingCard ? "" : ele.front}
             backText={isAddingCard ? "" : ele.back}
             onClick={onClick}
-            isFlipped={isShowingBack}
-            isEditing={isEditing}
+            isFlipped={isCardFlipped}
+            setIsFlipped={setIsCardFlipped}
+            isEditing={isEditingCard}
             cardId={isAddingCard ? "" : ele.id}
-            deckId={isAddingCard ? curDeckId : ele.deckId}
-
+            deckId={isAddingCard ? curSelectedDeck : ele.deckId}
             isAddingCard={isAddingCard}
-            update={update}
-            updateShuffled={updateShuffled}
           />
         )
       }));
-
-      //update();
     } else {
-      setDeck(null)
       if (isAddingCard) {
         setCards([
           <FlippableCard 
@@ -67,38 +59,40 @@ const Deck = ({
             frontText={""}
             backText={""}
             onClick={onClick}
-            isFlipped={isShowingBack}
+            isFlipped={isCardFlipped}
+            setIsFlipped={setIsCardFlipped}
             isEditing={true}
             cardId={""}
-            deckId={curDeckId}
+            deckId={curSelectedDeck}
             isAddingCard={true}
-            update={update}
-            updateShuffled={updateShuffled}
           />
         ])
       }
     }
 
-    }, [cache, shuffledCards, isShowingBack, update, onClick, isEditing, isAddingCard, curDeckId]
+    }, [shuffledCards, isCardFlipped, onClick, isEditingCard, isAddingCard, curSelectedDeck]
   );
 
-  if (deck == null && !isAddingCard) return (
+  if (shuffledCards.length === 0 && !isAddingCard) return (
     <section className="landing">
       <p>Shuffle a deck to get started.</p>
     </section>
   );
 
+  const slideCallback = (index) => {
+    setIsCardFlipped(false);
+  }
+
   return (
     <>
       <Carousel 
         items={cards}
-        onClick={onClick}
         leftButtonText={<FontAwesomeIcon icon={faArrowLeft} />}
         rightButtonText={<FontAwesomeIcon icon={faArrowRight} />}
         animTime={.3}
         previousCallback={slideCallback}
         nextCallback={slideCallback}
-        showButtons={isEditing || isAddingCard ? false : true}
+        showButtons={isEditingCard || isAddingCard ? false : true}
       />
     </>
   )

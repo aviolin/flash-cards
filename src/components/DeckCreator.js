@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
+import { dbMethods } from '../firebase/dbMethods';
+import { firebaseAuth } from '../provider/AuthProvider';
+
 import Button from './Button';
 
-const DeckCreator = (props) => {
+const DeckCreator = () => {
   const [title, setTitle] = useState("");
+  const { user } = useContext(firebaseAuth);
+
+  const createDeck = (event) => {
+    event.preventDefault();
+    dbMethods.createDeck(user, title);
+  }
 
   return (
     <form 
       id="new-deck" 
-      onSubmit={props.createDeck}
+      onSubmit={createDeck}
     >
       <label htmlFor="title">Create a new deck:</label>
       <div>
