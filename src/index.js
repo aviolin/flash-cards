@@ -6,13 +6,12 @@ import AuthProvider from './provider/AuthProvider';
 //import './index.css';
 import './styles.css';
 import App from './App';
-import App2 from './App2';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-      <App2 />
+        <App />
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import FlippableCard from './FlippableCard';
 import Carousel from './Carousel';
+import { Link } from 'react-router-dom';
 
 const Deck = ({ 
   shuffledCards,
@@ -74,9 +75,10 @@ const Deck = ({
   );
 
   if (shuffledCards.length === 0 && !isAddingCard) return (
-    <section className="landing">
-      <p>Shuffle a deck to get started.</p>
-    </section>
+    <div className="landing">
+      This deck has no cards. Add a new card in the dashboard!
+      <Link to="/app">Dashboard</Link>
+    </div>
   );
 
   const slideCallback = (index) => {

@@ -54,6 +54,7 @@ const FlippableCard = ({
       update={update}
       updateShuffled={updateShuffled}
       isShowingBack={isFlipped}
+      onClick={onClick}
     />
   )
 

@@ -26,7 +26,7 @@ const SelectableDeck = ({
         />
         <label htmlFor={id}>
           <span></span>
-          {title} ({length})
+          {title} ({length} {length === 1 ? "card" : "cards"})
         </label>
       </div>
       <div className="buttons">

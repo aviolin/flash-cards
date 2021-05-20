@@ -15,9 +15,10 @@ export const dbMethods = {
 
     const newDeck = {
       id: document.id,
+      numCards: 0,
       title,
       owner: user.uid,
-      public: false,
+      private: true,
     }
 
     document.set(newDeck)
@@ -40,14 +41,15 @@ export const dbMethods = {
     });
   },
 
-  updateDeck: (user, deckId, title) => {
+  updateDeck: (user, deckId, title, isPrivate) => {
     if (!user) {
       console.log("No user selected.");
       return;
     }
 
     const updatedDeck = {
-      title
+      title,
+      private: isPrivate
     }
 
     db.collection('decks').doc(deckId).update(updatedDeck)
@@ -74,7 +76,15 @@ export const dbMethods = {
     }
 
     document.set(newCard)
-    .then(console.log("New card created."))
+    .then(res => {
+      console.log("New card created.")
+      db.collection('decks').doc(deckId).update({
+        numCards: firebase.firestore.FieldValue.increment(1)
+      })
+      .catch(err => {
+        console.error("Error increasing card count.");
+      })
+    })
     .catch(err => {
       console.error("Error creating card: ", err.message);
     });
@@ -103,14 +113,23 @@ export const dbMethods = {
     })
   },
 
-  deleteCard: (user, cardId) => {
+  deleteCard: (user, deckId, cardId) => {
     if (!user) {
       console.log("No user selected.");
       return;
     }
 
     db.collection('cards').doc(cardId).delete()
-    .then(console.log("Card successfully deleted."))
+    .then(res => {
+      console.log("Card successfully deleted.")
+      db.collection('decks').doc(deckId).update({
+        numCards: firebase.firestore.FieldValue.increment(-1)
+      })
+      .catch(err => {
+        console.error("Error decreasing card count.");
+      })
+    })
+    
     .catch(err => {
       console.error("Error deleting card: ", err.message);
     });

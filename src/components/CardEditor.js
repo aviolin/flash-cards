@@ -12,6 +12,7 @@ const CardEditor = ({
   deckId,
   isAddingCard,
   isBack,
+  onClick
 }) => {
   const { user } = useContext(firebaseAuth);
 
@@ -42,11 +43,15 @@ const CardEditor = ({
       console.log(deckId);
       dbMethods.createCard(user, deckId, front, back)
     }
+
+    onClick(event);
   }
 
   const deleteCard = (event) => {
     event.preventDefault();
-    dbMethods.deleteCard(user, cardId);
+    dbMethods.deleteCard(user, deckId, cardId);
+
+    onClick(event);
   }
 
   return (
@@ -71,18 +76,20 @@ const CardEditor = ({
       <div className="buttons">
         <button 
           className="btn-save"
-          name="save"
+          name="update-card"
           onClick={updateCard}
         >    
           <FontAwesomeIcon icon={faCheck} size="1x" className="icon" /> Save
         </button>
-        <button
-          className="btn-secondary"
-          name="delete"
-          onClick={deleteCard}
-        >
-          <FontAwesomeIcon icon={faTrash} /> Delete Card
-        </button>
+        {isAddingCard ? null : 
+          <button
+            className="btn-secondary"
+            name="delete-card"
+            onClick={deleteCard}
+          >
+            <FontAwesomeIcon icon={faTrash} /> Delete Card
+          </button>
+        }
       </div>
     </form>
   )

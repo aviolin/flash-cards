@@ -33,6 +33,8 @@ path, svg {
 
 h1 {
   font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
 }
 
 h2 {
@@ -40,9 +42,13 @@ h2 {
   font-size: 1.2rem;
 }
 
+p.error {
+  color: red;
+}
+
 /* Buttons */
 
-button {
+button, a {
   cursor: pointer;
   border: 0;
   background-color: transparent;
@@ -70,6 +76,11 @@ button {
     &:hover {
       background-color: $color-primary-light;
     }
+
+    &:disabled {
+      color: $color-medium;
+      background-color: $color-medium-dark
+    }
   }
 
   &.btn-secondary {
@@ -85,6 +96,7 @@ button {
   &.btn-save {
     right: 2rem;
     bottom: 1rem;
+    padding: 1rem;
     color: $color-light;
     background-color: $color-primary;
     border-radius: $border-radius;
@@ -102,6 +114,11 @@ button {
       color: $color-primary;
     }
   }
+}
+
+a {
+  text-decoration: none;
+  text-align: center;
 }
 
 /* End Buttons */
@@ -200,6 +217,51 @@ form {
 
 /* DeckList Component */
 
+input[type=checkbox] {
+  display: none;
+  + label {
+    color: #333;
+    span {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 1rem;
+      display: inline-block;
+      background-color: transparent;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      position: relative;
+      top: 2px;
+
+      &:before {
+        content: "";
+        width: 2px;
+        height: 8px;
+        background-color: white;
+        position: absolute;
+        left: .4rem;
+        top: .15rem;
+        transform: rotate(30deg);
+      }
+
+      &:after {
+        content: "";
+        width: 2px;
+        height: 4px;
+        background-color: white;
+        position: absolute;
+        left: .2rem;
+        top: .35rem;
+        transform: rotate(-50deg);
+      }
+    }
+  }
+
+  &:checked + label span{
+    background-color: $color-primary;
+    border: 2px solid $color-primary;
+  }
+}
+
 .deck-list {
   list-style-type: none;
   padding: 0;
@@ -220,25 +282,7 @@ form {
       pointer-events: none;
     }
 
-    input[type=checkbox] {
-      display: none;
-      + label {
-        span {
-          width: 1rem;
-          height: 1rem;
-          margin-right: 1rem;
-          display: inline-block;
-          background-color: transparent;
-          border: 2px solid #ccc;
-          border-radius: 4px;
-        }
-      }
-
-      &:checked + label span{
-        background-color: $color-primary;
-        border: 2px solid $color-primary;
-      }
-    }
+    
 
     .buttons {
       display: flex;
@@ -296,7 +340,7 @@ form {
 /* Nav Component */
 
 .navbar {
-  padding: 1rem;
+  padding: 1rem 2rem;
   border-bottom: 1px solid $color-medium;
   width: 100%;
   background-color: $color-light;
@@ -317,31 +361,45 @@ form {
 
 /* End Nav Component */
 
-/* Sidebar Component */
 
-.sidebar {
-  width: 100%;
-  background-color: $color-light;
-  height: 100%;
-  margin-left: -100%;
-  transition: .3s;
-  position: fixed;
-  z-index: 99;
-  padding: 5rem 1rem 1rem 1rem;
+/* Mobile Menu Component */
+
+.mobile-menu {
+  width: 100vw;
+  height: 100vh;
   overflow-y: auto;
-  top:0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  position: absolute;
+  background-color: $color-background;
+  top: 0;
+  left: -100vw;
+  transition: left .3s;
+  padding: 2rem;
+  padding-top: 7rem;
+  z-index: 500;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    li {
+      list-style-type: none;
+      padding: 1rem;
+      border-bottom: 2px solid $color-medium;
+      cursor: pointer;
+      a {
+        display: block;
+        text-align: left;
+      }
+    }
+  }
 
   &.open {
-    margin-left: 0rem;
+    left: 0;
   }
 }
 
-/* End Sidebar Component */
-
-
+/* End Mobile Menu Component */
 
 .carousel {
   overflow: hidden;
@@ -443,7 +501,7 @@ header.hero {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 2rem;
   width: 100%;
   max-width: 60ch;
   margin: auto;
@@ -543,6 +601,26 @@ header.hero {
       }
     }
   }
+}
+
+
+
+
+.landing {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+
+  h1 {
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+}
+
+.dashboard {
+  padding: 2rem;
 }
 
 

@@ -11,15 +11,22 @@ import Header from './Header';
 const DeckEditor = (props) => {
   const { user } = useContext(firebaseAuth);
   const [title, setTitle] = useState(props.deckToEdit.title);
+  const [isPrivate, setIsPrivate] = useState(props.deckToEdit.private);
+
+  const handleCheckbox = (event) => {
+
+  }
 
   const updateDeck = (event) => {
     event.preventDefault();
-    dbMethods.updateDeck(user, props.deckToEdit.id, title)
+    dbMethods.updateDeck(user, props.deckToEdit.id, title, isPrivate)
+    props.setDeckToEdit(null);
   }
 
   const deleteDeck = (event) => {
     event.preventDefault();
     dbMethods.deleteDeck(user, props.deckToEdit.id);
+    props.setDeckToEdit(null);
   }
 
   return (
@@ -45,6 +52,16 @@ const DeckEditor = (props) => {
           onChange={(event) => setTitle(event.target.value)}
           autoComplete="off"
         />
+        <input 
+          type="checkbox"
+          id="private"
+          checked={isPrivate ? true : false}
+          onChange={(event) => setIsPrivate(!isPrivate)}
+        />
+        <label htmlFor="private">
+          <span></span>
+          Private
+        </label>
         <button 
           className="btn-primary"
           onClick={updateDeck}

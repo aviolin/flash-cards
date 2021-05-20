@@ -2,19 +2,17 @@ import React, {useState, useEffect} from 'react';
 import {authMethods} from '../firebase/authMethods';
 import { auth } from '../firebase/firebaseIndex';
 
-import { useGetCollection } from '../hooks/useGetData';
-
 export const firebaseAuth = React.createContext();
 
 const AuthProvider = (props) => {
   const [inputs, setInputs] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState(null);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((user) => {
       user ? setUser(user) : setUser(null);
-      console.log(user);
+      //console.log(user);
     });
 
     return () => unsub();

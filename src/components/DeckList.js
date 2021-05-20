@@ -30,9 +30,9 @@ const DeckList = ({
             id={deck.id}
             selectedDecks={selectedDecks}
             handleButtons={handleButtons}
-            length={/* deck.cards.length */ 1}
+            length={deck.numCards}
             setDeckToEdit={() => {
-              setDeckToEdit({ id: deck.id, title: deck.title });
+              setDeckToEdit({ id: deck.id, title: deck.title, private: deck.private });
             }}
           />
         )
@@ -44,7 +44,11 @@ const DeckList = ({
     <>
       <label>Your decks:</label>
       <ul className="deck-list">
-        {deckList}
+        {deckList.length > 0 ? 
+          deckList
+        :
+          <p>You have no decks. Create one to start!</p>
+        }
       </ul>
     </>
   )

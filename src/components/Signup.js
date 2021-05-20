@@ -1,13 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { firebaseAuth } from '../provider/AuthProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBolt } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { authMethods } from '../firebase/authMethods';
-import { dbMethods } from '../firebase/dbMethods';
+import { Link, useHistory } from 'react-router-dom';
 
 const Signup = (props) => {
   const [tos, setTos] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const history = useHistory();
 
   const {handleSignup, handleSignout, inputs, setInputs, errors, setErrors, user} = useContext(firebaseAuth);
 
@@ -19,6 +20,7 @@ const Signup = (props) => {
   const handleLogout = (e) => {
     e.preventDefault();
     authMethods.signout();
+    history.push('/');
   }
 
   const handleChange = e => {
@@ -26,24 +28,36 @@ const Signup = (props) => {
     setInputs(prev => ({ ...prev, [name]: value }));
   }
 
-  const test = e => {
-    //dbMethods.createDeck(user, "test!");
-    //dbMethods.updateDeck("cePY1qt9uyy3YMVOHHpF", "oooooooooh");
-    //dbMethods.deleteDeck(user, "sHMEvZtYcVk7yj7G3aZK");
-    //dbMethods.createCard("mXoERZf5Qyhwelnj3Mc2", "Front", "Back!");
-    //dbMethods.deleteCard("sHMEvZtYcVk7yj7G3aZK", "CYQxYP9HGIhmuIb7eOEc")
-    dbMethods.updateCard("mXoERZf5Qyhwelnj3Mc2", "PcTCfZLnO1QpSRDqytnr", "New front", "baaaaaack");
-  }
+  useEffect(() => {
+    if (user) {
+      history.push("/app");
+    }
+  }, [user]);
+
+  useEffect(() => {
+    switch (errors) {
+      case null:
+        return;
+      case "auth/weak-password":
+        setErrorMessage("Your password must be at least 6 characters long");
+        return;
+      case "auth/email-already-in-use":
+        setErrorMessage("This email is already registered.");
+        return;
+      case "auth/invalid-email":
+        setErrorMessage("Please enter a valid email address.");
+        return;
+      default:
+        setErrorMessage("Something went wrong. Please try again.");
+        return;
+    }
+
+  }, [errors])
 
   return (
     <div className="login">
-      <header className="hero">
-        <FontAwesomeIcon icon={faBolt} size="5x" />
-        <h1>Flash Cards</h1>
-      </header>
-      <button onClick={test}>Test</button>
       <form onSubmit={handleSubmit}>
-        <h2>Sign up</h2>
+        <h1>Sign up</h1>
         <label htmlFor="email">Email:</label>
         <input 
           id="email"
@@ -70,13 +84,24 @@ const Signup = (props) => {
             checked={tos ? true : false}
             onChange={() => setTos(!tos)}
           />
-          <label htmlFor="tos">I agree to the Terms of Service</label>
+          <label htmlFor="tos">
+            <span></span>
+            I agree to the Terms of Service
+          </label>
         </div>
-        <button className="btn-primary">Sign up</button>
-        {errors.length > 0 ? errors.map(error => <p style={{color: 'red'}}>{error}</p>) : null}
+        {errorMessage === "" ? null :
+          <p className="error">{errors}: {errorMessage}</p> 
+        }
+        <button 
+          className="btn-primary"
+          disabled={!tos}
+        >
+          Sign up
+        </button>
+        
       </form>
-      <button className="btn-secondary">Login</button>
-      <button className="btn-secondary" onClick={handleLogout}>Log out</button>
+      <Link to="/log-in">Login</Link>
+      {/* <button className="btn-secondary" onClick={handleLogout}>Log out</button> */}
     </div>
   )
 }

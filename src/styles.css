@@ -28,6 +28,8 @@ path, svg {
 
 h1 {
   font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
 }
 
 h2 {
@@ -35,8 +37,12 @@ h2 {
   font-size: 1.2rem;
 }
 
+p.error {
+  color: red;
+}
+
 /* Buttons */
-button {
+button, a {
   cursor: pointer;
   border: 0;
   background-color: transparent;
@@ -47,15 +53,15 @@ button {
   color: #999;
 }
 
-button.btn-icon {
+button.btn-icon, a.btn-icon {
   color: #999;
 }
 
-button.btn-icon:hover {
+button.btn-icon:hover, a.btn-icon:hover {
   color: black;
 }
 
-button.btn-primary {
+button.btn-primary, a.btn-primary {
   padding: 1rem;
   background-color: black;
   border-radius: 0.5rem;
@@ -64,39 +70,50 @@ button.btn-primary {
   width: 100%;
 }
 
-button.btn-primary:hover {
+button.btn-primary:hover, a.btn-primary:hover {
   background-color: #666;
 }
 
-button.btn-secondary {
+button.btn-primary:disabled, a.btn-primary:disabled {
+  color: #eee;
+  background-color: #999;
+}
+
+button.btn-secondary, a.btn-secondary {
   color: #999;
   width: 100%;
   padding: 1rem;
 }
 
-button.btn-secondary:hover {
+button.btn-secondary:hover, a.btn-secondary:hover {
   color: red;
 }
 
-button.btn-save {
+button.btn-save, a.btn-save {
   right: 2rem;
   bottom: 1rem;
+  padding: 1rem;
   color: white;
   background-color: black;
   border-radius: 0.5rem;
   width: 100%;
 }
 
-button.btn-save:hover {
+button.btn-save:hover, a.btn-save:hover {
   background-color: #666;
 }
 
-button.btn-x {
+button.btn-x, a.btn-x {
   margin-left: 1rem;
 }
 
-button.btn-x:hover {
+button.btn-x:hover, a.btn-x:hover {
   color: black;
+}
+
+a {
+  text-decoration: none;
+  text-align: center;
 }
 
 /* End Buttons */
@@ -210,6 +227,55 @@ form.mini input {
 }
 
 /* DeckList Component */
+input[type=checkbox] {
+  display: none;
+}
+
+input[type=checkbox] + label {
+  color: #333;
+}
+
+input[type=checkbox] + label span {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1rem;
+  display: inline-block;
+  background-color: transparent;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  top: 2px;
+}
+
+input[type=checkbox] + label span:before {
+  content: "";
+  width: 2px;
+  height: 8px;
+  background-color: white;
+  position: absolute;
+  left: .4rem;
+  top: .15rem;
+  -webkit-transform: rotate(30deg);
+          transform: rotate(30deg);
+}
+
+input[type=checkbox] + label span:after {
+  content: "";
+  width: 2px;
+  height: 4px;
+  background-color: white;
+  position: absolute;
+  left: .2rem;
+  top: .35rem;
+  -webkit-transform: rotate(-50deg);
+          transform: rotate(-50deg);
+}
+
+input[type=checkbox]:checked + label span {
+  background-color: black;
+  border: 2px solid black;
+}
+
 .deck-list {
   list-style-type: none;
   padding: 0;
@@ -235,25 +301,6 @@ form.mini input {
 .deck-list li label {
   color: #333;
   pointer-events: none;
-}
-
-.deck-list li input[type=checkbox] {
-  display: none;
-}
-
-.deck-list li input[type=checkbox] + label span {
-  width: 1rem;
-  height: 1rem;
-  margin-right: 1rem;
-  display: inline-block;
-  background-color: transparent;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-}
-
-.deck-list li input[type=checkbox]:checked + label span {
-  background-color: black;
-  border: 2px solid black;
 }
 
 .deck-list li .buttons {
@@ -321,7 +368,7 @@ form.mini input {
 /* End Loader Component */
 /* Nav Component */
 .navbar {
-  padding: 1rem;
+  padding: 1rem 2rem;
   border-bottom: 1px solid #eee;
   width: 100%;
   background-color: white;
@@ -348,19 +395,25 @@ form.mini input {
 }
 
 /* End Nav Component */
-/* Sidebar Component */
-.sidebar {
-  width: 100%;
-  background-color: white;
-  height: 100%;
-  margin-left: -100%;
-  -webkit-transition: .3s;
-  transition: .3s;
-  position: fixed;
-  z-index: 99;
-  padding: 5rem 1rem 1rem 1rem;
+/* Mobile Menu Component */
+.mobile-menu {
+  width: 100vw;
+  height: 100vh;
   overflow-y: auto;
+  position: absolute;
+  background-color: #f9f9f9;
   top: 0;
+  left: -100vw;
+  -webkit-transition: left .3s;
+  transition: left .3s;
+  padding: 2rem;
+  padding-top: 7rem;
+  z-index: 500;
+}
+
+.mobile-menu ul {
+  margin: 0;
+  padding: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -368,16 +421,25 @@ form.mini input {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
 }
 
-.sidebar.open {
-  margin-left: 0rem;
+.mobile-menu ul li {
+  list-style-type: none;
+  padding: 1rem;
+  border-bottom: 2px solid #eee;
+  cursor: pointer;
 }
 
-/* End Sidebar Component */
+.mobile-menu ul li a {
+  display: block;
+  text-align: left;
+}
+
+.mobile-menu.open {
+  left: 0;
+}
+
+/* End Mobile Menu Component */
 .carousel {
   overflow: hidden;
   width: 100%;
@@ -506,7 +568,7 @@ header.hero {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 1rem;
+  padding: 2rem;
   width: 100%;
   max-width: 60ch;
   margin: auto;
@@ -617,6 +679,30 @@ header.hero {
 
 .flippable .curl:hover .icon {
   color: black;
+}
+
+.landing {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 2rem;
+}
+
+.landing h1 {
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.dashboard {
+  padding: 2rem;
 }
 
 /* Media Queries */

@@ -11,13 +11,10 @@ export const authMethods = {
           decks: []
         });
 
-        // ...
+        setErrors(null);
       })
       .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorMessage);
-        setErrors(prev => ([...prev, error.message]))
+        setErrors(error.code)
         // ..
       });
   },
@@ -27,21 +24,17 @@ export const authMethods = {
         // Signed in
         var user = userCredential.user;
         console.log("Logged in: ", user)
-        // ...
+        setErrors(null);
       })
       .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        setErrors(prev => ([...prev, error.message]))
+        setErrors(error.code);
       });
   },
   signout: (setErrors) => {
     auth.signOut()
-      .then(res => {
-        console.log("Logged out");
-      })
-      .catch(err => {
-        setErrors(prev => ([...prev, err.message]));
+      .then(console.log("Logged out"))
+      .catch(error => {
+        setErrors(error.code);
       })
   }
 }

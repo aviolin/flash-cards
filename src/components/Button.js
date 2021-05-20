@@ -2,7 +2,13 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faEdit, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-const Button = ({ type, onClick, view, classes }) => {
+const Button = ({ 
+  type, 
+  onClick, 
+  view, 
+  classes,
+  disabled
+}) => {
 
   classes === undefined ? classes="btn " : classes += " btn ";
   let _view = null;
@@ -30,6 +36,7 @@ const Button = ({ type, onClick, view, classes }) => {
       name={type}
       onClick={onClick}
       className={classes}
+      disabled={disabled ? disabled : false}
     >
       {view ? view : _view}
     </button>

@@ -1,19 +1,22 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { firebaseAuth } from '../provider/AuthProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBolt } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { authMethods } from '../firebase/authMethods';
+import { Link, useHistory } from 'react-router-dom';
 
 
 const Login = (props) => {
   const [tos, setTos] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const history = useHistory();
 
-  const {handleSignin, inputs, setInputs, errors, setErrors} = useContext(firebaseAuth);
+  const {user, handleSignin, inputs, setInputs, errors, setErrors} = useContext(firebaseAuth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSignin();
+    handleSignin()
   }
 
   const handleLogout = (e) => {
@@ -26,14 +29,35 @@ const Login = (props) => {
     setInputs(prev => ({ ...prev, [name]: value }));
   }
 
+  useEffect(() => {
+    if (user) {
+      history.push("/app");
+    }
+  }, [user]);
+
+  useEffect(() => {
+    switch (errors) {
+      case null:
+        return;
+      case "auth/user-not-found":
+        setErrorMessage("The email and password do not match.");
+        return;
+      case "auth/wrong-password":
+        setErrorMessage("The email and password do not match.");
+        return;
+      case "auth/invalid-email":
+        setErrorMessage("Please enter a valid email address.");
+      default:
+        setErrorMessage("Something went wrong. Please try again.");
+        return;
+    }
+
+  }, [errors]);
+
   return (
     <div className="login">
-      <header className="hero">
-        <FontAwesomeIcon icon={faBolt} size="5x" />
-        <h1>Flash Cards</h1>
-      </header>
       <form onSubmit={handleSubmit}>
-        <h2>Log in</h2>
+        <h1>Log in</h1>
         <label htmlFor="email">Email:</label>
         <input 
           id="email"
@@ -52,11 +76,19 @@ const Login = (props) => {
           onChange={handleChange}
 
         />
+        {errorMessage === "" ? null :
+          <p className="error">{errors}: {errorMessage}</p> 
+        }
         <button className="btn-primary">Log in</button>
       </form>
-      <button className="btn-secondary">Sign up</button>
       <button className="btn-secondary">Forgot?</button>
-      <button className="btn-secondary" onClick={handleLogout}>Log out</button>
+      <Link 
+        className="btn-secondary"
+        to="/sign-up"
+      >
+        No account? Sign up!
+      </Link>
+      {/* <button className="btn-secondary" onClick={handleLogout}>Log out</button> */}
 
     </div>
   )
