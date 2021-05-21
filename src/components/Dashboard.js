@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import DeckCreator from './DeckCreator';
 import DeckEditor from './DeckEditor';
 import DeckList from './DeckList';
 import Button from './Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRandom } from '@fortawesome/free-solid-svg-icons';
-import { authMethods } from '../firebase/authMethods';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { firebaseAuth } from '../provider/AuthProvider';
 
 const Dashboard = ({
   onClick,
@@ -16,7 +16,17 @@ const Dashboard = ({
   handleButtons,
 }) => {
   const [deckToEdit, setDeckToEdit] = useState(null);
+  const { user } = useContext(firebaseAuth);
   const history = useHistory();
+
+  if (!user) {
+    return (
+      <div className="dashboard">
+        <p>You are not logged in. To view your dashboard, log in or sign up here:</p>
+        <Link to="/">Home</Link>
+      </div>
+    )
+  }
 
   if (deckToEdit != null) {
     return (

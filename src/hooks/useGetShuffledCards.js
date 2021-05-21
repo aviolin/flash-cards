@@ -7,6 +7,7 @@ const useGetShuffledCards = (user, deckIds) => {
 
   useEffect(() => {
     if (!user) return;
+
     if (deckIds.length === 0) {
       setCards([]);
       return;

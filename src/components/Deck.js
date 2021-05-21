@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import FlippableCard from './FlippableCard';
 import Carousel from './Carousel';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+
+import firebase from 'firebase';
 
 const Deck = ({ 
   shuffledCards,
@@ -13,11 +15,38 @@ const Deck = ({
   curSelectedDeck,
 }) => {
   const [cards, setCards] = useState([]);
+  const [hashCards, setHashCards] = useState(null);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
+  const [canView, setCanView] = useState(true);
+
+  const { hash } = useParams();
 
   useEffect(() => {
-    console.log(isCardFlipped);
-  }, [isCardFlipped])
+    if (hash === undefined) return;
+    if (shuffledCards.length > 0) return;
+
+    const db = firebase.firestore();
+
+    db.collection('decks').doc(hash).get()
+    .then(snapshot => {
+      if (snapshot.data().private) {
+        setCanView(false);
+      }
+    })
+
+    let ref = db.collection('cards');
+    ref.where("deckId", "==", hash).get()
+      .then(snapshot => {
+        let arr = [];
+        snapshot.forEach(card => arr.push(card.data()));
+        setHashCards(arr);
+      });
+
+  }, [hash]);
+  
+  useEffect(() => {
+    console.log("Changed");
+  }, [hash])
 
   useEffect(() => {
     let frontTitle = "Front:";
@@ -32,8 +61,17 @@ const Deck = ({
       backTitle = "Editing back:";
     }
 
-    if (shuffledCards.length > 0 && !isAddingCard) {
-      setCards(shuffledCards.map((ele) => {
+    let _cards = [];
+
+    if (hashCards != null) {
+      _cards = hashCards;
+    } else {
+      _cards = shuffledCards;
+    }
+
+
+    if (_cards.length > 0 && !isAddingCard) {
+      setCards(_cards.map((ele) => {
         return (
           <FlippableCard 
             key={ele.id}
@@ -71,12 +109,20 @@ const Deck = ({
       }
     }
 
-    }, [shuffledCards, isCardFlipped, onClick, isEditingCard, isAddingCard, curSelectedDeck]
+    }, [shuffledCards, isCardFlipped, onClick, isEditingCard, isAddingCard, curSelectedDeck, hashCards]
   );
 
-  if (shuffledCards.length === 0 && !isAddingCard) return (
+  if (!canView) {
+    return (
+      <div className="landing">
+        <p>This deck is private. If you are the owner of this deck, you must log in to view it.</p>
+      </div>
+    )
+  }
+
+  if (cards.length === 0 && !isAddingCard) return (
     <div className="landing">
-      This deck has no cards. Add a new card in the dashboard!
+      <p>This deck has no cards. Add a new card in the dashboard!</p>
       <Link to="/app">Dashboard</Link>
     </div>
   );

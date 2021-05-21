@@ -31,7 +31,7 @@ const MobileMenu = ({
             </Link>
           </li>
           <li>
-            <Link to="/app" onClick={() => closeMenu()}>
+            <Link to="/my-account" onClick={() => closeMenu()}>
               My account
             </Link>
           </li>

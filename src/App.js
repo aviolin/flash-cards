@@ -86,12 +86,15 @@ const App = () => {
       case "exit":
         setShuffledCards([]);
 
-        history.push("/app");
+        if (user) {
+          history.push("/app");
+          return;
+        }
+        history.push("/");
         return;
       
       case "shuffle":
         if (selectedDecks.length === 0) return;
-        // randomize cards
         const randomized_cards = fisherYatesShuffle(cards);
         setShuffledCards(randomized_cards);
 
@@ -140,6 +143,15 @@ const App = () => {
             </Route>
             <Route path="/app/shuffle">
               <Deck 
+                shuffledCards={shuffledCards}
+                onClick={handleButtons}
+                isAddingCard={isAddingCard}
+                isEditingCard={isEditingCard}
+                curSelectedDeck={curSelectedDeck}
+              />
+            </Route>
+            <Route path="/app/:hash">
+             <Deck 
                 shuffledCards={shuffledCards}
                 onClick={handleButtons}
                 isAddingCard={isAddingCard}
