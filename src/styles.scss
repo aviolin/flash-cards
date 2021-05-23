@@ -1,12 +1,32 @@
-$color-primary: black;
+$color-primary: dodgerblue;
 $color-primary-light: #666;
+$color-secondary: rgb(51, 224, 103);
+$color-secondary-light: rgb(190, 255, 233);
+$color-tertiary: #ccc;
+$color-tertiary-light: #eee;
+$color-warning: rgb(255, 30, 86);
+$color-warning-light: rgb(250, 84, 125);
 $color-background: #f9f9f9;
 $color-light: white;
 $color-off-light: #f9f9f9;
 $color-medium: #eee;
 $color-medium-dark: #999;
-
 $border-radius: .5rem;
+
+@mixin main-button {
+  padding: 1rem;
+  border-radius: $border-radius;
+  color: $color-light;
+  font-weight: bold;
+  width: 100%;
+  margin: .5rem 0;
+  text-align: center;
+
+  &:disabled {
+    color: $color-medium;
+    background-color: $color-medium-dark
+  }
+}
 
 * {
   box-sizing: border-box;
@@ -32,7 +52,8 @@ path, svg {
 }
 
 h1 {
-  font-weight: 900;
+  color: $color-primary;
+  font-weight: 700;
   font-size: 1.5rem;
   line-height: 2.5rem;
 }
@@ -65,31 +86,47 @@ button, a {
     }
   }
 
+  &.btn-x {
+    margin-left: 1rem;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
   &.btn-primary {
-    padding: 1rem;
+    @include main-button;
     background-color: $color-primary;
-    border-radius: $border-radius;
-    color: $color-light;
-    font-weight: bold;
-    width: 100%;
 
     &:hover {
       background-color: $color-primary-light;
     }
-
-    &:disabled {
-      color: $color-medium;
-      background-color: $color-medium-dark
-    }
   }
 
   &.btn-secondary {
-    color: $color-medium-dark;
-    width: 100%;
-    padding: 1rem;
+    @include main-button;
+    background-color: $color-secondary;
 
     &:hover {
-      color: red;
+      background-color: $color-secondary-light;
+    }
+  }
+
+  &.btn-tertiary {
+    @include main-button;
+    background-color: $color-tertiary;
+
+    &:hover {
+      background-color: $color-tertiary-light;
+    }
+  }
+
+  &.btn-warning {
+    @include main-button;
+    background-color: $color-warning;
+
+    &:hover {
+      background-color: $color-warning-light;
     }
   }
 
@@ -107,18 +144,19 @@ button, a {
     }
   }
 
-  &.btn-x {
-    margin-left: 1rem;
-
-    &:hover {
-      color: $color-primary;
-    }
+  &.link {
+    padding: 1rem 0;
+    border-bottom: 1px solid $color-medium;
+    display: block;
   }
 }
 
 a {
   text-decoration: none;
-  text-align: center;
+}
+
+.sample-list {
+  margin-top: 3rem;
 }
 
 /* End Buttons */
@@ -131,7 +169,7 @@ textarea {
   border: 1px solid $color-medium;
   font-size: 1rem;
   margin-bottom: 1rem;
-  background-color: $color-off-light;
+  background-color: $color-light;
 }
 
 textarea {
@@ -166,14 +204,26 @@ form {
       border-bottom-right-radius: 0;
       border-right: 0;
       min-width: 0;
+      border-color: $color-medium;
+      outline: none;
+      transition: .3s;
+      
+      &:focus {
+        border-color: $color-primary;
+
+        + button {
+          border-color: $color-primary;
+        }
+
+      }
+
     }
 
     button {
       border-radius: $border-radius;
-
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-      background-color: $color-off-light;
+      background-color: $color-light;
       border: 0;
       color: $color-primary;
       border: 1px solid $color-medium;
@@ -190,6 +240,7 @@ form {
 
   .buttons {
     display: flex;
+    flex-direction: column;
   }
 
   &.mini {
@@ -213,6 +264,10 @@ form {
   width: 100%;
   height: 100%;
   display: grid;
+
+  &.center {
+    place-content: center;
+  }
 }
 
 /* DeckList Component */
@@ -276,34 +331,21 @@ input[type=checkbox] {
     border-radius: $border-radius;
     transition: .2s;
     border: 1px solid transparent;
+    background-color: $color-off-light;
+    border-color: $color-medium;
  
     label {
       color: #333;
       pointer-events: none;
     }
 
-    
-
     .buttons {
       display: flex;
       gap: 1rem;
     }
 
-    &:hover {
-      background-color: $color-medium;
-    }
-
     &.selected {
-      background-color: $color-off-light;
-      border-color: $color-medium;
-
-      label {
-        color: $color-primary;
-      }
-
-      &:hover {
-        background-color: $color-medium;
-      }
+      border-color: $color-primary; 
     }
   }
 }
@@ -312,17 +354,9 @@ input[type=checkbox] {
 
 /* Loader Component */
 
-.loader {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-content: center;
-  
-
-  .loader-icon {
-    color: $color-primary;
-    animation: spin 1s linear infinite;
-  }
+.spinner {
+  color: $color-primary;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -340,22 +374,32 @@ input[type=checkbox] {
 /* Nav Component */
 
 .navbar {
-  padding: 1rem 2rem;
-  border-bottom: 1px solid $color-medium;
   width: 100%;
+  border-bottom: 1px solid $color-medium;
+  padding: 1rem;
   background-color: $color-light;
   box-shadow : 0 .5rem .5rem rgba(0, 0, 0, .05);
   z-index: 999;
+}
+
+.nav-inner {
+  padding: 0 1rem;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0;
+  margin: auto;
+  max-width: 60ch;
 
   .logo {
     color: $color-primary;
     text-decoration: none;
     font-weight: 900;
     font-size: 1.2rem;
+  }
+
+  nav {
+    display: none;
   }
 }
 
@@ -382,15 +426,9 @@ input[type=checkbox] {
     padding: 0;
     display: flex;
     flex-direction: column;
+    
     li {
       list-style-type: none;
-      padding: 1rem;
-      border-bottom: 2px solid $color-medium;
-      cursor: pointer;
-      a {
-        display: block;
-        text-align: left;
-      }
     }
   }
 
@@ -612,6 +650,11 @@ header.hero {
   flex-direction: column;
   justify-content: center;
   padding: 2rem;
+  width: 100%;
+  max-width: 60ch;
+  margin: auto;
+
+
 
   h1 {
     margin-bottom: 2rem;
@@ -621,6 +664,9 @@ header.hero {
 
 .dashboard {
   padding: 2rem;
+  width: 100%;
+  max-width: 60ch;
+  margin: auto;
 }
 
 
@@ -631,6 +677,32 @@ header.hero {
 
   .card-wrapper {
     width: 50vw;
+  }
+
+  .navbar .nav-inner {
+
+    .small-screen-only {
+      display: none;
+    }
+
+    nav {
+      display: block;
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+
+        li {
+          padding: 0rem 1rem;
+
+          a {
+            border: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
   }
 
   .carousel {
@@ -657,8 +729,9 @@ header.hero {
     }
   }
 
-  .sidebar {
-    padding: 5rem 10rem;
+  form .buttons {
+    flex-direction: row;
+    gap: 1rem;
   }
 }
 
@@ -676,12 +749,5 @@ header.hero {
       right: -5rem;
       bottom: -4rem;
     }
-  }
-
-  .sidebar {
-    position: relative;
-    width: 30rem;
-    margin-left: -30rem;
-    padding: 1rem 1rem;
   }
 }

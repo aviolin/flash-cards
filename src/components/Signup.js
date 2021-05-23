@@ -1,8 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { firebaseAuth } from '../provider/AuthProvider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { authMethods } from '../firebase/authMethods';
 import { Link, useHistory } from 'react-router-dom';
 
 const Signup = (props) => {
@@ -10,17 +7,11 @@ const Signup = (props) => {
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
 
-  const {handleSignup, handleSignout, inputs, setInputs, errors, setErrors, user} = useContext(firebaseAuth);
+  const {handleSignup, inputs, setInputs, errors, user} = useContext(firebaseAuth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSignup();
-  }
-  
-  const handleLogout = (e) => {
-    e.preventDefault();
-    authMethods.signout();
-    history.push('/');
   }
 
   const handleChange = e => {
@@ -94,14 +85,13 @@ const Signup = (props) => {
         }
         <button 
           className="btn-primary"
-          disabled={!tos}
+          disabled={!tos || inputs.password === "" || inputs.email === ""}
         >
           Sign up
         </button>
         
       </form>
-      <Link to="/log-in">Login</Link>
-      {/* <button className="btn-secondary" onClick={handleLogout}>Log out</button> */}
+      <p>Already have an account? <Link to="/log-in">Log in here.</Link></p>
     </div>
   )
 }

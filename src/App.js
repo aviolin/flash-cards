@@ -9,6 +9,7 @@ import Deck from './components/Deck';
 import Dashboard from './components/Dashboard';
 import Landing from './components/Landing';
 import Login from './components/Login';
+import Logout from './components/Logout';
 import MyAccount from './components/MyAccount';
 import Nav from './components/Nav';
 import Signup from './components/Signup';
@@ -135,6 +136,9 @@ const App = () => {
             <Route path="/log-in">
               <Login />
             </Route>
+            <Route path="/log-out">
+              <Logout />
+            </Route>
             <Route path="/sign-up">
               <Signup />
             </Route>
@@ -163,6 +167,7 @@ const App = () => {
               <Dashboard 
                 onClick={handleButtons}
                 decks={decks}
+                cards={cards}
                 selectedDecks={selectedDecks}
                 setSelectedDecks={setSelectedDecks}
                 handleButtons={handleButtons}

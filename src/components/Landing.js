@@ -16,8 +16,8 @@ const Landing = () => {
             Dashboard
           </Link>
           <Link
-            className="btn-secondary"
-            to="/"
+            className="btn-tertiary"
+            to="/log-out"
           >
             Log Out
           </Link>
@@ -38,8 +38,13 @@ const Landing = () => {
           </Link>
         </>
       }
-      <p>Or, check out some sample decks: </p>
-      <Link to="/app/cYddMteaU6ZSYhyq5AHg">Test Deck #1</Link>
+      <div className="sample-list">
+        <p>Or, check out some sample decks: </p>
+        <Link to="/app/cYddMteaU6ZSYhyq5AHg" className="link">Test Deck #1</Link>
+        <Link to="/app/cYddMteaU6ZSYhyq5AHg" className="link">Test Deck #1</Link>
+        <Link to="/app/cYddMteaU6ZSYhyq5AHg" className="link">Test Deck #1</Link>
+      </div>
+
     </div>
   )
 }

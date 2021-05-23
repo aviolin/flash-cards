@@ -1,14 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { firebaseAuth } from '../provider/AuthProvider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBolt } from '@fortawesome/free-solid-svg-icons';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { authMethods } from '../firebase/authMethods';
 import { Link, useHistory } from 'react-router-dom';
 
-
-const Login = (props) => {
-  const [tos, setTos] = useState(false);
+const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
 
@@ -17,11 +12,6 @@ const Login = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSignin()
-  }
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-    authMethods.signout();
   }
 
   const handleChange = e => {
@@ -81,15 +71,9 @@ const Login = (props) => {
         }
         <button className="btn-primary">Log in</button>
       </form>
-      <button className="btn-secondary">Forgot?</button>
-      <Link 
-        className="btn-secondary"
-        to="/sign-up"
-      >
-        No account? Sign up!
-      </Link>
-      {/* <button className="btn-secondary" onClick={handleLogout}>Log out</button> */}
-
+      <p>Forgot your credentials? <Link to="/forgot">Reset your password.</Link></p>
+      
+      <p>No account? <Link to="/sign-up">Sign up here!</Link></p>
     </div>
   )
 }

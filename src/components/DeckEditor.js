@@ -69,7 +69,7 @@ const DeckEditor = (props) => {
           Update
         </button>
         <button 
-          className="btn-secondary"
+          className="btn-warning"
           onClick={deleteDeck}
         >
           <FontAwesomeIcon icon={faTrash} /> Delete

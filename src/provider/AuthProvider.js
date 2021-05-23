@@ -5,7 +5,7 @@ import { auth } from '../firebase/firebaseIndex';
 export const firebaseAuth = React.createContext();
 
 const AuthProvider = (props) => {
-  const [inputs, setInputs] = useState({ email: '', password: '' });
+  const [inputs, setInputs] = useState({ email: '', password: '', newEmail: '', newPassword: '' });
   const [errors, setErrors] = useState(null);
   const [user, setUser] = useState(null);
 
@@ -33,12 +33,24 @@ const AuthProvider = (props) => {
     return authMethods.signout();
   }
 
+  const handleChangeEmail = () => {
+    console.log("Changing email...");
+    return authMethods.changeEmail(inputs.newEmail, setErrors);
+  }
+
+  const handleChangePassword = () => {
+    console.log("Changing password...");
+    return authMethods.changePassword(inputs.newPassword, setErrors);
+  }
+
   return (
     <firebaseAuth.Provider
       value={{
         handleSignup,
         handleSignin,
         handleSignout,
+        handleChangeEmail,
+        handleChangePassword,
         inputs,
         setInputs,
         errors,

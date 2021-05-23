@@ -11,6 +11,7 @@ import { firebaseAuth } from '../provider/AuthProvider';
 const Dashboard = ({
   onClick,
   decks,
+  cards,
   selectedDecks,
   setSelectedDecks,
   handleButtons,
@@ -56,7 +57,7 @@ const Dashboard = ({
         type="shuffle"
         classes="btn-primary"
         onClick={onClick}
-        disabled={selectedDecks.length === 0 ? true : false}
+        disabled={cards.length === 0 ? true : false}
         view={<><FontAwesomeIcon icon={faRandom} /> Shuffle!</>}
       />
     </div>

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { firebaseAuth } from '../provider/AuthProvider';
-import { authMethods } from '../firebase/authMethods';
+
+import Navlinks from './Navlinks';
 
 const MobileMenu = ({
   isOpen,
@@ -16,9 +17,10 @@ const MobileMenu = ({
 
   return (
     <div className={isOpen ? "mobile-menu open" : "mobile-menu"}>
-      <ul>
+      <Navlinks closeMenu={closeMenu} />
+      {/* <ul>
         <li>
-          <Link to="/" onClick={() => closeMenu()}>
+          <Link to="/" className="link" onClick={() => closeMenu()}>
             Home
           </Link>
         </li>
@@ -26,21 +28,17 @@ const MobileMenu = ({
         <>
           
           <li>
-            <Link to="/app" onClick={() => closeMenu()}>
+            <Link to="/app" className="link" onClick={() => closeMenu()}>
               Dashboard
             </Link>
           </li>
           <li>
-            <Link to="/my-account" onClick={() => closeMenu()}>
+            <Link to="/my-account" className="link" onClick={() => closeMenu()}>
               My account
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={() => {
-              authMethods.signout();
-              history.push("/app");
-              closeMenu()
-            }}>
+            <Link to="/log-out" className="link" onClick={() => closeMenu()}>
               Log out
             </Link>
           </li>
@@ -48,18 +46,18 @@ const MobileMenu = ({
         :
         <>
           <li>
-            <Link to="/sign-up" onClick={() => closeMenu()}>
+            <Link to="/sign-up" className="link" onClick={() => closeMenu()}>
               Sign up
             </Link>
           </li>
           <li>
-            <Link to="/log-in" onClick={() => closeMenu()}>
+            <Link to="/log-in" className="link" onClick={() => closeMenu()}>
               Log in
             </Link>
           </li>
         </>
         }
-      </ul>
+      </ul> */}
     </div>
   )
 }

@@ -75,7 +75,7 @@ const CardEditor = ({
       }
       <div className="buttons">
         <button 
-          className="btn-save"
+          className="btn-secondary"
           name="update-card"
           onClick={updateCard}
         >    
@@ -83,7 +83,7 @@ const CardEditor = ({
         </button>
         {isAddingCard ? null : 
           <button
-            className="btn-secondary"
+            className="btn-warning"
             name="delete-card"
             onClick={deleteCard}
           >
