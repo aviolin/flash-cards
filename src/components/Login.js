@@ -3,6 +3,12 @@ import { firebaseAuth } from '../provider/AuthProvider';
 import { authMethods } from '../firebase/authMethods';
 import { Link, useHistory } from 'react-router-dom';
 
+import PageHeading from '../components/new/PageHeading';
+import TextInput from '../components/TextInput';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
@@ -46,34 +52,40 @@ const Login = () => {
 
   return (
     <div className="login">
+      <PageHeading 
+        title="Hey there!"
+        subtitle="Log in with your credentials."
+      />
       <form onSubmit={handleSubmit}>
-        <h1>Log in</h1>
-        <label htmlFor="email">Email:</label>
-        <input 
+        <TextInput 
+          labelText="Email"
+          icon={<FontAwesomeIcon icon={faEnvelope} />}
           id="email"
-          type="text" 
           name="email"
           value={inputs.email}
           onChange={handleChange}
-        
+          placeholder="youremail@example.com"
         />
-        <label htmlFor="password">Password:</label>
-        <input 
+        <TextInput 
+          labelText="Password"
+          icon={<FontAwesomeIcon icon={faLock} />}
+          type="password"
           id="password"
-          type="password" 
           name="password"
           value={inputs.password}
           onChange={handleChange}
-
         />
         {errorMessage === "" ? null :
           <p className="error">{errors}: {errorMessage}</p> 
         }
-        <button className="btn-primary">Log in</button>
+        <button 
+          className="btn btn-primary"
+          disabled={inputs.password === "" || inputs.email === ""}        
+        >Go!</button>
       </form>
-      <p>Forgot your credentials? <Link to="/forgot">Reset your password.</Link></p>
+      <p>Forgot your credentials? <Link to="/forgot">Reset your password</Link>.</p>
       
-      <p>No account? <Link to="/sign-up">Sign up here!</Link></p>
+      <p>No account? <Link to="/sign-up">Sign up</Link>.</p>
     </div>
   )
 }

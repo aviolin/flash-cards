@@ -5,10 +5,10 @@ const Header = ({
   children
 }) => {
   return (
-    <header>
-      <h2>
+    <header className="card-header">
+      <p>
         {title}
-      </h2>
+      </p>
       <div>
         {children}
       </div>

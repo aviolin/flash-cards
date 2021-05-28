@@ -40,9 +40,9 @@ const Landing = () => {
       }
       <div className="sample-list">
         <p>Or, check out some sample decks: </p>
-        <Link to="/app/cYddMteaU6ZSYhyq5AHg" className="link">Test Deck #1</Link>
-        <Link to="/app/cYddMteaU6ZSYhyq5AHg" className="link">Test Deck #1</Link>
-        <Link to="/app/cYddMteaU6ZSYhyq5AHg" className="link">Test Deck #1</Link>
+        <Link to="/app/d/cYddMteaU6ZSYhyq5AHg" className="link">Test Deck #1</Link>
+        <Link to="/app/d/cYddMteaU6ZSYhyq5AHg" className="link">Test Deck #1</Link>
+        <Link to="/app/d/cYddMteaU6ZSYhyq5AHg" className="link">Test Deck #1</Link>
       </div>
 
     </div>

@@ -1,24 +1,24 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faBolt } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import Navlinks from './Navlinks';
 
 const Nav = (props) => {
   return (
     <header className="navbar">
-      <div className="nav-inner">
+      <div className="navbar-inner">
         <Link to="/" className="logo">
-          Flash <FontAwesomeIcon icon={faBolt} /> Cards
+          Flash Cards
         </Link>
         <button 
-          className="btn-icon small-screen-only"
+          className="btn btn-icon small-screen-only"
           name="toggle-menu"
           onClick={props.onClick}
         >
           <FontAwesomeIcon icon={faBars} size="2x" />
         </button>
-        <nav>
+        <nav className="large-screen-only">
           <Navlinks closeMenu={() => null}/>
         </nav>
       </div>

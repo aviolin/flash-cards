@@ -1,6 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { firebaseAuth } from '../provider/AuthProvider';
 import { Link, useHistory } from 'react-router-dom';
+import PageHeading from '../components/new/PageHeading';
+import TextInput from '../components/TextInput';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faBars } from '@fortawesome/free-solid-svg-icons';
 
 const Signup = (props) => {
   const [tos, setTos] = useState(false);
@@ -46,27 +50,31 @@ const Signup = (props) => {
   }, [errors])
 
   return (
-    <div className="login">
+    <>
+      <PageHeading 
+        title="Welcome!"
+        subtitle="Create an account."
+      />
       <form onSubmit={handleSubmit}>
-        <h1>Sign up</h1>
-        <label htmlFor="email">Email:</label>
-        <input 
+
+        <TextInput 
+          labelText="Email"
           id="email"
-          type="text" 
           name="email"
+          placeholder="youremail@example.com"
           value={inputs.email}
           onChange={handleChange}
-        
+          icon={<FontAwesomeIcon icon={faEnvelope} />}
         />
-        <label htmlFor="password">Password:</label>
-        <input 
+        <TextInput 
+          labelText="Password"
           id="password"
-          type="password" 
           name="password"
+          type="password"
           value={inputs.password}
           onChange={handleChange}
-
         />
+
         <div className="form-row">
           <input
             id="tos"
@@ -77,22 +85,22 @@ const Signup = (props) => {
           />
           <label htmlFor="tos">
             <span></span>
-            I agree to the Terms of Service
+            I agree to the <Link to="/tos">Terms of Service</Link>.
           </label>
         </div>
         {errorMessage === "" ? null :
           <p className="error">{errors}: {errorMessage}</p> 
         }
         <button 
-          className="btn-primary"
+          className="btn btn-primary"
           disabled={!tos || inputs.password === "" || inputs.email === ""}
         >
-          Sign up
+          Go!
         </button>
         
       </form>
-      <p>Already have an account? <Link to="/log-in">Log in here.</Link></p>
-    </div>
+      <p>Already have an account? <Link to="/log-in">Log in here</Link>.</p>
+    </>
   )
 }
 

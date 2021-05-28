@@ -7,7 +7,7 @@ import useGetShuffledCards from './hooks/useGetShuffledCards';
 import Container from './components/Container';
 import Deck from './components/Deck';
 import Dashboard from './components/Dashboard';
-import Landing from './components/Landing';
+import Landing from './components/new/Landing';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import MyAccount from './components/MyAccount';
@@ -130,55 +130,63 @@ const App = () => {
         isOpen={isMenuOpen}
         setIsOpen={setIsMenuOpen}
       />
-      <main>
-        <Container>
-          <Switch>
-            <Route path="/log-in">
-              <Login />
-            </Route>
-            <Route path="/log-out">
-              <Logout />
-            </Route>
-            <Route path="/sign-up">
-              <Signup />
-            </Route>
-            <Route path="/my-account">
-              <MyAccount />
-            </Route>
-            <Route path="/app/shuffle">
-              <Deck 
-                shuffledCards={shuffledCards}
-                onClick={handleButtons}
-                isAddingCard={isAddingCard}
-                isEditingCard={isEditingCard}
-                curSelectedDeck={curSelectedDeck}
-              />
-            </Route>
-            <Route path="/app/:hash">
-             <Deck 
-                shuffledCards={shuffledCards}
-                onClick={handleButtons}
-                isAddingCard={isAddingCard}
-                isEditingCard={isEditingCard}
-                curSelectedDeck={curSelectedDeck}
-              />
-            </Route>
-            <Route path="/app">
-              <Dashboard 
-                onClick={handleButtons}
-                decks={decks}
-                cards={cards}
-                selectedDecks={selectedDecks}
-                setSelectedDecks={setSelectedDecks}
-                handleButtons={handleButtons}
-              />
-            </Route>
-            <Route path="/">
-              <Landing />
-            </Route>
-          </Switch>
-        </Container>
-      </main>
+        <Switch>
+          <Route path="/log-in">
+          <main>
+            <Login />
+          </main>
+          </Route>
+          <Route path="/log-out">
+          <main>
+            <Logout />
+          </main>
+          </Route>
+          <Route path="/sign-up">
+          <main>
+            <Signup />
+          </main>
+          </Route>
+          <Route path="/my-account">
+          <main>
+            <MyAccount />
+          </main>
+          </Route>
+          <Route path="/app/shuffle">
+            <Deck 
+              shuffledCards={shuffledCards}
+              onClick={handleButtons}
+              isAddingCard={isAddingCard}
+              isEditingCard={isEditingCard}
+              curSelectedDeck={curSelectedDeck}
+            />
+          </Route>
+          <Route path="/app/d/:hash">
+            <Deck 
+              shuffledCards={shuffledCards}
+              onClick={handleButtons}
+              isAddingCard={isAddingCard}
+              isEditingCard={isEditingCard}
+              curSelectedDeck={curSelectedDeck}
+            />
+          </Route>
+          <Route path="/app">
+          <main>
+            <Dashboard 
+              onClick={handleButtons}
+              decks={decks}
+              cards={cards}
+              selectedDecks={selectedDecks}
+              setSelectedDecks={setSelectedDecks}
+              handleButtons={handleButtons}
+            />
+          </main>
+          </Route>
+          <Route path="/">
+          <main>
+            <Landing />
+          </main>
+          </Route>
+        </Switch>
     </div>
   )
 }

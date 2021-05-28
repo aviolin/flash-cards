@@ -25,6 +25,7 @@ const Carousel = ({
           key={ele.key}
         >
           {ele}
+{/*           <div className="carousel__card">{ele}</div> */}
         </div>
       )
     });
@@ -94,7 +95,6 @@ const Carousel = ({
        }}
       >
         {carouselItems}
-        
       </div>
       <div className="spacer"></div>
       {showButtons ?

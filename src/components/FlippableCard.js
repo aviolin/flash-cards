@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faReply } from '@fortawesome/free-solid-svg-icons';
+import { faReply, faTimes, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import Header from './Header';
 import Button from './Button';
@@ -31,14 +31,21 @@ const FlippableCard = ({
     </Header>
   ) : (
     <Header title={frontTitle}>
-      <Button 
+      {/* <Button 
         type="edit" 
         onClick={onClick}
-      />
-      <Button 
+      /> */}
+      <button 
+        className="btn btn-icon-small"
+        name="exit"
+        onClick={onClick}
+      >
+        <FontAwesomeIcon icon={faTimes} />&nbsp;&nbsp;Close
+      </button>
+      {/* <Button 
         type="exit" 
         onClick={onClick}
-      />
+      /> */}
     </Header>
   )
 

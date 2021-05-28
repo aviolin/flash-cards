@@ -4,7 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import AuthProvider from './provider/AuthProvider';
 
 //import './index.css';
-import './styles.css';
+import './normalize.css';
+import './styles2.css';
 import App from './App';
 
 ReactDOM.render(

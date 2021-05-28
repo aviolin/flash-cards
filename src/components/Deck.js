@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import FlippableCard from './FlippableCard';
 import Carousel from './Carousel';
 import { Link, useParams } from 'react-router-dom';
@@ -49,16 +49,16 @@ const Deck = ({
   }, [hash])
 
   useEffect(() => {
-    let frontTitle = "Front:";
-    let backTitle = "Back:";
+    let frontTitle = "Front";
+    let backTitle = "Back";
 
     if (isAddingCard) {
-      frontTitle = "New card, front:";
-      backTitle = "New card, back:";
+      frontTitle = "New card, front";
+      backTitle = "New card, back";
     }
     if (isEditingCard) {
-      frontTitle = "Editing front:";
-      backTitle = "Editing back:";
+      frontTitle = "Editing front";
+      backTitle = "Editing back";
     }
 
     let _cards = [];
@@ -135,8 +135,8 @@ const Deck = ({
     <>
       <Carousel 
         items={cards}
-        leftButtonText={<FontAwesomeIcon icon={faArrowLeft} />}
-        rightButtonText={<FontAwesomeIcon icon={faArrowRight} />}
+        leftButtonText={<FontAwesomeIcon icon={faAngleLeft} />}
+        rightButtonText={<FontAwesomeIcon icon={faAngleRight} />}
         animTime={.3}
         previousCallback={slideCallback}
         nextCallback={slideCallback}
