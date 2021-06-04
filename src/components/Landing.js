@@ -5,7 +5,7 @@ import { firebaseAuth } from '../provider/AuthProvider';
 const Landing = () => {
   const { user } = useContext(firebaseAuth);
   return (
-    <div className="landing">
+    <div>
       <h1>Easily create, study and share flashcards.</h1>
       {user ? 
         <>

@@ -30,17 +30,6 @@ const Dashboard = ({
     )
   }
 
-  if (deckToEdit != null) {
-    return (
-      <div className="dashboard">
-        {/* <DeckEditor 
-          deckToEdit={deckToEdit}
-          setDeckToEdit={setDeckToEdit}
-        /> */}
-      </div>
-    )
-  }
-
   return (
     <div className="dashboard">
       <Switch>
@@ -48,6 +37,8 @@ const Dashboard = ({
           <DeckEditor 
             selectedDecks={selectedDecks}
             setSelectedDecks={setSelectedDecks}
+            deckToEdit={deckToEdit}
+            setDeckToEdit={setDeckToEdit}
             cards={cards}
           />
         </Route>
@@ -63,6 +54,10 @@ const Dashboard = ({
           <DeckCreator />
         </Route>
         <Route path="/app">
+          <Breadcrumb
+            to="/"
+            name="Home"
+          />
           <PageHeading 
             title="Dashboard."
             subtitle="Create and edit all your personal decks here."
@@ -80,7 +75,7 @@ const Dashboard = ({
               selectedDecks={selectedDecks}
               setSelectedDecks={setSelectedDecks}
               handleButtons={handleButtons}
-              //setDeckToEdit={setDeckToEdit}
+              setDeckToEdit={setDeckToEdit}
             />
           </div>
           <Button

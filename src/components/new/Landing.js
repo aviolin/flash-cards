@@ -14,6 +14,7 @@ const Landing = () => {
         <img src={heroImage} />
         <h1>Easily create, study and share flashcards.</h1>
       </header>
+      <div className="buttons">
       {user ? 
         <>
           <Link
@@ -24,9 +25,9 @@ const Landing = () => {
           </Link>
           <Link
             className="btn btn-secondary"
-            to="/log-out"
+            to="/my-account"
           >
-            Log Out
+            My Account
           </Link>
         </>
       :
@@ -45,6 +46,7 @@ const Landing = () => {
           </Link>
         </>
       }
+      </div>
 
       <section className="public-decks">
         <p>No account? No problem! Check out some of our public flash cards:</p>

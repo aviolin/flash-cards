@@ -5,13 +5,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faSignOutAlt, faLock, faEnvelope, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import PageHeading from './new/PageHeading';
-import TextInput from './TextInput';
 import Breadcrumb from './new/Breadcrumb';
+import UpdateEmail from './new/UpdateEmail';
+import ChangePassword from './new/ChangePassword';
+import DeleteAccount from './new/DeleteAccount';
+
+import useAuth from '../hooks/useAuth';
 
 const MyAccount = ({
   
 }) => {
-  const { user, inputs, setInputs, handleChangeEmail, handleChangePassword } = useContext(firebaseAuth);
+  const [inputs, setInputs] = useState({ email: "", password: "", newPassword: "" });
+
+  const { 
+    loading, 
+    error, 
+    success, 
+    status, 
+    handleChangeEmail, 
+    handleChangePassword, 
+    handleDeleteAccount 
+  } = useAuth(inputs.email, inputs.password, inputs.newPassword);
+
+  const { user } = useContext(firebaseAuth);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -31,6 +47,10 @@ const MyAccount = ({
     <div className="landing">
       <Switch>
         <Route exact path="/my-account">
+          <Breadcrumb
+            to="/"
+            name="Home"
+          />
           <PageHeading
             title="Your account."
             subtitle="Update your email and password or delete your account."
@@ -54,95 +74,40 @@ const MyAccount = ({
             </Link>
           </div>
           <div className="account-data">
-            <Link to="/" className="btn btn-warning-small"><FontAwesomeIcon icon={faTrash} />&nbsp;&nbsp;&nbsp;Delete Account</Link>
+            <Link to="/my-account/delete-account" className="btn btn-warning-small">
+              <FontAwesomeIcon icon={faTrash} />&nbsp;&nbsp;&nbsp;Delete Account
+            </Link>
           </div>
         </Route>
         <Route exact path="/my-account/change-email">
-          <Breadcrumb 
-            to="/my-account"
-            name="My account"
+          <UpdateEmail 
+            handleChange={handleChange}
+            inputs={inputs}
+            loading={loading}
+            onSubmit={handleChangeEmail}
+            error={error}
+            success={success}
+            status={status}
           />
-          <PageHeading
-            title="Update email."
-            subtitle="Enter your current password and an updated email address."
-          />
-          <form onSubmit={(event) => {
-            event.preventDefault();
-            handleChangeEmail()
-          }}>
-            <TextInput 
-              labelText="Password"
-              icon={<FontAwesomeIcon icon={faLock} />}
-              type="password"
-              id="password"
-              name="password"
-              value={inputs.password}
-              onChange={handleChange}
-            />
-            <TextInput 
-              labelText="Email"
-              icon={<FontAwesomeIcon icon={faEnvelope} />}
-              id="new-email"
-              name="newEmail"
-              value={inputs.email}
-              onChange={handleChange}
-              placeholder="newemail@example.com"
-            />
-            {/* <label htmlFor="new-email">New email:</label>
-            <input 
-              id="new-email"
-              type="text"
-              name="newEmail"
-              onChange={handleChange}
-            /> */}
-            <button className="btn btn-primary">Update Email</button>
-          </form>
         </Route>
         <Route exact path="/my-account/change-password">
-          <Breadcrumb 
-            to="/my-account"
-            name="My account"
+          <ChangePassword 
+            handleChange={handleChange}
+            loading={loading}
+            inputs={inputs}
+            onSubmit={handleChangePassword}
+            error={error}
+            success={success}
+            status={status}
           />
-          <PageHeading
-            title="Change password."
-            subtitle="Please confirm your current password, and enter a new password."
+        </Route>
+        <Route exact path="/my-account/delete-account">
+          <DeleteAccount 
+            handleChange={handleChange}
+            inputs={inputs}
+            onSubmit={handleDeleteAccount}
+            error={error}
           />
-          <form onSubmit={(event) => {
-            event.preventDefault();
-            handleChangePassword();
-          }}>
-            {/* <label htmlFor="new-password">New password:</label>
-            <input 
-              id="new-password"
-              type="password"
-              name="newPassword"
-            />
-            <label htmlFor="confirm-password">Confirm password:</label>
-            <input 
-              name="confirmPassword"
-              id="confirm-password"
-              type="password"
-            /> */}
-            <TextInput 
-              labelText="Current password"
-              icon={<FontAwesomeIcon icon={faLock} />}
-              type="password"
-              id="confirm-password"
-              name="password"
-              value={inputs.password}
-              onChange={handleChange}
-            />
-            <TextInput 
-              labelText="Password"
-              icon={<FontAwesomeIcon icon={faLock} />}
-              type="password"
-              id="new-password"
-              name="newPassword"
-              value={inputs.newPassword}
-              onChange={handleChange}
-            />
-            <button className="btn btn-primary">Change Password</button>
-          </form>
         </Route>
       </Switch>
     </div>

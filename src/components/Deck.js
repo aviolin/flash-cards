@@ -10,7 +10,6 @@ import firebase from 'firebase';
 const Deck = ({ 
   shuffledCards,
   onClick,
-  isAddingCard,
   isEditingCard,
   curSelectedDeck,
 }) => {
@@ -52,15 +51,6 @@ const Deck = ({
     let frontTitle = "Front";
     let backTitle = "Back";
 
-    if (isAddingCard) {
-      frontTitle = "New card, front";
-      backTitle = "New card, back";
-    }
-    if (isEditingCard) {
-      frontTitle = "Editing front";
-      backTitle = "Editing back";
-    }
-
     let _cards = [];
 
     if (hashCards != null) {
@@ -70,26 +60,25 @@ const Deck = ({
     }
 
 
-    if (_cards.length > 0 && !isAddingCard) {
+    if (_cards.length > 0) {
       setCards(_cards.map((ele) => {
         return (
           <FlippableCard 
             key={ele.id}
             frontTitle={frontTitle}
             backTitle={backTitle}
-            frontText={isAddingCard ? "" : ele.front}
-            backText={isAddingCard ? "" : ele.back}
+            frontText={ele.front}
+            backText={ele.back}
             onClick={onClick}
             isFlipped={isCardFlipped}
             setIsFlipped={setIsCardFlipped}
             isEditing={isEditingCard}
-            cardId={isAddingCard ? "" : ele.id}
-            deckId={isAddingCard ? curSelectedDeck : ele.deckId}
-            isAddingCard={isAddingCard}
+            cardId={ele.id}
+            deckId={ele.deckId}
           />
         )
       }));
-    } else {
+    /* } else {
       if (isAddingCard) {
         setCards([
           <FlippableCard 
@@ -106,10 +95,10 @@ const Deck = ({
             isAddingCard={true}
           />
         ])
-      }
+      } */
     }
 
-    }, [shuffledCards, isCardFlipped, onClick, isEditingCard, isAddingCard, curSelectedDeck, hashCards]
+    }, [shuffledCards, isCardFlipped, onClick, isEditingCard, /* isAddingCard, */ curSelectedDeck, hashCards]
   );
 
   if (!canView) {
@@ -120,7 +109,7 @@ const Deck = ({
     )
   }
 
-  if (cards.length === 0 && !isAddingCard) return (
+  if (cards.length === 0) return (
     <div className="landing">
       <p>This deck has no cards. Add a new card in the dashboard!</p>
       <Link to="/app">Dashboard</Link>
@@ -140,7 +129,7 @@ const Deck = ({
         animTime={.3}
         previousCallback={slideCallback}
         nextCallback={slideCallback}
-        showButtons={isEditingCard || isAddingCard ? false : true}
+        showButtons={isEditingCard ? false : true}
       />
     </>
   )

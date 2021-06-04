@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeading, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { firebaseAuth } from '../../provider/AuthProvider';
+import { dbMethods } from '../../firebase/dbMethods';
+import { useHistory } from 'react-router-dom';
 import PageHeading from './PageHeading';
 import Breadcrumb from './Breadcrumb';
 import TextInput from '../TextInput';
 import Accordion from './Accordion';
+import CardCreator from './CardCreator';
 
 const DeckEditor = ({
   selectedDecks,
+  deckToEdit,
+  setDeckToEdit,
   cards
 }) => {
-  const [title, setTitle] = useState("");
-  const [isPublic, setIsPublic] = useState(false);
+  const { user } = useContext(firebaseAuth);
+  const history = useHistory();
+  const [title, setTitle] = useState(deckToEdit.title);
+  const [isPublic, setIsPublic] = useState(!deckToEdit.private);
+
+  const updateDeck = (event) => {
+    event.preventDefault();
+    dbMethods.updateDeck(user, deckToEdit.id, title, !isPublic)
+    setDeckToEdit({...deckToEdit, title, private: !isPublic});
+  }
+
+  const deleteDeck = (event) => {
+    event.preventDefault();
+    dbMethods.deleteDeck(user, deckToEdit.id);
+    history.push('/app');
+    setDeckToEdit(null);
+  }
 
   return (
     <>
@@ -23,7 +44,7 @@ const DeckEditor = ({
         title="Edit deck."
         subtitle="Update the title and privacy status of your deck."
       />
-      <form>
+      <form onSubmit={updateDeck}>
         <TextInput 
           labelText="Title"
           icon={<FontAwesomeIcon icon={faHeading} />}
@@ -61,17 +82,17 @@ const DeckEditor = ({
           deckId={selectedDecks[0]}
           cards={cards}
         />
-        <button className="btn btn-tertiary highlighted">
-          Add card <FontAwesomeIcon icon={faPlus} />
-        </button>
+        <CardCreator 
+          deckId={selectedDecks[0]}
+        />
       </section>
       <section>
         <PageHeading 
-          title="Remove deck."
+          title="Delete deck."
           subtitle="Permanently delete this deck and all its cards."
           heading="h2"
         />
-        <form>
+        <form onSubmit={deleteDeck}>
           <button
             className="btn btn-warning"
           >Delete</button>

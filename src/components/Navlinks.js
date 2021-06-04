@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { firebaseAuth } from '../provider/AuthProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faSignOutAlt, faTable } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faSignOutAlt, faSignInAlt, faTable, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Navlinks = ({
   closeMenu
@@ -33,12 +33,12 @@ const Navlinks = ({
       <>
         <li>
           <Link to="/sign-up" className="link" onClick={() => closeMenu()}>
-            Sign up
+            <FontAwesomeIcon icon={faUserPlus} />&nbsp;&nbsp;&nbsp;Sign up
           </Link>
         </li>
         <li>
           <Link to="/log-in" className="link" onClick={() => closeMenu()}>
-            Log in
+            <FontAwesomeIcon icon={faSignInAlt} />&nbsp;&nbsp;&nbsp;Log in
           </Link>
         </li>
       </>

@@ -6,12 +6,16 @@ import TextInput from '../components/TextInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faBars } from '@fortawesome/free-solid-svg-icons';
 
-const Signup = (props) => {
+import useAuth from '../hooks/useAuth';
+
+const Signup = () => {
   const [tos, setTos] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [inputs, setInputs] = useState({ email: "", password: "" });
   const history = useHistory();
 
-  const {handleSignup, inputs, setInputs, errors, user} = useContext(firebaseAuth);
+  const { userData, status, error, handleSignup} = useAuth(inputs.email, inputs.password);
+  const { user } = useContext(firebaseAuth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +34,12 @@ const Signup = (props) => {
   }, [user]);
 
   useEffect(() => {
-    switch (errors) {
+    if (error === null) {
+      setErrorMessage("");
+      return;
+    }
+
+    switch (error.code) {
       case null:
         return;
       case "auth/weak-password":
@@ -47,7 +56,7 @@ const Signup = (props) => {
         return;
     }
 
-  }, [errors])
+  }, [error])
 
   return (
     <>
@@ -89,13 +98,13 @@ const Signup = (props) => {
           </label>
         </div>
         {errorMessage === "" ? null :
-          <p className="error">{errors}: {errorMessage}</p> 
+          <p className="error">{errorMessage}</p> 
         }
         <button 
           className="btn btn-primary"
           disabled={!tos || inputs.password === "" || inputs.email === ""}
         >
-          Go!
+          {status === "loading" ? "Loading . . . " : status === "success" ? "Success!" : "Sign Up"}
         </button>
         
       </form>

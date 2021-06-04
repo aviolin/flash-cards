@@ -31,21 +31,20 @@ const FlippableCard = ({
     </Header>
   ) : (
     <Header title={frontTitle}>
-      {/* <Button 
-        type="edit" 
+      {/* <button 
+        className="btn btn-icon-small"
+        name="edit"
         onClick={onClick}
-      /> */}
+      >
+        <FontAwesomeIcon icon={faEdit} />&nbsp;Edit
+      </button> */}
       <button 
         className="btn btn-icon-small"
         name="exit"
         onClick={onClick}
       >
-        <FontAwesomeIcon icon={faTimes} />&nbsp;&nbsp;Close
+        <FontAwesomeIcon icon={faTimes} />&nbsp;Close
       </button>
-      {/* <Button 
-        type="exit" 
-        onClick={onClick}
-      /> */}
     </Header>
   )
 

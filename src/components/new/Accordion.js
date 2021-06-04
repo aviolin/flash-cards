@@ -24,7 +24,7 @@ const Accordion = ({
             value={ele.id}
             onClick={handleClick}
           >
-            <span>Card {ele.id}</span> 
+            <span className="truncate">"{ele.front}"</span> 
             {card === ele.id ?
               <FontAwesomeIcon icon={faAngleUp} />
             :
@@ -34,7 +34,6 @@ const Accordion = ({
           {card === ele.id ? 
             <CardEditor
               card={ele}
-              user={null}
             />
           :
             null

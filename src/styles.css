@@ -42,6 +42,10 @@ p.error {
   color: red;
 }
 
+p.success {
+  color: dodgerblue;
+}
+
 /* Buttons */
 button, a {
   cursor: pointer;

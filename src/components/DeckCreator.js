@@ -17,7 +17,7 @@ const DeckCreator = () => {
 
   const createDeck = (event) => {
     event.preventDefault();
-    dbMethods.createDeck(user, title);
+    dbMethods.createDeck(user, title, isPublic);
     history.push("/app");
   }
 

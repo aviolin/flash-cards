@@ -8,6 +8,7 @@ $color-off-light: #f7f6ff;
 
 $color-links: dodgerblue;
 $color-warning: #ff6262;
+$color-warning-light: #ff8c8c;
 
 $border-radius: 3px;
 $border-width: 2px;
@@ -24,6 +25,7 @@ $border-width: 2px;
   font-weight: 700;
   color: $color-dark;
   transition: background-color .3s, border-color .3s;
+  width: 100%;
 
   &:disabled {
     background-color: $color-gray;
@@ -65,12 +67,17 @@ p {
   }
 }
 
-button.btn {
-  width: 100%;
+
+button, a {
+  cursor: pointer;
 }
 
 .btn {
   @include large-button;
+
+  span {
+    pointer-events: none;
+  }
 
   &.btn-secondary {
     background-color: transparent;
@@ -78,7 +85,7 @@ button.btn {
 
   &.btn-tertiary {
     background-color: $color-off-light;
-    border: 0;
+    border-color: $color-off-light;
     display: flex;
     justify-content: space-between;
 
@@ -101,6 +108,17 @@ button.btn {
     text-align: left;
     border: none;
     width: auto;
+  }
+
+  &.btn-share {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-weight: 500;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
   }
 
   &.btn-icon {
@@ -147,6 +165,7 @@ label {
   font-weight: 500;
   color: $color-gray;
   display: block;
+  cursor: pointer;
 }
 
 input[type=text],
@@ -181,7 +200,7 @@ input[type=checkbox] {
         background-color: transparent;
         position: absolute;
         left: .7rem;
-        top: -.4rem;
+        top: -.6rem;
         transform: rotate(30deg);
         transition: background-color .3s;
       }
@@ -193,7 +212,7 @@ input[type=checkbox] {
         background-color: transparent;
         position: absolute;
         left: .25rem;
-        top: .35rem;
+        top: .15rem;
         transform: rotate(-50deg);
         transition: background-color .3s;
       }
@@ -214,6 +233,7 @@ textarea {
   border-radius: $border-radius;
   width: 100%;
   min-height: 5rem;
+  padding: .5rem;
 }
 
 .navbar {
@@ -320,11 +340,11 @@ form {
   }
   
   .btn {
-    margin: 3rem 0;
+    margin-top: 3rem;
   }
 
   &.card-editor {
-    border: $border-width solid $color-secondary;
+    border: $border-width solid $color-off-light;
     border-top: 0;
     padding: 1rem;
     margin-top: -1rem;
@@ -368,9 +388,24 @@ form {
   }
 }
 
+.spinner {
+  animation: spin 1s linear infinite;
+}
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
 
+  to {
+    transform: rotate(360deg);
+  }
+}
 
+.container.center {
+  display: grid;
+  place-content: center;
+}
 
 
 .carousel {
@@ -391,9 +426,7 @@ form {
     z-index: 9;
     width: 5rem;
     height: 5rem;
-    color: white;
     font-size: 3rem;
-    /* background-color: $color-dark; */
     bottom: 1rem;
     margin: 0 1rem;
     display: grid;
@@ -401,13 +434,8 @@ form {
     border-radius: 50%;
     border: 0;
     background-color: transparent;
-    color: $color-primary;
+    color: $color-dark;
     transition: .3s;
-
-    &:hover {
-      color: $color-primary;
-      background-color: $color-light;
-    }
 
     &.left {
       left: 0;
@@ -433,6 +461,9 @@ form {
   &__item {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   /* &__card {
@@ -495,6 +526,12 @@ form {
       font-size: .8rem;
       color: $color-gray;
     }
+
+    > div {
+      display: flex;
+      gap: 1rem;
+    }
+  
   }
 
   p {
@@ -538,4 +575,181 @@ form {
       }
     }
   }
+}
+
+.truncate {
+  /* width: 250px; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wrap {
+  word-break: break-word;
+}
+
+
+
+@media only screen and (min-width: 768px) {
+
+  main {
+    max-width: 768px;
+    margin: 4rem auto 0 auto;
+  }
+
+  .large-screen-only {
+    display: block;
+  }
+
+  .small-screen-only {
+    display: none;
+  }
+
+  .navbar {
+
+    ul {
+      margin: 0;
+      list-style-type: none;
+      display: flex;
+      li {
+        margin-left: 2rem;
+
+        a {
+          color: $color-dark;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  header {
+    &.hero {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      margin-top: 10rem;
+
+      h1 {
+        font-size: 2rem;
+        text-align: left;
+      }
+
+      img {
+        max-height: 20rem;
+        width: auto;
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 10rem;
+    > * {
+      flex: 1;
+
+    }
+  }
+
+  .carousel {
+    button.btn-carousel {
+      bottom: 50%;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .flippable {
+    width: 60vw;
+    height: 50vh;
+    margin: auto;
+  }
+
+  a, ul li a {
+    transition: .3s;
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  .btn {
+    &:hover {
+      background-color: $color-secondary;
+      border-color: $color-secondary;
+      color: $color-dark;
+    }
+  
+    &.btn-tertiary {
+      &:hover {
+        background-color: transparent;
+        border-color: $color-off-light;
+
+        &.highlighted {
+          border-color: $color-secondary;
+        }
+      }
+    }
+  
+    &.btn-warning {
+      &:hover {
+        background-color: $color-warning-light;
+        border-color: $color-warning-light;
+      }
+    }
+  
+    &.btn-warning-small {
+      color: $color-warning;
+      background-color: transparent;
+      display: inline;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      border: none;
+      width: auto;
+    }
+  
+    &.btn-share {
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      font-weight: 500;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+  
+    &.btn-icon {
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      width: auto;
+      font-weight: 500;
+    }
+  
+    &.btn-icon-small, &.btn-icon {
+      transition: .3s;
+      &:hover {
+        color: $color-primary;
+        background-color: transparent;
+      }
+
+    }
+  }
+
+  &:disabled {
+    &:hover {
+      background-color: $color-gray;
+      border-color: $color-gray;
+    }
+  }
+
+}
+
+
+@media only screen and (min-width: 1024px) {
+
 }

@@ -67,6 +67,10 @@ p.error {
   color: red;
 }
 
+p.success {
+  color: $color-primary;
+}
+
 /* Buttons */
 
 button, a {
@@ -751,3 +755,4 @@ header.hero {
     }
   }
 }
+

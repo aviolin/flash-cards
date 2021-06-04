@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faPlus, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faShare, faClone } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 
 const SelectableDeck = ({
@@ -11,9 +11,10 @@ const SelectableDeck = ({
   setSelectedDecks,
   handleButtons,
   length,
-  //setDeckToEdit
+  setDeckToEdit
 }) => {
   const history = useHistory();
+  const [shareIsOpen, setShareIsOpen] = useState(false);
 
   return (
     <li 
@@ -30,9 +31,9 @@ const SelectableDeck = ({
               toggleDeck(event, id)
             }}
           />
-          <label htmlFor="checkbox">
+          <label htmlFor="checkbox" className="truncate">
             <span></span>
-            <strong>{title}</strong> ({length} {length === 1 ? "card" : "cards"})
+            <strong >{title}</strong> ({length} {length === 1 ? "card" : "cards"})
           </label>
       </div>
       <div className="button-row">
@@ -40,24 +41,12 @@ const SelectableDeck = ({
           className="btn btn-icon"
           onClick={event => {
             event.stopPropagation();
-            //setDeckToEdit();
-            console.log("ID:", id)
+            setDeckToEdit();
             setSelectedDecks([id]);
             history.push("/app/edit");
           }}
         >
-          <FontAwesomeIcon icon={faEdit} /> Edit
-        </button>
-        <button 
-          className="btn btn-icon"
-          name="add-card"
-          value={id}
-          onClick={event => {
-            event.stopPropagation();
-            handleButtons(event);
-          }}
-        >
-          <FontAwesomeIcon icon={faPlus} /> Add card
+          <FontAwesomeIcon icon={faEdit} /> Edit & add cards
         </button>
         <button 
           className="btn btn-icon"
@@ -65,12 +54,27 @@ const SelectableDeck = ({
           value={id}
           onClick={event => {
             event.stopPropagation();
-            handleButtons(event);
+            setShareIsOpen(prev => !prev);
           }}
         >
           <FontAwesomeIcon icon={faShare} /> Share
         </button>
       </div>
+
+      {shareIsOpen ?
+        <button 
+          className="btn btn-share"
+          onClick={() => {
+            const copyText = "localhost:3000/app/d/" + id;
+            navigator.clipboard.writeText(copyText);
+          }}
+        >
+          &nbsp;<span className="wrap">localhost:3000/app/d/{id}</span><br/>
+          <div><FontAwesomeIcon icon={faClone} /> Copy to clipboard</div>
+        </button>
+        :
+        null
+      }
     </li>
   )
 }

@@ -33,8 +33,8 @@ p.error {
   color: #ff6262;
 }
 
-button.btn {
-  width: 100%;
+button, a {
+  cursor: pointer;
 }
 
 .btn {
@@ -50,11 +50,16 @@ button.btn {
   color: #504f5b;
   -webkit-transition: background-color .3s, border-color .3s;
   transition: background-color .3s, border-color .3s;
+  width: 100%;
 }
 
 .btn:disabled {
   background-color: #9593a6;
   border-color: #9593a6;
+}
+
+.btn span {
+  pointer-events: none;
 }
 
 .btn.btn-secondary {
@@ -63,7 +68,7 @@ button.btn {
 
 .btn.btn-tertiary {
   background-color: #f7f6ff;
-  border: 0;
+  border-color: #f7f6ff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -90,6 +95,22 @@ button.btn {
   text-align: left;
   border: none;
   width: auto;
+}
+
+.btn.btn-share {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  font-weight: 500;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: left;
 }
 
 .btn.btn-icon {
@@ -135,6 +156,7 @@ label {
   font-weight: 500;
   color: #9593a6;
   display: block;
+  cursor: pointer;
 }
 
 input[type=text],
@@ -173,7 +195,7 @@ input[type=checkbox] + label span:before {
   background-color: transparent;
   position: absolute;
   left: .7rem;
-  top: -.4rem;
+  top: -.6rem;
   -webkit-transform: rotate(30deg);
           transform: rotate(30deg);
   -webkit-transition: background-color .3s;
@@ -187,7 +209,7 @@ input[type=checkbox] + label span:after {
   background-color: transparent;
   position: absolute;
   left: .25rem;
-  top: .35rem;
+  top: .15rem;
   -webkit-transform: rotate(-50deg);
           transform: rotate(-50deg);
   -webkit-transition: background-color .3s;
@@ -204,6 +226,7 @@ textarea {
   border-radius: 3px;
   width: 100%;
   min-height: 5rem;
+  padding: .5rem;
 }
 
 .navbar {
@@ -316,11 +339,11 @@ form .input-block .input-row {
 }
 
 form .btn {
-  margin: 3rem 0;
+  margin-top: 3rem;
 }
 
 form.card-editor {
-  border: 2px solid #d5f7e6;
+  border: 2px solid #f7f6ff;
   border-top: 0;
   padding: 1rem;
   margin-top: -1rem;
@@ -371,6 +394,39 @@ form.card-editor {
   font-size: 1.1rem;
 }
 
+.spinner {
+  -webkit-animation: spin 1s linear infinite;
+          animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.container.center {
+  display: -ms-grid;
+  display: grid;
+  place-content: center;
+}
+
 .carousel {
   overflow: hidden;
   width: 100%;
@@ -400,9 +456,7 @@ form.card-editor {
   z-index: 9;
   width: 5rem;
   height: 5rem;
-  color: white;
   font-size: 3rem;
-  /* background-color: $color-dark; */
   bottom: 1rem;
   margin: 0 1rem;
   display: -ms-grid;
@@ -411,14 +465,9 @@ form.card-editor {
   border-radius: 50%;
   border: 0;
   background-color: transparent;
-  color: #5ae4a8;
+  color: #504f5b;
   -webkit-transition: .3s;
   transition: .3s;
-}
-
-.carousel button.btn-carousel:hover {
-  color: #5ae4a8;
-  background-color: white;
 }
 
 .carousel button.btn-carousel.left {
@@ -449,6 +498,16 @@ form.card-editor {
 .carousel__item {
   width: 100%;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .flippable {
@@ -529,6 +588,13 @@ form.card-editor {
   color: #9593a6;
 }
 
+.flippable header.card-header > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
+}
+
 .flippable p {
   word-break: break-word;
   -webkit-hyphens: auto;
@@ -564,5 +630,155 @@ form.card-editor {
 
 .flippable .curl:hover .icon {
   color: #5ae4a8;
+}
+
+.truncate {
+  /* width: 250px; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wrap {
+  word-break: break-word;
+}
+
+@media only screen and (min-width: 768px) {
+  main {
+    max-width: 768px;
+    margin: 4rem auto 0 auto;
+  }
+  .large-screen-only {
+    display: block;
+  }
+  .small-screen-only {
+    display: none;
+  }
+  .navbar ul {
+    margin: 0;
+    list-style-type: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .navbar ul li {
+    margin-left: 2rem;
+  }
+  .navbar ul li a {
+    color: #504f5b;
+    text-decoration: none;
+  }
+  header.hero {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-top: 10rem;
+  }
+  header.hero h1 {
+    font-size: 2rem;
+    text-align: left;
+  }
+  header.hero img {
+    max-height: 20rem;
+    width: auto;
+  }
+  .buttons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 10rem;
+  }
+  .buttons > * {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+  }
+  .carousel button.btn-carousel {
+    bottom: 50%;
+  }
+  .carousel button.btn-carousel:hover {
+    color: #5ae4a8;
+  }
+  .flippable {
+    width: 60vw;
+    height: 50vh;
+    margin: auto;
+  }
+  a, ul li a {
+    -webkit-transition: .3s;
+    transition: .3s;
+  }
+  a:hover, ul li a:hover {
+    color: #5ae4a8;
+  }
+  .btn:hover {
+    background-color: #d5f7e6;
+    border-color: #d5f7e6;
+    color: #504f5b;
+  }
+  .btn.btn-tertiary:hover {
+    background-color: transparent;
+    border-color: #f7f6ff;
+  }
+  .btn.btn-tertiary:hover.highlighted {
+    border-color: #d5f7e6;
+  }
+  .btn.btn-warning:hover {
+    background-color: #ff8c8c;
+    border-color: #ff8c8c;
+  }
+  .btn.btn-warning-small {
+    color: #ff6262;
+    background-color: transparent;
+    display: inline;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    border: none;
+    width: auto;
+  }
+  .btn.btn-share {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-weight: 500;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    text-align: left;
+  }
+  .btn.btn-icon {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: auto;
+    font-weight: 500;
+  }
+  .btn.btn-icon-small, .btn.btn-icon {
+    -webkit-transition: .3s;
+    transition: .3s;
+  }
+  .btn.btn-icon-small:hover, .btn.btn-icon:hover {
+    color: #5ae4a8;
+    background-color: transparent;
+  }
+  :disabled:hover {
+    background-color: #9593a6;
+    border-color: #9593a6;
+  }
 }
 /*# sourceMappingURL=styles2.css.map */

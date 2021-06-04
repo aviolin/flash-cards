@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { firebaseAuth } from '../provider/AuthProvider';
-import { authMethods } from '../firebase/authMethods';
 import { Link, useHistory } from 'react-router-dom';
+
+import useAuth from '../hooks/useAuth';
 
 import PageHeading from '../components/new/PageHeading';
 import TextInput from '../components/TextInput';
@@ -12,12 +13,14 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
+  const [inputs, setInputs] = useState({ email: "", password: "" });
 
-  const {user, handleSignin, inputs, setInputs, errors, setErrors} = useContext(firebaseAuth);
+  const { userData, status, error, handleLogin} = useAuth(inputs.email, inputs.password);
+  const { user } = useContext(firebaseAuth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSignin()
+    handleLogin();
   }
 
   const handleChange = e => {
@@ -32,7 +35,12 @@ const Login = () => {
   }, [user]);
 
   useEffect(() => {
-    switch (errors) {
+    if (error === null) {
+      setErrorMessage("");
+      return;
+    }
+
+    switch (error.code) {
       case null:
         return;
       case "auth/user-not-found":
@@ -43,12 +51,13 @@ const Login = () => {
         return;
       case "auth/invalid-email":
         setErrorMessage("Please enter a valid email address.");
+        return;
       default:
         setErrorMessage("Something went wrong. Please try again.");
         return;
     }
 
-  }, [errors]);
+  }, [error]);
 
   return (
     <div className="login">
@@ -76,12 +85,14 @@ const Login = () => {
           onChange={handleChange}
         />
         {errorMessage === "" ? null :
-          <p className="error">{errors}: {errorMessage}</p> 
+          <p className="error">{errorMessage}</p> 
         }
         <button 
           className="btn btn-primary"
           disabled={inputs.password === "" || inputs.email === ""}        
-        >Go!</button>
+        >
+          {status === "loading" ? "Loading . . . " : status === "success" ? "Success!" : "Go!"}
+        </button>
       </form>
       <p>Forgot your credentials? <Link to="/forgot">Reset your password</Link>.</p>
       

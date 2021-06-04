@@ -1,17 +1,18 @@
 import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { firebaseAuth } from '../provider/AuthProvider';
-import { authMethods } from '../firebase/authMethods';
 import Spinner from './Spinner';
+
+import useAuth from '../hooks/useAuth';
 
 const Logout = () => {
   const { user } = useContext(firebaseAuth);
+  const { handleLogout } = useAuth()
   const history = useHistory();
 
   useEffect(() => {
     if (!user) return;
-
-    authMethods.signout();
+    handleLogout();
     setTimeout(() => history.push("/"), 1000);
 
   }, [user])

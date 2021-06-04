@@ -4,7 +4,6 @@ import { firebaseAuth } from './provider/AuthProvider';
 import useOnUserSnapshot from './hooks/useOnUserSnapshot';
 import useGetShuffledCards from './hooks/useGetShuffledCards';
 
-import Container from './components/Container';
 import Deck from './components/Deck';
 import Dashboard from './components/Dashboard';
 import Landing from './components/new/Landing';
@@ -14,6 +13,7 @@ import MyAccount from './components/MyAccount';
 import Nav from './components/Nav';
 import Signup from './components/Signup';
 import MobileMenu from './components/MobileMenu';
+import Test from './components/new/Test';
 
 import { Route, Switch, useHistory } from 'react-router-dom';
 
@@ -39,7 +39,6 @@ const App = () => {
   const [shuffledCards, setShuffledCards] = useState([]);
 
   const [isEditingCard, setIsEditingCard] = useState(false);
-  const [isAddingCard, setIsAddingCard] = useState(false);
 
   const history = useHistory();
   const { user } = useContext(firebaseAuth);
@@ -66,18 +65,8 @@ const App = () => {
     console.log("Button clicked: ", event.target.name);
 
     switch (event.target.name) {
-      case "add-card":
-        setCurSelectedDeck(event.target.value);
-        setIsAddingCard(true);
-        history.push("/app/shuffle");
-        return;
       case "cancel":
         setIsEditingCard(false);
-
-        if (isAddingCard) {
-          setIsAddingCard(false);
-          history.push("/app");
-        }
         return;
 
       case "edit":
@@ -108,10 +97,6 @@ const App = () => {
 
       case "update-card":
         setIsEditingCard(false);
-        if (isAddingCard) {
-          setIsAddingCard(false);
-          history.push("/app");
-        }
         return;
 
       case "delete-card":
@@ -131,6 +116,9 @@ const App = () => {
         setIsOpen={setIsMenuOpen}
       />
         <Switch>
+          <Route path="/test">
+            <Test />
+          </Route>
           <Route path="/log-in">
           <main>
             <Login />
@@ -155,7 +143,6 @@ const App = () => {
             <Deck 
               shuffledCards={shuffledCards}
               onClick={handleButtons}
-              isAddingCard={isAddingCard}
               isEditingCard={isEditingCard}
               curSelectedDeck={curSelectedDeck}
             />
@@ -164,7 +151,6 @@ const App = () => {
             <Deck 
               shuffledCards={shuffledCards}
               onClick={handleButtons}
-              isAddingCard={isAddingCard}
               isEditingCard={isEditingCard}
               curSelectedDeck={curSelectedDeck}
             />

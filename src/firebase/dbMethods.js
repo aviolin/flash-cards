@@ -5,7 +5,7 @@ import DeckCreator from '../components/DeckCreator';
 export const dbMethods = {
 
   // SEND TO DATABASE
-  createDeck: (user, title) => {
+  createDeck: (user, title, isPublic) => {
     if (!user) {
       console.log("No user selected.");
       return;
@@ -18,7 +18,7 @@ export const dbMethods = {
       numCards: 0,
       title,
       owner: user.uid,
-      private: true,
+      private: !isPublic,
     }
 
     document.set(newDeck)
@@ -102,9 +102,7 @@ export const dbMethods = {
     }
     console.log("CardId: ", cardId);
 
-
     db.collection('cards').doc(cardId).update(updatedCard)
-    
     .then(res => {
       console.log("Updated card with id: ", cardId);
     })

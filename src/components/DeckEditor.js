@@ -17,6 +17,10 @@ const DeckEditor = (props) => {
 
   }
 
+  useEffect(() => {
+    console.log("Title: ", props.deckToEdit)
+  }, [props.deckToEdit])
+
   const updateDeck = (event) => {
     event.preventDefault();
     dbMethods.updateDeck(user, props.deckToEdit.id, title, isPrivate)
