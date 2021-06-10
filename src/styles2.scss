@@ -114,11 +114,13 @@ button, a {
     background-color: transparent;
     border: none;
     padding: 0;
+    margin-top: 1rem;
     font-weight: 500;
     width: 100%;
     display: flex;
     flex-direction: column;
     text-align: left;
+    transition: .3s;
   }
 
   &.btn-icon {
@@ -156,7 +158,7 @@ main {
   }
 
   h1 {
-    font-size: 1.3rem;
+    font-size: 2rem;
   }
 }
 
@@ -301,7 +303,6 @@ section {
 
   &.public-decks {
     p {
-      font-weight: bold;
       margin-bottom: 3rem;
     }
   }
@@ -512,28 +513,6 @@ form {
     }
   }
 
-  header.card-header {
-    color: $color-dark;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    margin-bottom: 1rem;
-    padding: 0 1rem;
-  
-    p {
-      font-size: .8rem;
-      color: $color-gray;
-    }
-
-    > div {
-      display: flex;
-      gap: 1rem;
-    }
-  
-  }
-
   p {
     word-break: break-word;
     hyphens: auto;
@@ -577,6 +556,28 @@ form {
   }
 }
 
+header.card-header {
+  color: $color-dark;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+
+  p {
+    font-size: .8rem;
+    color: $color-gray;
+  }
+
+  > div {
+    display: flex;
+    gap: 1rem;
+  }
+
+}
+
 .truncate {
   /* width: 250px; */
   white-space: nowrap;
@@ -586,6 +587,39 @@ form {
 
 .wrap {
   word-break: break-word;
+}
+
+.lightbox {
+  background-color: #0009;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  padding: 1rem;
+
+
+  .lightbox-inner {
+    background-color: $color-light;
+    width: 90%;
+    /* min-height: 50%; */
+  }
+
+  .content {
+    padding: 1rem;
+  }
+}
+
+footer {
+  margin-top: 10rem;
+
+  a {
+    color: $color-dark;
+  }
 }
 
 
@@ -627,10 +661,9 @@ form {
       display: flex;
       flex-direction: row-reverse;
       align-items: center;
-      margin-top: 10rem;
+      margin-top: 10vh;
 
       h1 {
-        font-size: 2rem;
         text-align: left;
       }
 
@@ -638,6 +671,12 @@ form {
         max-height: 20rem;
         width: auto;
       }
+    }
+  }
+
+  .public-decks {
+    p {
+      font-size: 1.3rem;
     }
   }
 
@@ -711,14 +750,11 @@ form {
     }
   
     &.btn-share {
-      background-color: transparent;
-      border: none;
-      padding: 0;
-      font-weight: 500;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      text-align: left;
+
+      &:hover {
+        color: $color-primary;
+        background-color: transparent;
+      }
     }
   
     &.btn-icon {
@@ -744,6 +780,12 @@ form {
     &:hover {
       background-color: $color-gray;
       border-color: $color-gray;
+    }
+  }
+
+  .lightbox {
+    .lightbox-inner {
+      max-width: 768px;
     }
   }
 

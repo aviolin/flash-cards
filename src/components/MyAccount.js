@@ -12,15 +12,12 @@ import DeleteAccount from './new/DeleteAccount';
 
 import useAuth from '../hooks/useAuth';
 
-const MyAccount = ({
-  
-}) => {
+const MyAccount = () => {
   const [inputs, setInputs] = useState({ email: "", password: "", newPassword: "" });
 
   const { 
     loading, 
     error, 
-    success, 
     status, 
     handleChangeEmail, 
     handleChangePassword, 
@@ -86,7 +83,6 @@ const MyAccount = ({
             loading={loading}
             onSubmit={handleChangeEmail}
             error={error}
-            success={success}
             status={status}
           />
         </Route>
@@ -97,7 +93,6 @@ const MyAccount = ({
             inputs={inputs}
             onSubmit={handleChangePassword}
             error={error}
-            success={success}
             status={status}
           />
         </Route>

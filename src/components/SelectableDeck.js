@@ -3,13 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faShare, faClone } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 
+import Lightbox from './new/Lightbox';
+
 const SelectableDeck = ({
   title,
   toggleDeck,
   id,
+  isPrivate,
   selectedDecks,
   setSelectedDecks,
-  handleButtons,
   length,
   setDeckToEdit
 }) => {
@@ -48,6 +50,7 @@ const SelectableDeck = ({
         >
           <FontAwesomeIcon icon={faEdit} /> Edit & add cards
         </button>
+        
         <button 
           className="btn btn-icon"
           name="share-deck"
@@ -59,22 +62,31 @@ const SelectableDeck = ({
         >
           <FontAwesomeIcon icon={faShare} /> Share
         </button>
+        
       </div>
 
-      {shareIsOpen ?
-        <button 
-          className="btn btn-share"
-          onClick={() => {
-            const copyText = "localhost:3000/app/d/" + id;
-            navigator.clipboard.writeText(copyText);
-          }}
-        >
-          &nbsp;<span className="wrap">localhost:3000/app/d/{id}</span><br/>
-          <div><FontAwesomeIcon icon={faClone} /> Copy to clipboard</div>
-        </button>
-        :
-        null
-      }
+      <Lightbox 
+        title="Share deck"
+        isOpen={shareIsOpen}
+        onClose={() => setShareIsOpen(false)}
+      >
+        {isPrivate ? 
+          <p className="warning">This deck is <b>private</b>. Update the deck to be <b>public</b> in order to share it with others.</p>
+          :
+          <>
+            <p>Public link: <b><span className="wrap">localhost:3000/app/d/{id}</span></b></p><br/>
+            <button 
+              className="btn btn-share"
+              onClick={() => {
+                const copyText = "localhost:3000/app/d/" + id;
+                navigator.clipboard.writeText(copyText);
+              }}
+            >
+              <div><FontAwesomeIcon icon={faClone} /> Copy to clipboard</div>
+            </button>
+          </>
+        }
+      </Lightbox>
     </li>
   )
 }

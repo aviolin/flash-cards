@@ -14,6 +14,8 @@ import Nav from './components/Nav';
 import Signup from './components/Signup';
 import MobileMenu from './components/MobileMenu';
 import Test from './components/new/Test';
+import ResetPassword from './components/new/ResetPassword';
+import Footer from './components/new/Footer';
 
 import { Route, Switch, useHistory } from 'react-router-dom';
 
@@ -122,6 +124,7 @@ const App = () => {
           <Route path="/log-in">
           <main>
             <Login />
+            <Footer />
           </main>
           </Route>
           <Route path="/log-out">
@@ -132,11 +135,19 @@ const App = () => {
           <Route path="/sign-up">
           <main>
             <Signup />
+            <Footer />
           </main>
+          </Route>
+          <Route path="/reset-password">
+            <main>
+              <ResetPassword />
+              <Footer />
+            </main>
           </Route>
           <Route path="/my-account">
           <main>
             <MyAccount />
+            <Footer />
           </main>
           </Route>
           <Route path="/app/shuffle">
@@ -165,11 +176,13 @@ const App = () => {
               setSelectedDecks={setSelectedDecks}
               handleButtons={handleButtons}
             />
+            <Footer />
           </main>
           </Route>
           <Route path="/">
           <main>
             <Landing />
+            <Footer />
           </main>
           </Route>
         </Switch>

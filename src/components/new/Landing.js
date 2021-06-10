@@ -49,7 +49,7 @@ const Landing = () => {
       </div>
 
       <section className="public-decks">
-        <p>No account? No problem! Check out some of our public flash cards:</p>
+        <h2>No account? No problem!</h2><p>Check out some of our public flash cards:</p>
         <Link to="/app/d/cYddMteaU6ZSYhyq5AHg" className="btn btn-tertiary">
           <span>Classical Composers</span> <FontAwesomeIcon icon={faAngleRight} />
         </Link>

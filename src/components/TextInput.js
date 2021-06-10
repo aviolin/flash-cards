@@ -41,6 +41,7 @@ const TextInput = ({
         </input>
         {type === "password" ?
           <button
+            type="button"
             className="btn btn-icon"
             onClick={toggleHidden}
           >

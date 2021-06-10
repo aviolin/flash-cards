@@ -6,7 +6,5 @@ Create your own flash cards using this React app.
 
 TOS
 redirect when updating password, email, deleting account
-Success when copying to clipboard
 Dark mode
-Forgot password
 firestore rules

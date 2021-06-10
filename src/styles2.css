@@ -101,6 +101,7 @@ button, a {
   background-color: transparent;
   border: none;
   padding: 0;
+  margin-top: 1rem;
   font-weight: 500;
   width: 100%;
   display: -webkit-box;
@@ -111,6 +112,8 @@ button, a {
       -ms-flex-direction: column;
           flex-direction: column;
   text-align: left;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 
 .btn.btn-icon {
@@ -148,7 +151,7 @@ main {
 }
 
 .hero h1 {
-  font-size: 1.3rem;
+  font-size: 2rem;
 }
 
 label {
@@ -300,7 +303,6 @@ section {
 }
 
 section.public-decks p {
-  font-weight: bold;
   margin-bottom: 3rem;
 }
 
@@ -566,35 +568,6 @@ form.card-editor {
           transform: rotateY(180deg);
 }
 
-.flippable header.card-header {
-  color: #504f5b;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  position: relative;
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 0 1rem;
-}
-
-.flippable header.card-header p {
-  font-size: .8rem;
-  color: #9593a6;
-}
-
-.flippable header.card-header > div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 1rem;
-}
-
 .flippable p {
   word-break: break-word;
   -webkit-hyphens: auto;
@@ -632,6 +605,35 @@ form.card-editor {
   color: #5ae4a8;
 }
 
+header.card-header {
+  color: #504f5b;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+header.card-header p {
+  font-size: .8rem;
+  color: #9593a6;
+}
+
+header.card-header > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
+}
+
 .truncate {
   /* width: 250px; */
   white-space: nowrap;
@@ -641,6 +643,44 @@ form.card-editor {
 
 .wrap {
   word-break: break-word;
+}
+
+.lightbox {
+  background-color: #0009;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 50;
+  padding: 1rem;
+}
+
+.lightbox .lightbox-inner {
+  background-color: white;
+  width: 90%;
+  /* min-height: 50%; */
+}
+
+.lightbox .content {
+  padding: 1rem;
+}
+
+footer {
+  margin-top: 10rem;
+}
+
+footer a {
+  color: #504f5b;
 }
 
 @media only screen and (min-width: 768px) {
@@ -679,15 +719,17 @@ form.card-editor {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    margin-top: 10rem;
+    margin-top: 10vh;
   }
   header.hero h1 {
-    font-size: 2rem;
     text-align: left;
   }
   header.hero img {
     max-height: 20rem;
     width: auto;
+  }
+  .public-decks p {
+    font-size: 1.3rem;
   }
   .buttons {
     display: -webkit-box;
@@ -745,20 +787,9 @@ form.card-editor {
     border: none;
     width: auto;
   }
-  .btn.btn-share {
+  .btn.btn-share:hover {
+    color: #5ae4a8;
     background-color: transparent;
-    border: none;
-    padding: 0;
-    font-weight: 500;
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    text-align: left;
   }
   .btn.btn-icon {
     background-color: transparent;
@@ -779,6 +810,9 @@ form.card-editor {
   :disabled:hover {
     background-color: #9593a6;
     border-color: #9593a6;
+  }
+  .lightbox .lightbox-inner {
+    max-width: 768px;
   }
 }
 /*# sourceMappingURL=styles2.css.map */

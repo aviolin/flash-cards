@@ -28,6 +28,7 @@ const DeckList = ({
             title={deck.title}
             toggleDeck={toggleDeck}
             id={deck.id}
+            isPrivate={deck.private}
             selectedDecks={selectedDecks}
             handleButtons={handleButtons}
             length={deck.numCards}

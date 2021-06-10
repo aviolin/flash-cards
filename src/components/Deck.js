@@ -32,6 +32,7 @@ const Deck = ({
         setCanView(false);
       }
     })
+    .catch(error => console.log("ERRORHERE: ", error.message))
 
     let ref = db.collection('cards');
     ref.where("deckId", "==", hash).get()
@@ -39,7 +40,8 @@ const Deck = ({
         let arr = [];
         snapshot.forEach(card => arr.push(card.data()));
         setHashCards(arr);
-      });
+      })
+      .catch(error => console.log("???", error.message))
 
   }, [hash]);
   
@@ -78,42 +80,27 @@ const Deck = ({
           />
         )
       }));
-    /* } else {
-      if (isAddingCard) {
-        setCards([
-          <FlippableCard 
-            frontTitle={frontTitle}
-            backTitle={backTitle}
-            frontText={""}
-            backText={""}
-            onClick={onClick}
-            isFlipped={isCardFlipped}
-            setIsFlipped={setIsCardFlipped}
-            isEditing={true}
-            cardId={""}
-            deckId={curSelectedDeck}
-            isAddingCard={true}
-          />
-        ])
-      } */
     }
 
-    }, [shuffledCards, isCardFlipped, onClick, isEditingCard, /* isAddingCard, */ curSelectedDeck, hashCards]
+    }, [shuffledCards, isCardFlipped, onClick, isEditingCard, curSelectedDeck, hashCards]
   );
 
-  if (!canView) {
+  /*if (!canView) {
     return (
-      <div className="landing">
-        <p>This deck is private. If you are the owner of this deck, you must log in to view it.</p>
-      </div>
+      <main>
+        <div className="container center">
+          <p>This deck is private. If you are the owner of this deck, you must log in to view it.</p>
+        </div>
+      </main>
     )
-  }
+  }*/
 
-  if (cards.length === 0) return (
-    <div className="landing">
-      <p>This deck has no cards. Add a new card in the dashboard!</p>
-      <Link to="/app">Dashboard</Link>
-    </div>
+  if (!canView || cards.length === 0) return (
+    <main>
+      <div className="container center">
+        <p>This deck is either private or has no cards.</p>
+      </div>
+    </main>
   );
 
   const slideCallback = (index) => {

@@ -94,7 +94,7 @@ const Login = () => {
           {status === "loading" ? "Loading . . . " : status === "success" ? "Success!" : "Go!"}
         </button>
       </form>
-      <p>Forgot your credentials? <Link to="/forgot">Reset your password</Link>.</p>
+      <p>Forgot your credentials? <Link to="/reset-password">Reset your password</Link>.</p>
       
       <p>No account? <Link to="/sign-up">Sign up</Link>.</p>
     </div>
