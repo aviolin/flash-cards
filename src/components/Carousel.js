@@ -1,5 +1,11 @@
+/**
+ * A modular carousel component with wrap-around and transitions.
+ */
+
 import React, { useState, useEffect, useRef } from 'react';
 
+/* If WRAP_BUFFER is too short, wrap-around transitions
+   will be set too soon. */
 const WRAP_BUFFER = 50;
 
 const Carousel = ({
@@ -14,9 +20,11 @@ const Carousel = ({
   const [index, setIndex] = useState(0);
   const [carouselItems, setCarouselItems] = useState([]);
   const [canSlide, setCanSlide] = useState(true);
-
   const carousel = useRef(null);
 
+  // Generates the carousel items, with a cloned copy of the first and last
+  // item at the beginning and end, respectively. This facilitates
+  // smooth wrap-around transitions.
   useEffect(() => {
     let modifiedItems = items.map((ele) => {
       return (
@@ -25,9 +33,8 @@ const Carousel = ({
           key={ele.key}
         >
           {ele}
-{/*           <div className="carousel__card">{ele}</div> */}
         </div>
-      )
+      );
     });
 
     if (items.length > 0) {
@@ -40,6 +47,7 @@ const Carousel = ({
     setCarouselItems(modifiedItems);
   }, [items]);
 
+  // The wrap-around functionality.
   useEffect(() => {
     if (carouselItems.length < 3) return;
 
@@ -51,16 +59,13 @@ const Carousel = ({
         } else if (index === carouselItems.length - 1) {
           setIndex(1);
         }
-
-      }, animTime * 1000)
+      }, animTime * 1000);
     }
 
     if (index === 1 || index === carouselItems.length - 2) {
-
-      /* If WRAP_BUFFER is too short, the transition will be set too soon. */
       setTimeout(() => {
         carousel.current.style.transition = "margin " + animTime + "s";
-      }, WRAP_BUFFER)
+      }, WRAP_BUFFER);
     }
   }, [index, carouselItems, animTime]);
 
@@ -72,7 +77,6 @@ const Carousel = ({
       if (nextCallback != undefined) {
         nextCallback(index-1);
       }
-      
     } else if (event.target.name === "left") {
       setIndex(idx => idx - 1);
       if (previousCallback != undefined) {
@@ -97,7 +101,7 @@ const Carousel = ({
         {carouselItems}
       </div>
       <div className="spacer"></div>
-      {showButtons ?
+      {showButtons &&
         <>
           <button 
             className="btn-carousel left"
@@ -112,11 +116,9 @@ const Carousel = ({
             disabled={!canSlide}
           >{rightButtonText}</button>
         </>
-        :
-        null
       }
     </div>
-  )
+  );
 }
 
 export default Carousel;

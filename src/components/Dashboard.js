@@ -1,14 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react';
-import DeckCreator from './DeckCreator';
-import DeckEditor from './new/DeckEditor';
-import DeckList from './DeckList';
-import Button from './Button';
-import PageHeading from './new/PageHeading';
-import Breadcrumb from './new/Breadcrumb';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRandom, faPlus } from '@fortawesome/free-solid-svg-icons';
+/**
+ * Displays the dashboard page.
+ */
+
+import React, { useState, useContext } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import { firebaseAuth } from '../provider/AuthProvider';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRandom, faPlus } from '@fortawesome/free-solid-svg-icons';
+
+import Breadcrumb from './Breadcrumb';
+import DeckCreator from './decks-and-cards/DeckCreator';
+import DeckEditor from './decks-and-cards/DeckEditor';
+import DeckList from './decks-and-cards/DeckList';
+import PageHeading from './PageHeading';
 
 const Dashboard = ({
   onClick,
@@ -16,7 +21,6 @@ const Dashboard = ({
   cards,
   selectedDecks,
   setSelectedDecks,
-  handleButtons,
 }) => {
   const [deckToEdit, setDeckToEdit] = useState(null);
   const { user } = useContext(firebaseAuth);
@@ -27,7 +31,7 @@ const Dashboard = ({
         <p>You are not logged in. To view your dashboard, log in or sign up here:</p>
         <Link to="/">Home</Link>
       </div>
-    )
+    );
   }
 
   return (
@@ -36,7 +40,6 @@ const Dashboard = ({
         <Route path="/app/edit">
           <DeckEditor 
             selectedDecks={selectedDecks}
-            setSelectedDecks={setSelectedDecks}
             deckToEdit={deckToEdit}
             setDeckToEdit={setDeckToEdit}
             cards={cards}
@@ -74,21 +77,22 @@ const Dashboard = ({
               decks={decks}
               selectedDecks={selectedDecks}
               setSelectedDecks={setSelectedDecks}
-              handleButtons={handleButtons}
               setDeckToEdit={setDeckToEdit}
             />
           </div>
-          <Button
-            type="shuffle"
-            classes="btn-primary"
+          <button
+            id="shuffle"
+            name="shuffle"
             onClick={onClick}
+            className="btn btn-primary"
             disabled={cards.length === 0 ? true : false}
-            view={<><FontAwesomeIcon icon={faRandom} /> Shuffle!</>}
-          />
+          >
+            <><FontAwesomeIcon icon={faRandom} /> Shuffle!</>
+          </button>
         </Route>
       </Switch>
     </div>
-  ) 
+  );
 } 
 
 export default Dashboard;

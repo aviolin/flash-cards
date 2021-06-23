@@ -1,10 +1,19 @@
+/**
+ * Methods for accessing the firestore database:
+ * 
+ * createDeck
+ * deleteDeck
+ * updateDeck
+ * createCard
+ * updateCard
+ * deleteCard
+ */
+
 import { db } from './firebaseIndex';
 import firebase from 'firebase';
-import DeckCreator from '../components/DeckCreator';
 
 export const dbMethods = {
 
-  // SEND TO DATABASE
   createDeck: (user, title, isPublic) => {
     if (!user) {
       console.log("No user selected.");
@@ -52,10 +61,14 @@ export const dbMethods = {
       private: isPrivate
     }
 
-    db.collection('decks').doc(deckId).update(updatedDeck)
-    .then(console.log("Updated deck with id: ", deckId))
+    return db.collection('decks').doc(deckId).update(updatedDeck)
+    .then(() => {
+      console.log("Updated deck with id: ", deckId);
+      
+    })
     .catch(err => {
       console.error("Error updating document: ", err.message);
+      
     });
   },
 

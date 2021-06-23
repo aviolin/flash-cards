@@ -1,17 +1,16 @@
-import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { firebaseAuth } from '../provider/AuthProvider';
+/**
+ * Displays the mobile menu.
+ */
 
+import React from 'react';
 import Navlinks from './Navlinks';
 
 const MobileMenu = ({
   isOpen,
   setIsOpen
 }) => {
-  const { user } = useContext(firebaseAuth);
-  const history = useHistory();
 
-  const closeMenu = (event) => {
+  const closeMenu = () => {
     setIsOpen(false);
   }
 

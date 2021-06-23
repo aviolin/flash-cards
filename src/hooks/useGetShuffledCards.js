@@ -1,3 +1,8 @@
+/**
+ * Hook which subscribes to the collection of cards in the 
+ * firestore database.
+ */
+
 import { useState, useEffect } from 'react';
 import firebase from 'firebase';
 
@@ -14,7 +19,6 @@ const useGetShuffledCards = (user, deckIds) => {
     }
 
     let ref = db.collection('cards');
-    console.log("DECKIDS: ", deckIds);
     let unsubscribe = ref.where("deckId", "in", deckIds).onSnapshot((snapshot) => {
       let arr = [];
       snapshot.forEach(card => arr.push(card.data()));

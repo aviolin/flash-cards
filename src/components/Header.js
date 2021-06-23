@@ -1,3 +1,7 @@
+/**
+ * Displays a header with a title and optional child elements.
+ */
+
 import React from 'react';
 
 const Header = ({
@@ -13,7 +17,7 @@ const Header = ({
         {children}
       </div>
     </header>
-  )
+  );
 }
 
 export default Header;

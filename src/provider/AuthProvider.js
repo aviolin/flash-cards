@@ -1,3 +1,7 @@
+/**
+ * Context Provider for the current user.
+ */
+
 import React, {useState, useEffect} from 'react';
 import { auth } from '../firebase/firebaseIndex';
 

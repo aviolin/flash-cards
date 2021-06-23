@@ -1,3 +1,9 @@
+/**
+ * Displays a text or password input, dependinding on 
+ * the type prop. The password input can toggle between
+ * password and text types.
+ */
+
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +19,6 @@ const TextInput = ({
   onChange,
   autocomplete="on"
 }) => {
-  //const [value, setValue] = useState("");
   const [isHidden, setIsHidden] = useState(true);
 
   const toggleHidden = (event) => {
@@ -39,7 +44,7 @@ const TextInput = ({
           autoComplete={autocomplete}
         >
         </input>
-        {type === "password" ?
+        {type === "password" &&
           <button
             type="button"
             className="btn btn-icon"
@@ -51,12 +56,10 @@ const TextInput = ({
               <FontAwesomeIcon icon={faEyeSlash} />
             }
           </button>
-        :
-          null
         }
       </div>
     </div>
-  )
+  );
 }
 
 export default TextInput;

@@ -1,3 +1,14 @@
+/**
+ * Hook for user authentication and account management:
+ * 
+ * Logging user in
+ * Signing user up
+ * Logging user out
+ * Updating user email
+ * Changing user password
+ * Deleting account
+ */
+
 import { useState, useEffect, useContext } from 'react';
 import { auth, db, fb } from '../firebase/firebaseIndex';
 import { firebaseAuth } from '../provider/AuthProvider';
@@ -120,6 +131,7 @@ const useAuth = (email = null, password = null, newPassword = null) => {
       auth.currentUser.email, 
       password,
     );
+    
     auth.currentUser.reauthenticateWithCredential(credential).then(function() {
       console.log("User successfully reauthenticated.");
       auth.currentUser.updatePassword(newPassword).then(function() {
@@ -166,7 +178,6 @@ const useAuth = (email = null, password = null, newPassword = null) => {
     });
 
   }, [deleteAccount])
-
 
   const handleLogin = () => setLogin(prev => prev + 1);
   const handleSignup = () => setSignup(prev => prev + 1);
