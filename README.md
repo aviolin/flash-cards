@@ -1,5 +1,5 @@
 # Flash Cards
-![Flash Cards app screenshot]()
+![Flash Cards app screenshot](https://i.ibb.co/Rg6KqQ0/flash-cards-screenshot.png)
 
 An app created to easily create, study and share flash cards using React and Firebase.
 
