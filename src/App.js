@@ -87,7 +87,10 @@ const App = () => {
 
   return (
     <div className="app">
-      <Nav onClick={handleButtons}/>
+      <Nav 
+        onClick={handleButtons}
+        isMenuOpen={isMenuOpen}
+      />
       <MobileMenu 
         isOpen={isMenuOpen}
         setIsOpen={setIsMenuOpen}

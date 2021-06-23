@@ -10,8 +10,11 @@ import { Link } from 'react-router-dom';
 import Navlinks from './Navlinks';
 
 const Nav = ({
-  onClick
+  onClick,
+  isMenuOpen
 }) => {
+  const classes = "btn btn-hamburger small-screen-only " + (isMenuOpen && "open"); 
+
   return (
     <header className="navbar">
       <div className="navbar-inner">
@@ -19,11 +22,13 @@ const Nav = ({
           Flash Cards
         </Link>
         <button 
-          className="btn btn-icon small-screen-only"
+          className={classes}
           name="toggle-menu"
           onClick={onClick}
         >
-          <FontAwesomeIcon icon={faBars} size="2x" />
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
         <nav className="large-screen-only">
           <Navlinks closeMenu={() => null}/>
