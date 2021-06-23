@@ -1,11 +1,11 @@
 {
   "short_name": "Flash Cards",
-  "name": "React Flash Cards",
+  "name": "Flash Cards",
   "icons": [
     
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#5ae4a8",
   "background_color": "#ffffff"
 }
