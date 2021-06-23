@@ -97,7 +97,7 @@ const Signup = () => {
           />
           <label htmlFor="tos">
             <span></span>
-            I agree to the <Link to="/tos">Terms of Service</Link>.
+            I agree to the Terms of Service.
           </label>
         </div>
         {errorMessage !== "" && <p className="error">{errorMessage}</p>}
