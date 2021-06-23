@@ -27,11 +27,14 @@ const DeckEditor = ({
   const history = useHistory();
   const [title, setTitle] = useState(deckToEdit.title);
   const [isPublic, setIsPublic] = useState(!deckToEdit.private);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
 
   const updateDeck = (event) => {
     event.preventDefault();
     dbMethods.updateDeck(user, deckToEdit.id, title, !isPublic)
     setDeckToEdit({...deckToEdit, title, private: !isPublic});
+    setUpdateSuccess(true);
+    setTimeout(() => setUpdateSuccess(false), 3000);
   }
 
   const deleteDeck = (event) => {
@@ -76,7 +79,7 @@ const DeckEditor = ({
         <button
           className="btn btn-primary"
         >
-          Update
+          {updateSuccess ? "Success!" : "Update" }
         </button>
       </form>
       <section>

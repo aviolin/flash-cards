@@ -627,7 +627,6 @@ header.card-header {
   .lightbox-inner {
     background-color: $color-light;
     width: 90%;
-    /* min-height: 50%; */
   }
 
   .content {
@@ -813,10 +812,4 @@ footer {
       max-width: 768px;
     }
   }
-
-}
-
-
-@media only screen and (min-width: 1024px) {
-
 }

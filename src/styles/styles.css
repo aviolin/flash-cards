@@ -688,7 +688,6 @@ header.card-header > div {
 .lightbox .lightbox-inner {
   background-color: white;
   width: 90%;
-  /* min-height: 50%; */
 }
 
 .lightbox .content {
@@ -838,4 +837,4 @@ footer a {
     max-width: 768px;
   }
 }
-/*# sourceMappingURL=styles2.css.map */
+/*# sourceMappingURL=styles.css.map */
