@@ -11,7 +11,10 @@ const useOnDecksSnapshot = (user) => {
 
   // Get decks from collection where owner is the current user.
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      setDecks([]);
+      return;
+    }
 
     let ref = db.collection('decks');
     let unsubscribe = ref.where("owner", "==", user.uid).onSnapshot((snapshot) => {

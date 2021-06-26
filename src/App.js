@@ -54,10 +54,15 @@ const App = () => {
           _cards.push(Object.assign({}, updatedCard)); 
         }
       })
-    })
-
+    });
     setShuffledCards(_cards);
-  }, [cards])
+  }, [cards]);
+
+  useEffect(() => {
+    if (user) return;
+    setShuffledCards([]);
+    setSelectedDecks([]);
+  }, [user]);
 
   const handleButtons = (event) => {
     switch (event.target.name) {

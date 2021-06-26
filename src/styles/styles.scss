@@ -247,7 +247,7 @@ input[type=checkbox] {
       position: relative;
       top: 2px;
 
-      &:before {
+      &::before {
         content: "";
         width: 3px;
         height: 1.3rem;
@@ -259,7 +259,7 @@ input[type=checkbox] {
         transition: background-color .3s;
       }
   
-      &:after {
+      &::after {
         content: "";
         width: 3px;
         height: .5rem;
@@ -275,7 +275,7 @@ input[type=checkbox] {
 
   &:checked + label span{
 
-    &:before, &:after {
+    &::before, &::after {
       background-color: $color-dark;
     }
   }

@@ -56,7 +56,6 @@ const Deck = ({
         setHashCards(arr);
       })
       .catch(error => console.log("Error: ", error.message))
-
   }, [hash]);
 
   /* Generates an array of FlippableCards for each card in the deck. */
@@ -99,18 +98,10 @@ const Deck = ({
     </main>
   );
 
-  if (!canView) return (
+  if (!canView || cards.length === 0) return (
     <main>
       <div className="container center">
-        <p>This deck is either private or does not exist.</p>
-      </div>
-    </main>
-  );
-
-  if (cards.length === 0) return (
-    <main>
-      <div className="container center">
-        <p>This deck is has no cards! If you are the owner, create cards in the dashboard.</p>
+        <p>This deck is either private or has no cards! If you are the owner, you can view it or edit it from your dashboard.</p>
       </div>
     </main>
   );
