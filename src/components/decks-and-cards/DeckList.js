@@ -44,8 +44,8 @@ const DeckList = ({
   }, [decks, selectedDecks]);
 
   return (
-    <section className="deck-list">
-      <p>Your decks:</p>
+    <div className="deck-list">
+      <p>You have <b>4</b> decks and <b>12</b> cards:</p>
       <ul>
         {deckList.length > 0 ? 
           deckList
@@ -53,7 +53,7 @@ const DeckList = ({
           <p>You have no decks. Create one to start!</p>
         }
       </ul>
-    </section>
+    </div>
   );
 }
 

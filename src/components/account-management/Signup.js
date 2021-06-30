@@ -19,13 +19,18 @@ const Signup = () => {
   const [inputs, setInputs] = useState({ email: "", password: "" });
   const history = useHistory();
 
-  const { userData, status, error, handleSignup} = useAuth(inputs.email, inputs.password);
+  const { status, error, handleSignup} = useAuth(inputs.email, inputs.password);
   const { user } = useContext(firebaseAuth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleSignup();
   }
+
+  useEffect(() => {
+    if (error === null) return;
+    console.log(error.message);
+  }, [error])
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -64,7 +69,7 @@ const Signup = () => {
   }, [error]);
 
   return (
-    <>
+    <div className="signup">
       <PageHeading 
         title="Welcome!"
         subtitle="Create an account."
@@ -109,7 +114,7 @@ const Signup = () => {
         </button>
       </form>
       <p>Already have an account? <Link to="/log-in">Log in here</Link>.</p>
-    </>
+    </div>
   );
 }
 

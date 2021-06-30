@@ -44,20 +44,26 @@ const CardEditor = ({
 
   return (
     <form className="card-editor" onSubmit={updateCard}>
-      <label>Front</label>
-      <textarea
-        name="front"
-        value={front}
-        onChange={handleInput}
-      />
-      <label>Back</label>
-      <textarea
-        name="back"
-        value={back}
-        onChange={handleInput}
-      />
+      <div className="input-block">
+        <textarea
+          name="front"
+          id={card.id + "-front"}
+          value={front}
+          onChange={handleInput}
+        />
+        <label htmlFor={card.id + "-front"}>Front</label>
+      </div>
+      <div className="input-block">
+        <textarea
+          name="back"
+          id={card.id + "-back"}
+          value={back}
+          onChange={handleInput}
+        />
+        <label htmlFor={card.id + "-back"}>Back</label>
+      </div>
       <button className="btn">Update</button>
-      <button className="btn btn-warning-small"
+      <button className="btn btn-warning"
         onClick={deleteCard}
       >
         <FontAwesomeIcon icon={faTrash} /> Delete card

@@ -53,7 +53,8 @@ const Carousel = ({
 
     if (index === 0 || index === carouselItems.length - 1) {
       setTimeout(() => {
-        carousel.current.style.transition = "margin 0s";
+        carousel.current.style.transition = "margin 0s cubic-bezier(.645,.045,.355,1)";
+        
         if (index === 0) {
           setIndex(carouselItems.length - 2);
         } else if (index === carouselItems.length - 1) {
@@ -64,7 +65,7 @@ const Carousel = ({
 
     if (index === 1 || index === carouselItems.length - 2) {
       setTimeout(() => {
-        carousel.current.style.transition = "margin " + animTime + "s";
+        carousel.current.style.transition = "margin " + animTime + "s cubic-bezier(.645,.045,.355,1)";
       }, WRAP_BUFFER);
     }
   }, [index, carouselItems, animTime]);

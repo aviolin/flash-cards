@@ -47,73 +47,75 @@ const MyAccount = () => {
   }
 
   return (
-    <div className="landing">
-      <Switch>
-        <Route exact path="/my-account">
-          <Breadcrumb
-            to="/"
-            name="Home"
-          />
-          <PageHeading
-            title="Your account."
-            subtitle="Update your email and password or delete your account."
-          />
-          <div className="account-data">
-            <p><FontAwesomeIcon icon={faEnvelope} />&nbsp;&nbsp;&nbsp;{user.email} </p>
-              <Link to="/my-account/change-email" className="btn btn-tertiary">
-                <span>Update your email</span><FontAwesomeIcon icon={faAngleRight} />
+    <div className="my-account">
+      <div className="my-account-inner">
+        <Switch>
+          <Route exact path="/my-account">
+            <Breadcrumb
+              to="/"
+              name="Home"
+            />
+            <PageHeading
+              title="Your account."
+              subtitle="Update your email and password or delete your account."
+            />
+            <div className="account-data">
+              <p><FontAwesomeIcon icon={faEnvelope} />&nbsp;&nbsp;&nbsp;{user.email} </p>
+                <Link to="/my-account/change-email" className="btn btn-tertiary">
+                  <span>Update your email</span><FontAwesomeIcon icon={faAngleRight} className="icon" />
+                </Link>
+            </div>
+            <div className="account-data">
+            <p><FontAwesomeIcon icon={faLock} />&nbsp;&nbsp;&nbsp;******************** </p>
+              <Link to="/my-account/change-password" className="btn btn-tertiary">
+                <span>Change your password</span><FontAwesomeIcon icon={faAngleRight} className="icon" />
               </Link>
-          </div>
-          <div className="account-data">
-          <p><FontAwesomeIcon icon={faLock} />&nbsp;&nbsp;&nbsp;******************** </p>
-            <Link to="/my-account/change-password" className="btn btn-tertiary">
-              <span>Change your password</span><FontAwesomeIcon icon={faAngleRight} />
-            </Link>
+            
+            </div>
+            <div className="account-data">
+              <Link to="/log-out" className="btn btn-tertiary">
+                <span>Log out</span><FontAwesomeIcon icon={faAngleRight} className="icon" />
+              </Link>
+            </div>
+            <div className="account-data">
+              <Link to="/my-account/delete-account" className="btn btn-warning">
+                <FontAwesomeIcon icon={faTrash} />&nbsp;&nbsp;&nbsp;Delete Account
+              </Link>
+            </div>
+          </Route>
+
+          <Route exact path="/my-account/change-email">
+            <UpdateEmail 
+              handleChange={handleChange}
+              inputs={inputs}
+              loading={loading}
+              onSubmit={handleChangeEmail}
+              error={error}
+              status={status}
+            />
+          </Route>
+
+          <Route exact path="/my-account/change-password">
+            <ChangePassword 
+              handleChange={handleChange}
+              loading={loading}
+              inputs={inputs}
+              onSubmit={handleChangePassword}
+              error={error}
+              status={status}
+            />
+          </Route>
           
-          </div>
-          <div className="account-data">
-            <Link to="/log-out" className="btn btn-tertiary">
-              <span>Log out</span><FontAwesomeIcon icon={faSignOutAlt} />
-            </Link>
-          </div>
-          <div className="account-data">
-            <Link to="/my-account/delete-account" className="btn btn-warning-small">
-              <FontAwesomeIcon icon={faTrash} />&nbsp;&nbsp;&nbsp;Delete Account
-            </Link>
-          </div>
-        </Route>
-
-        <Route exact path="/my-account/change-email">
-          <UpdateEmail 
-            handleChange={handleChange}
-            inputs={inputs}
-            loading={loading}
-            onSubmit={handleChangeEmail}
-            error={error}
-            status={status}
-          />
-        </Route>
-
-        <Route exact path="/my-account/change-password">
-          <ChangePassword 
-            handleChange={handleChange}
-            loading={loading}
-            inputs={inputs}
-            onSubmit={handleChangePassword}
-            error={error}
-            status={status}
-          />
-        </Route>
-        
-        <Route exact path="/my-account/delete-account">
-          <DeleteAccount 
-            handleChange={handleChange}
-            inputs={inputs}
-            onSubmit={handleDeleteAccount}
-            error={error}
-          />
-        </Route>
-      </Switch>
+          <Route exact path="/my-account/delete-account">
+            <DeleteAccount 
+              handleChange={handleChange}
+              inputs={inputs}
+              onSubmit={handleDeleteAccount}
+              error={error}
+            />
+          </Route>
+        </Switch>
+      </div>
     </div>
   );
 }

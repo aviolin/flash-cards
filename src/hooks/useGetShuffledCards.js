@@ -26,7 +26,7 @@ const useGetShuffledCards = (user, deckIds) => {
       let arr = [];
       snapshot.forEach(card => arr.push(card.data()));
       setCards(arr);
-      console.log("Cards updated: ", arr)
+      /* console.log("Cards updated: ", arr) */
     }, (error) => {
       console.log("Error: ", error.message)
     })

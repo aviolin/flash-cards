@@ -99,13 +99,12 @@ const App = () => {
       <MobileMenu 
         isOpen={isMenuOpen}
         setIsOpen={setIsMenuOpen}
+        handleButtons={handleButtons}
       />
       <Switch>
         <Route path="/log-in">
-          <main>
-            <Login />
-            <Footer />
-          </main>
+          <Login />
+          <Footer />
         </Route>
         <Route path="/log-out">
           <main>
@@ -113,10 +112,8 @@ const App = () => {
           </main>
         </Route>
         <Route path="/sign-up">
-          <main>
-            <Signup />
-            <Footer />
-          </main>
+          <Signup />
+          <Footer />
         </Route>
         <Route path="/reset-password">
           <main>

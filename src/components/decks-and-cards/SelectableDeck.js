@@ -33,14 +33,12 @@ const SelectableDeck = ({
           name={id}
           type="checkbox"
           checked={selectedDecks.includes(id)}
-          onChange={(event) => {
-            console.log(event.target);
-            toggleDeck(event, id)
-          }}
+          onChange={() => toggleDeck(id)}
         />
         <label htmlFor="checkbox" className="truncate">
           <span></span>
-          <strong >{title}</strong> ({length} {length === 1 ? "card" : "cards"})
+          <strong>{title}</strong> ({length} {length === 1 ? "card" : "cards"})
+          
         </label>
       </div>
       <div className="button-row">
@@ -53,7 +51,7 @@ const SelectableDeck = ({
             history.push("/app/edit");
           }}
         >
-          <FontAwesomeIcon icon={faEdit} /> Edit & add cards
+          <FontAwesomeIcon icon={faEdit} /> Edit
         </button>
         
         <button 
@@ -78,7 +76,7 @@ const SelectableDeck = ({
           <p className="warning">This deck is <b>private</b>. Update the deck to be <b>public</b> in order to share it with others.</p>
           :
           <>
-            <p>Public link: <b><span className="wrap">https://aviolin.github.io/flash-cards/#/app/d/{id}</span></b></p><br/>
+            <p>Public link: <b><br/><br/><span className="wrap">https://aviolin.github.io/flash-cards/#/app/d/{id}</span></b></p><br/>
             <button 
               className="btn btn-share"
               onClick={() => {

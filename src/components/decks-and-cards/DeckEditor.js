@@ -82,7 +82,7 @@ const DeckEditor = ({
           {updateSuccess ? "Success!" : "Update" }
         </button>
       </form>
-      <section>
+      <div>
         <PageHeading 
           title="Cards."
           subtitle="Add, edit, and remove cards from this deck."
@@ -95,8 +95,8 @@ const DeckEditor = ({
         <CardCreator 
           deckId={selectedDecks[0]}
         />
-      </section>
-      <section>
+      </div>
+      <div>
         <PageHeading 
           title="Delete deck."
           subtitle="Permanently delete this deck and all its cards."
@@ -107,7 +107,7 @@ const DeckEditor = ({
             className="btn btn-warning"
           >Delete</button>
         </form>
-      </section>
+      </div>
     </>
   );
 }

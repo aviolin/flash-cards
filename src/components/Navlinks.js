@@ -20,17 +20,17 @@ const Navlinks = ({
       <>
         <li>
           <NavLink to="/app" className="link" onClick={() => closeMenu()} activeClassName="active">
-            <FontAwesomeIcon icon={faTable} />&nbsp;&nbsp;&nbsp;Dashboard
+            {/* <FontAwesomeIcon icon={faTable} />&nbsp;&nbsp;&nbsp; */}Dashboard
           </NavLink>
         </li>
         <li>
           <NavLink to="/my-account" className="link" onClick={() => closeMenu()} activeClassName="active">
-            <FontAwesomeIcon icon={faUserCircle} />&nbsp;&nbsp;&nbsp;My account
+            {/* <FontAwesomeIcon icon={faUserCircle} />&nbsp;&nbsp;&nbsp; */}My account
           </NavLink>
         </li>
         <li>
           <NavLink to="/log-out" className="link" onClick={() => closeMenu()} activeClassName="active">
-            <FontAwesomeIcon icon={faSignOutAlt} />&nbsp;&nbsp;&nbsp;Log out
+            {/* <FontAwesomeIcon icon={faSignOutAlt} />&nbsp;&nbsp;&nbsp; */}Log out
           </NavLink>
         </li>
       </>
@@ -38,14 +38,10 @@ const Navlinks = ({
       <>
         <li>
           <NavLink to="/sign-up" className="link" onClick={() => closeMenu()} activeClassName="active">
-            <FontAwesomeIcon icon={faUserPlus} />&nbsp;&nbsp;&nbsp;Sign up
+            {/* <FontAwesomeIcon icon={faUserPlus} />&nbsp;&nbsp;&nbsp; */}Sign up
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/log-in" className="link" onClick={() => closeMenu()} activeClassName="active">
-            <FontAwesomeIcon icon={faSignInAlt} />&nbsp;&nbsp;&nbsp;Log in
-          </NavLink>
-        </li>
+
       </>
       }
     </ul>

@@ -21,7 +21,7 @@ const useOnDecksSnapshot = (user) => {
       let arr = [];
       snapshot.forEach(deck => arr.push(deck.data()));
       setDecks(arr);
-      console.log("Deck data updated: ", arr);
+      /* console.log("Deck data updated: ", arr); */
     }, error => console.log("Error: ", error.message))
 
     return () => unsubscribe();

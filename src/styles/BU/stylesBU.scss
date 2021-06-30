@@ -1,4 +1,4 @@
-/* $color-primary: #5ae4a8;
+$color-primary: #5ae4a8;
 $color-secondary: #d5f7e6;
 
 $color-dark: #504f5b;
@@ -8,41 +8,22 @@ $color-off-light: #f7f6ff;
 
 $color-links: dodgerblue;
 $color-warning: #ff6262;
-$color-warning-light: #ff8c8c; */
-
-$color-primary: #39a95d;
-$color-primary-200: #96f4b4;
-$color-primary-400: #39a95d;
-$color-primary-700: #005611;
-$color-secondary: #d5f7e6;
-
-$color-dark-700: #212121;
-$color-dark: #504f5b;
-$color-gray: #9593a6;
-$color-light-200: #b6b6b6;
-$color-light: white;
-$color-off-light: #eee;
-
-$color-links: dodgerblue;
-$color-warning: #ff6262;
 $color-warning-light: #ff8c8c;
 
-$border-radius: 3rem;
+$border-radius: 3px;
 $border-width: 2px;
-$general-padding: 1rem;
-$general-padding-lg: 2rem;
 
 @mixin large-button {
-  display: inline-block;
-  background-color: $color-primary-700;
-  border: $border-width solid $color-primary-700;
+  display: block;
+  background-color: $color-primary;
+  border: $border-width solid $color-primary;
   border-radius: $border-radius;
-  padding: 1rem 2rem;
+  padding: 1rem;
   margin: 1rem 0;
   text-align: center;
   text-decoration: none;
   font-weight: 700;
-  color: $color-light;
+  color: $color-dark;
   transition: background-color .3s, border-color .3s;
   width: 100%;
 
@@ -58,7 +39,6 @@ $general-padding-lg: 2rem;
 
 html {
   height: 100%;
-  overflow-x: hidden;
 }
 
 svg, path {
@@ -68,11 +48,11 @@ svg, path {
 body {
   color: $color-dark;
   font-family: "Montserrat", sans-serif;
-  overflow-x: hidden;
 }
 
 a {
-  color: $color-dark;
+  color: #62bdff;
+
   &.breadcrumb {
     color: $color-dark;
     text-decoration: none;
@@ -85,7 +65,6 @@ a {
 
 p {
   font-weight: 500;
-  line-height: 1.5rem;
 
   &.error {
     color: $color-warning;
@@ -107,45 +86,19 @@ button, a {
   &.btn-secondary {
     background-color: transparent;
   }
-  
-  &.btn-small {
-    padding: .75rem 1rem;
-    background-color: $color-primary-200;
-    color: $color-dark;
-    border: none;
-
-    &:hover {
-      background-color: $color-primary-700;
-      color: $color-light;
-    }
-  }
 
   &.btn-tertiary {
-    background-color: $color-light;
-    border-color: $color-dark;
+    background-color: $color-off-light;
+    border-color: $color-off-light;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    color: $color-dark;
-    font-weight: 500;
-    font-size: .9rem;
-
-    .icon {
-      background-color: $color-dark;
-      width: 1.5rem;
-      height: 1.5rem;
-      border-radius: 50%;
-      color: $color-light;
-      padding: .25rem;
-    }
 
     &.highlighted {
-      background-color: $color-primary-200;
+      background-color: $color-secondary;
     }
   }
 
   &.btn-warning {
-    margin-top: 0rem;
     background-color: $color-warning;
     border-color: $color-warning;
   }
@@ -170,9 +123,8 @@ button, a {
     width: 100%;
     display: flex;
     flex-direction: column;
+    text-align: left;
     transition: .3s;
-    align-items: center;
-
   }
 
   &.btn-icon {
@@ -201,20 +153,22 @@ button, a {
     background-color: transparent;
     border: 0;
     margin: 0;
-    padding: 1rem;
 
     span {
-      background-color: $color-light;
+      background-color: $color-dark;
       height: 3px;
       position: absolute;
-      top: .75rem;
+      top: .5rem;
       left: 0;
       width: 100%;
       transition: .3s;
 
+      &:first-child {
+        top: 1rem;
+      }
+
       &:last-child {
-        top: 1.25rem;
-        height: 2px;
+        top: 1.5rem;
       }
     }
 
@@ -222,8 +176,12 @@ button, a {
       span {
         transform: rotate(45deg);
         top: 1rem;
-        background-color: $color-light;
-        height: 3px;
+        background-color: $color-primary;
+  
+        &:first-child {
+          transform: none;
+          opacity: 0;
+        }
   
         &:last-child {
           transform: rotate(-45deg);
@@ -233,23 +191,14 @@ button, a {
   }
 }
 
+main {
+  padding: 2rem;
+  margin-top: 4rem;
+}
+
 .hero {
-  margin-bottom: 0;
-  background-color: $color-primary;
-  color: $color-light;
-  /* min-height: 50vh; */
-  position: relative;
-
-  section {
-    display: flex;
-    margin-top: 0;
-    padding-top: 15vh;
-    position: relative;
-  }
-
-  .hero-content {
-    max-width: 25ch;
-  }
+  text-align: center;
+  margin-bottom: 4rem;
 
   img {
     width: auto;
@@ -257,62 +206,35 @@ button, a {
   }
 
   h1 {
-    text-align: left;
-    font-size: 1.8rem;
-  }
-
-  p {
-    text-align: left;
-    font-weight: 400;
-    font-size: 1.1rem;
-    line-height: 1.5rem;
-  }
-
-  .buttons {
-    margin-bottom: 5rem;
-  }
-
-  .curve {
-    pointer-events: none;
-    position: absolute;
-    bottom: -1rem;
-    left: 0;
-    right: 0;
+    font-size: 1.5rem;
   }
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 label {
   font-size: .8rem;
   font-weight: 500;
-  background-color: $color-light;
-  color: $color-dark;
-  position: absolute;
+  color: $color-gray;
+  display: block;
   cursor: pointer;
-  transform: translate(2rem, -1rem);
-  padding: 0 .5rem;
 }
 
 input[type=text],
 input[type=password] {
   border: 0;
   background-color: transparent;
-  padding: .5rem;
   font-size: 1.1rem;
   width: 100%;
 }
 
 input[type=checkbox] {
-  /* display: none; */
-  opacity: 0;
+  display: none;
   + label {
     color: $color-dark;
     font-size: 1rem;
-    transform: none;
-    position: static;
 
     span {
       width: 1rem;
@@ -321,7 +243,7 @@ input[type=checkbox] {
       display: inline-block;
       background-color: transparent;
       border: $border-width solid $color-dark;
-      border-radius: 3px;
+      border-radius: $border-radius;
       position: relative;
       top: 2px;
 
@@ -352,6 +274,7 @@ input[type=checkbox] {
   }
 
   &:checked + label span{
+
     &::before, &::after {
       background-color: $color-dark;
     }
@@ -359,85 +282,33 @@ input[type=checkbox] {
 }
 
 textarea {
-  background-color: $color-light;
+  background-color: $color-off-light;
   border: none;
-  border-radius: 1rem;
+  border-radius: $border-radius;
   width: 100%;
   min-height: 5rem;
   padding: .5rem;
-  outline-offset: 1.2rem;
-}
-
-input:focus,
-textarea:focus {
-  outline-offset: 1.2rem;
-  outline-color: #1757CA;
 }
 
 .navbar {
   width: 100%;
-  background-color: transparent;
-  position: absolute;
+  background-color: $color-light;
+  border-bottom: $border-width solid $color-off-light;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 99;
-  font-size: .9rem;
 
   .navbar-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem $general-padding;
-
-    max-width: 1024px;
-    margin: auto;
-
-    .right-nav {
-      display: flex;
-      align-items: center;
-      > * + * {
-        margin-left: 1rem;
-      }
-    }
+    padding: 1rem 2rem;
 
     .logo {
-      font-weight: 700;
+      font-weight: 900;
       text-decoration: none;
-      color: $color-light;
-      display: flex;
-      align-items: center;
-      font-size: 1.1rem;
-
-      .icon {
-        color: $color-primary-200;
-        transition: color .3s
-      }
-
-      &:hover {
-        color: $color-primary-200;
-      }
-    }
-
-    a {
-      color: $color-light;
-
-      &:hover {
-        color: $color-primary-200;
-      }
-    }
-  }
-
-  &.light {
-    .logo {
-      color: $color-dark;
-    }
-
-    a {
-      color: $color-dark;
-    }
-
-    .btn.btn-hamburger span {
-      background-color: $color-dark;
+      color: $color-primary;
     }
   }
 }
@@ -448,16 +319,15 @@ textarea:focus {
 
 .mobile-menu {
   position: fixed;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   left: -100vw;
   top: 0;
-  padding: $general-padding;
-  padding-top: 15vh;
-  z-index: 100;
+  padding-top: 5rem;
+  z-index: 50;
 
-  transition: .48s cubic-bezier(.645,.045,.355,1);
-  background: linear-gradient(to bottom, $color-dark 0%, $color-dark 33%, $color-dark-700 100%);
+  transition: left .3s;
+  background-color: $color-light;
 
   &.open {
     left: 0;
@@ -470,12 +340,11 @@ textarea:focus {
       list-style-type: none;
 
       a {
-        padding: 1rem 0;
+        padding: 1rem 2rem;
         display: block;
+        border-bottom: 1px solid $color-off-light;
         text-decoration: none;
-        color: $color-light;
-        font-weight: 900;
-        font-size: 2rem;
+        color: $color-dark;
 
         &.active {
           color: $color-primary;
@@ -486,10 +355,7 @@ textarea:focus {
 }
 
 section {
-  max-width: 1024px;
-  margin: 5rem auto;
-  padding: $general-padding;
-  width: 100%;
+  margin: 5rem 0;
 
   &.public-decks {
     p {
@@ -515,21 +381,18 @@ section {
 }
 
 form {
-  max-width: 45ch;
-
   .input-block {
-    background-color: $color-light;
-    border: $border-width solid $color-dark;
-    border-radius: 2rem;
+    background-color: $color-off-light;
+    border-bottom: $border-width solid $color-dark;
     padding: .5rem;
     font-size: 1.1rem;
     margin: 2rem 0;
-    position: relative;
   
     .input-row {
       display: flex;
       gap: 1rem;
       align-items: center;
+      margin-top: .5rem;
     }
   }
   
@@ -538,78 +401,39 @@ form {
   }
 
   &.card-editor {
-    /* border: $border-width solid #ccc; */
-    border-radius: 2rem;
-    margin-bottom: 5rem;
-    /* padding: 1rem; */
-    
-    textarea + label {
-      top: .5rem;
-      left: 0;
-    }
-
-    .btn {
-      margin-top: 0;
-    }
+    border: $border-width solid $color-off-light;
+    border-top: 0;
+    padding: 1rem;
+    margin-top: -1rem;
   }
 }
 
 .deck-list {
-  margin-top: 5rem;
 
   ul {
     padding: 0;
 
-    li + li {
-      border-top: 1px solid #ccc;
-    }
-
     li {
-      padding: 2rem 1rem;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      background-color: $color-off-light;
+      margin: 1rem 0;
       transition: .3s;
-      color: $color-dark;
-      overflow: hidden;
       
       strong {
         font-size: 1.1rem;
-        transition: color .3s;
       }
 
       .button-row {
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
         margin-top: 1rem;
-
-        * + * {
-          margin-left: 1rem;
-        }
       }
 
       &.selected {
-        background-color: #f9f9f9;
-
-        strong {
-          color: $color-primary-400;
-        }
-      }
-
-      .btn {
-        color: $color-gray;
-      }
-
-      label {
-        padding: 0;
-        background-color: transparent;
-        position: static;
-        text-overflow: ellipsis;
-      }
-
-      &:hover {
-        cursor: pointer;
-        background-color: #f9f9f9;
+        background-color: $color-secondary;
       }
     }
   }
@@ -645,8 +469,8 @@ form {
 .carousel {
   overflow: hidden;
   width: 100%;
-  height: calc(100vh - 8rem);
-  margin-top: 8rem;
+  height: calc(100vh - 4rem);
+  margin-top: 4rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -690,7 +514,6 @@ form {
     display: flex;
     justify-content: space-between;
     transition: .5s;
-
   }
 
   &__item {
@@ -700,14 +523,18 @@ form {
     flex-direction: column;
     justify-content: center;
   }
+
+  /* &__card {
+    width: 100%;
+    background-color: $color-secondary;
+    height: 100%;
+  } */
 }
 
 .flippable {
   background-color: transparent;
   height: 100%;
   width: 100%;
-  margin: auto;
-  max-width: 30rem;
   perspective: 1500px;
   padding: 2rem;
 
@@ -735,15 +562,12 @@ form {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: $color-light;
+    background-color: $color-off-light;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center; 
-
-    border: 1px solid $color-dark;
-    border-radius: 2rem;
   
     &.back {
       transform: rotateY(180deg);
@@ -763,11 +587,10 @@ form {
     width: 100%;
     height: 4rem;
     margin-top: 0;
-    background-color: transparent;
   }
 
   .curl {
-    /* width:4rem;
+    width:4rem;
     height:4rem;
     position: absolute;
     right: 0rem;
@@ -782,20 +605,16 @@ form {
         $color-light 50%, 
         #ddd 50%, 
         $color-light 55%,
-      ); */
-
-    background-color: transparent;
-    border: none;
-    transform: translateY(-1rem);
+      );
 
     .icon {
-      color: $color-primary;
+      color: $color-gray;
       transition: .3s;
     }
 
     &:hover {
       .icon {
-        color: $color-primary-700;
+        color: $color-primary;
       }
     }
   }
@@ -809,7 +628,7 @@ header.card-header {
   position: relative;
   width: 100%;
   margin-bottom: 1rem;
-  padding: 0 $general-padding;
+  padding: 0 1rem;
 
   p {
     font-size: .8rem;
@@ -818,20 +637,13 @@ header.card-header {
 
   > div {
     display: flex;
+    gap: 1rem;
   }
 
-  .btn {
-    padding: 1rem;
-  }
-
-}
-
-
-.nav-cta {
-  display: none;
 }
 
 .truncate {
+  /* width: 250px; */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -852,217 +664,34 @@ header.card-header {
   justify-content: center;
   align-items: center;
   z-index: 50;
-  padding: 0;
+  padding: 1rem;
+
 
   .lightbox-inner {
     background-color: $color-light;
     width: 90%;
-    border-radius: 2rem;
-    padding: 2rem;
-    text-align: center;
   }
 
   .content {
-    padding: $general-padding;
+    padding: 1rem;
   }
 }
 
 footer {
   margin-top: 10rem;
-  background-color: $color-dark-700;
-  color: $color-light-200;
-  padding: 1rem 0 5rem 0;
-  position: relative;
-
-  section {
-    margin: 5rem auto 0rem auto;
-  }
-
-  .curve {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    transform: translateY(-75%);
-    pointer-events: none;
-    
-    svg path {
-      fill: linear-gradient(to bottom, red 0%, black 100%);
-    }
-  }
-
-  .logo {
-    color: $color-light-200;
-    font-weight: 900;
-    font-size: 1.5rem;
-  }
 
   a {
-    color: $color-light-200;
-    text-decoration: none;
-  }
-
-  .sitemap {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 3rem 0;
-
-    a {
-      display: block;
-      flex-basis: 100%;
-      text-align: left;
-      margin: .5rem 0;
-    }
-  }
-}
-
-.card-design {
-  position: absolute;
-  top: 0; 
-  left: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  display: none;
-
-  > div {
-    background-color: white;
-    position: absolute;
-    border: 1px solid $color-dark-700;
-    border-radius: 1.5rem;
-
-    height: 15rem;
-    width: 10rem;
-    left: calc(22em + 14vw);
-    top: 11rem;
-
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-
-    transform: rotate(30deg) translate(6rem);
-
-    &:nth-child(2) {
-      animation: card-design-anim-1 cubic-bezier(.645,.1,.355,1) 1.3s .4s forwards;
-    }
-
-    &:nth-child(3) {
-      animation: card-design-anim-2 cubic-bezier(.645,.045,.355,1) 1.8s .2s forwards;
-    }
-
-    span:nth-child(1) {
-      text-align: center;
-      color: $color-gray;
-      font-size: .8rem;
-    }
-
-    > div {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      
-      span {
-        height: 1rem;
-        width: 87%;
-        background-color: #eee;
-        margin-bottom: .5rem;
-      }
-
-      span:nth-child(2) {
-        width: 70%;
-      }
-
-      span:nth-child(3) {
-        width: 79%;
-      }
-    }
-
-    span:nth-child(3) {
-      text-align: center;
-      color: $color-primary-400;
-    }
-  }
-}
-
-@keyframes card-design-anim-1{
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes card-design-anim-2 {
-  to {
-    transform: rotate(-30deg) translateX(-6rem);
+    color: $color-dark;
   }
 }
 
 
-.login,
-.signup,
-.dashboard,
-.my-account,
-.reset-password {
-  padding: $general-padding;
-  max-width: 1024px;
-  margin: 5rem auto;
-}
-
-.dashboard-inner,
-.my-account-inner {
-  max-width: 45ch;
-}
-
-@media only screen and (min-width: 360px) {
-  .card-design {
-    display: block;
-  }
-
-  .nav-cta {
-    display: block;
-  }
-
-  footer {
-    .sitemap a {
-      flex-basis: 50%;
-    }
-  }
-}
-
-@media only screen and (min-width: 512px) {
-  .hero {
-    h1 {
-      font-size: 2.5rem;
-    }
-
-    .hero-content {
-      max-width: 33ch;
-      z-index: 10;
-    }
-
-    .curve {
-      transform: scaleY(.5) translateY(65%);
-      bottom: 0;
-    }
-  }
-
-  .card-design {
-    top: 0;
-    > div {
-      height: 15rem;
-      width: 10rem;
-      left: calc(20em + 30vw);
-      top: 11rem;
-    }
-  }
-}
 
 @media only screen and (min-width: 768px) {
 
-  h2 {
-    font-size: 2rem;
+  main {
+    max-width: 768px;
+    margin: 4rem auto 0 auto;
   }
 
   .large-screen-only {
@@ -1079,13 +708,12 @@ footer {
       margin: 0;
       list-style-type: none;
       display: flex;
-      padding: 0;
       li {
         margin-left: 2rem;
 
         a {
+          color: $color-dark;
           text-decoration: none;
-          white-space: nowrap;
 
           &.active {
             color: $color-primary;
@@ -1095,20 +723,25 @@ footer {
     }
   }
 
-  .hero {
-    h1 {
-      font-size: 2.5rem;
-    }
+  header {
+    &.hero {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      margin-top: 10vh;
 
-    .hero-content {
-      max-width: 33ch;
-      z-index: 10;
+      h1 {
+        text-align: left;
+      }
+
+      img {
+        max-height: 20rem;
+        width: auto;
+      }
     }
   }
 
   .public-decks {
-    text-align: center;
-    max-width: 768px;
     p {
       font-size: 1.0rem;
     }
@@ -1117,8 +750,10 @@ footer {
   .buttons {
     display: flex;
     gap: 1rem;
+    margin-bottom: 10rem;
     > * {
       flex: 1;
+
     }
   }
 
@@ -1133,31 +768,32 @@ footer {
   }
 
   .flippable {
-    width: 30rem;
-    height: 45rem;
+    width: 60vw;
+    height: 50vh;
     margin: auto;
   }
 
   a, ul li a {
     transition: .3s;
     &:hover {
-      color: $color-primary-200;
+      color: $color-primary;
     }
   }
 
   .btn {
     &:hover {
-      background-color: $color-primary-200;
-      border-color: $color-primary-200;
+      background-color: $color-secondary;
+      border-color: $color-secondary;
       color: $color-dark;
     }
   
     &.btn-tertiary {
       &:hover {
+        background-color: transparent;
         border-color: $color-off-light;
 
         &.highlighted {
-          border-color: $color-primary-200;
+          border-color: $color-secondary;
         }
       }
     }
@@ -1166,7 +802,6 @@ footer {
       &:hover {
         background-color: $color-warning-light;
         border-color: $color-warning-light;
-        color: $color-light;
       }
     }
   
@@ -1218,36 +853,6 @@ footer {
   .lightbox {
     .lightbox-inner {
       max-width: 768px;
-    }
-  }
-
-  footer {
-    text-align: center;
-    .curve {
-      transform: translateY(-65%) scaleY(.5);
-    }
-    .sitemap {
-      a {
-        flex-basis: 33%;
-        text-align: center;
-      }
-    }
-  }
-
-  .squares {
-    position: absolute;
-    top: -7rem;
-    left: -10rem;
-    height: 100%;
-  }
-
-  .card-design {
-    top: 0;
-    > div {
-      height: 20rem;
-      width: 12rem;
-      left: 61vw;
-      top: 11rem;
     }
   }
 }

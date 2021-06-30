@@ -28,7 +28,7 @@ const ResetPassword = () => {
   }
   
   return (
-    <>
+    <div className="reset-password">
       <Breadcrumb 
         to="/log-in"
         name="Log in"
@@ -51,7 +51,7 @@ const ResetPassword = () => {
           {success ? "Password reset email sent!" : "Reset Password"}
         </button>
       </form>
-    </>
+    </div>
   );
 }
 
