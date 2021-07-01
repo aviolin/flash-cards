@@ -76,7 +76,7 @@ const SelectableDeck = ({
           <p className="warning">This deck is <b>private</b>. Update the deck to be <b>public</b> in order to share it with others.</p>
           :
           <>
-            <p>Public link: <b><br/><br/><span className="wrap">https://aviolin.github.io/flash-cards/#/app/d/{id}</span></b></p><br/>
+            <p>This deck is <b>public</b> and can be shared via this link: <b><br/><br/><span className="wrap">https://aviolin.github.io/flash-cards/#/app/d/{id}</span></b></p><br/>
             <button 
               className="btn btn-share"
               onClick={() => {
