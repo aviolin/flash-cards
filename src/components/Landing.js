@@ -30,32 +30,20 @@ const Landing = () => {
           {user ? 
             <>
               <Link
-                className="btn"
+                className="btn btn-cta"
                 to="/app"
               >
                 Dashboard
               </Link>
-              {/* <Link
-                className="btn btn-secondary"
-                to="/my-account"
-              >
-                My Account
-              </Link> */}
             </>
           :
             <>
               <Link
-                className="btn"
+                className="btn btn-cta"
                 to="/sign-up"
               >
                 Get started
               </Link>
-              {/* <Link
-                className="btn btn-secondary"
-                to="/log-in"
-              >
-                Log In
-              </Link> */}
             </>
           }
           </div>

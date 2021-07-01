@@ -80,6 +80,11 @@ button, a {
   pointer-events: none;
 }
 
+.btn.btn-cta {
+  background-color: #212121;
+  border-color: #212121;
+}
+
 .btn.btn-secondary {
   background-color: transparent;
 }
@@ -352,6 +357,10 @@ input[type=checkbox] + label span::after {
   transition: background-color .3s;
 }
 
+input[type=checkbox]:focus + label span {
+  border-color: #1757CA;
+}
+
 input[type=checkbox]:checked + label span::before, input[type=checkbox]:checked + label span::after {
   background-color: #504f5b;
 }
@@ -472,6 +481,8 @@ textarea:focus {
   transition: 0.48s cubic-bezier(0.645, 0.045, 0.355, 1);
   background: -webkit-gradient(linear, left top, left bottom, from(#504f5b), color-stop(33%, #504f5b), to(#212121));
   background: linear-gradient(to bottom, #504f5b 0%, #504f5b 33%, #212121 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#39a95d), color-stop(33%, #39a95d), to(#005611));
+  background: linear-gradient(to bottom, #39a95d 0%, #39a95d 33%, #005611 100%);
 }
 
 .mobile-menu.open {
@@ -496,7 +507,7 @@ textarea:focus {
 }
 
 .mobile-menu ul li a.active {
-  color: #39a95d;
+  color: #96f4b4;
 }
 
 section {
@@ -537,6 +548,10 @@ form .input-block {
   font-size: 1.1rem;
   margin: 2rem 0;
   position: relative;
+}
+
+form .input-block .btn.btn-icon {
+  color: #504f5b;
 }
 
 form .input-block .input-row {
@@ -1254,6 +1269,9 @@ footer p {
   .btn.btn-tertiary:hover {
     border-color: #eee;
   }
+  .btn.btn-tertiary:hover .icon {
+    background-color: #005611;
+  }
   .btn.btn-tertiary:hover.highlighted {
     border-color: #96f4b4;
   }
@@ -1307,8 +1325,8 @@ footer p {
             transform: translateY(-65%) scaleY(0.5);
   }
   footer .sitemap a {
-    -ms-flex-preferred-size: 33%;
-        flex-basis: 33%;
+    -ms-flex-preferred-size: 25%;
+        flex-basis: 25%;
     text-align: center;
   }
   .squares {

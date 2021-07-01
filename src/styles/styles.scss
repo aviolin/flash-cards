@@ -27,6 +27,8 @@ $color-links: dodgerblue;
 $color-warning: #ff6262;
 $color-warning-light: #ff8c8c;
 
+$color-focus: #1757CA;
+
 $border-radius: 3rem;
 $border-width: 2px;
 $general-padding: 1rem;
@@ -102,6 +104,11 @@ button, a {
 
   span {
     pointer-events: none;
+  }
+
+  &.btn-cta {
+    background-color: $color-dark-700;
+    border-color: $color-dark-700;
   }
 
   &.btn-secondary {
@@ -352,6 +359,10 @@ input[type=checkbox] {
     }
   }
 
+  &:focus + label span {
+    border-color: $color-focus;
+  }
+
   &:checked + label span{
     &::before, &::after {
       background-color: $color-dark;
@@ -372,7 +383,7 @@ textarea {
 input:focus,
 textarea:focus {
   outline-offset: 1.2rem;
-  outline-color: #1757CA;
+  outline-color: $color-focus;
 }
 
 .navbar {
@@ -460,6 +471,7 @@ textarea:focus {
 
   transition: .48s cubic-bezier(.645,.045,.355,1);
   background: linear-gradient(to bottom, $color-dark 0%, $color-dark 33%, $color-dark-700 100%);
+  background: linear-gradient(to bottom, $color-primary-400 0%, $color-primary-400 33%, $color-primary-700 100%);
 
   &.open {
     left: 0;
@@ -480,7 +492,7 @@ textarea:focus {
         font-size: 2rem;
 
         &.active {
-          color: $color-primary;
+          color: $color-primary-200;
         }
       }
     }
@@ -527,6 +539,9 @@ form {
     font-size: 1.1rem;
     margin: 2rem 0;
     position: relative;
+    .btn.btn-icon {
+      color: $color-dark;
+    }
   
     .input-row {
       display: flex;
@@ -1163,6 +1178,10 @@ footer {
       &:hover {
         border-color: $color-off-light;
 
+        .icon {
+          background-color: $color-primary-700;
+        }
+
         &.highlighted {
           border-color: $color-primary-200;
         }
@@ -1235,7 +1254,7 @@ footer {
     }
     .sitemap {
       a {
-        flex-basis: 33%;
+        flex-basis: 25%;
         text-align: center;
       }
     }

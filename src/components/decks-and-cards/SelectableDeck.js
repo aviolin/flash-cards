@@ -26,14 +26,19 @@ const SelectableDeck = ({
   return (
     <li 
       className={selectedDecks.includes(id) ? "selected" : ""}
-      onClick={() => toggleDeck(id)}
+      onClick={(event) => {
+        event.stopPropagation();
+        toggleDeck(id);
+      }}
+      role="checkbox"
+      aria-checked={selectedDecks.includes(id) ? "true" : "false"}
     >
       <div>
         <input
           name={id}
           type="checkbox"
           checked={selectedDecks.includes(id)}
-          onChange={() => toggleDeck(id)}
+          onChange={() => null}
         />
         <label htmlFor="checkbox" className="truncate">
           <span></span>
@@ -76,11 +81,11 @@ const SelectableDeck = ({
           <p className="warning">This deck is <b>private</b>. Update the deck to be <b>public</b> in order to share it with others.</p>
           :
           <>
-            <p>This deck is <b>public</b> and can be shared via this link: <b><br/><br/><span className="wrap">https://aviolin.github.io/flash-cards/#/app/d/{id}</span></b></p><br/>
+            <p>This deck is <b>public</b> and can be shared via this link: <b><br/><br/><span className="wrap">https://arlocodes.com/flash-cards/#/app/d/{id}</span></b></p><br/>
             <button 
               className="btn btn-share"
               onClick={() => {
-                const copyText = "https://aviolin.github.io/flash-cards/#/app/d/" + id;
+                const copyText = "https://arlocodes.com/flash-cards/#/app/d/" + id;
                 navigator.clipboard.writeText(copyText);
               }}
             >
