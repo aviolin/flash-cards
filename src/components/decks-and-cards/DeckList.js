@@ -12,6 +12,7 @@ const DeckList = ({
   setDeckToEdit,
 }) => {
   const [deckList, setDeckList] = useState([]);
+  const [totalCards, setTotalCards] = useState(0);
 
   const toggleDeck = (deckId) => {
     setSelectedDecks(decks => {
@@ -43,9 +44,17 @@ const DeckList = ({
     ));
   }, [decks, selectedDecks]);
 
+  useEffect(() => {
+    if (!decks) return;
+    let _totalCards = decks.reduce((total, cur) => {
+      return total + cur.numCards;
+    }, 0)
+    setTotalCards(_totalCards);
+  }, [decks])
+
   return (
     <div className="deck-list">
-      <p>You have <b>4</b> decks and <b>12</b> cards:</p>
+      <p>You have <b>{deckList.length}</b> decks and <b>{totalCards}</b> cards:</p>
       <ul>
         {deckList.length > 0 ? 
           deckList

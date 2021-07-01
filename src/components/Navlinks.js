@@ -6,9 +6,6 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { firebaseAuth } from '../provider/AuthProvider';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faSignOutAlt, faSignInAlt, faTable, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-
 const Navlinks = ({
   closeMenu
 }) => {
@@ -20,17 +17,17 @@ const Navlinks = ({
       <>
         <li>
           <NavLink to="/app" className="link" onClick={() => closeMenu()} activeClassName="active">
-            {/* <FontAwesomeIcon icon={faTable} />&nbsp;&nbsp;&nbsp; */}Dashboard
+            Dashboard
           </NavLink>
         </li>
         <li>
           <NavLink to="/my-account" className="link" onClick={() => closeMenu()} activeClassName="active">
-            {/* <FontAwesomeIcon icon={faUserCircle} />&nbsp;&nbsp;&nbsp; */}My account
+            My account
           </NavLink>
         </li>
         <li>
           <NavLink to="/log-out" className="link" onClick={() => closeMenu()} activeClassName="active">
-            {/* <FontAwesomeIcon icon={faSignOutAlt} />&nbsp;&nbsp;&nbsp; */}Log out
+            Log out
           </NavLink>
         </li>
       </>
@@ -38,7 +35,11 @@ const Navlinks = ({
       <>
         <li>
           <NavLink to="/sign-up" className="link" onClick={() => closeMenu()} activeClassName="active">
-            {/* <FontAwesomeIcon icon={faUserPlus} />&nbsp;&nbsp;&nbsp; */}Sign up
+            Sign up
+          </NavLink>
+          </li><li>
+          <NavLink to="/log-in" className="link" onClick={() => closeMenu()} activeClassName="active">
+            Log in
           </NavLink>
         </li>
 

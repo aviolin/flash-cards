@@ -75,12 +75,12 @@ const Carousel = ({
 
     if (event.target.name === "right") {
       setIndex(idx => idx + 1);
-      if (nextCallback != undefined) {
+      if (nextCallback !== undefined) {
         nextCallback(index-1);
       }
     } else if (event.target.name === "left") {
       setIndex(idx => idx - 1);
-      if (previousCallback != undefined) {
+      if (previousCallback !== undefined) {
         previousCallback(index-1);
       }
     }

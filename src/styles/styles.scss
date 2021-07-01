@@ -110,13 +110,13 @@ button, a {
   
   &.btn-small {
     padding: .75rem 1rem;
-    background-color: $color-primary-200;
+    background-color: $color-primary-700;
     color: $color-dark;
     border: none;
+    transition: .3s;
 
     &:hover {
-      background-color: $color-primary-700;
-      color: $color-light;
+      background-color: $color-dark;
     }
   }
 
@@ -269,7 +269,7 @@ button, a {
   }
 
   .buttons {
-    margin-bottom: 5rem;
+    margin-bottom: 10rem;
   }
 
   .curve {
@@ -308,6 +308,7 @@ input[type=password] {
 input[type=checkbox] {
   /* display: none; */
   opacity: 0;
+  margin-left: -1rem;
   + label {
     color: $color-dark;
     font-size: 1rem;
@@ -407,6 +408,7 @@ textarea:focus {
       display: flex;
       align-items: center;
       font-size: 1.1rem;
+      transition: .3s;
 
       .icon {
         color: $color-primary-200;
@@ -486,7 +488,7 @@ textarea:focus {
 }
 
 section {
-  max-width: 1024px;
+  max-width: 768px;
   margin: 5rem auto;
   padding: $general-padding;
   width: 100%;
@@ -639,6 +641,7 @@ form {
 .container.center {
   display: grid;
   place-content: center;
+  height: 100vh;
 }
 
 
@@ -736,6 +739,7 @@ form {
     width: 100%;
     height: 100%;
     background-color: $color-light;
+    color: $color-dark-700;
 
     display: flex;
     flex-direction: column;
@@ -914,6 +918,10 @@ footer {
       text-align: left;
       margin: .5rem 0;
     }
+  }
+
+  p {
+    font-weight: 400;
   }
 }
 
@@ -1141,7 +1149,7 @@ footer {
   a, ul li a {
     transition: .3s;
     &:hover {
-      color: $color-primary-200;
+      color: $color-primary-400;
     }
   }
 
@@ -1244,9 +1252,9 @@ footer {
   .card-design {
     top: 0;
     > div {
-      height: 20rem;
-      width: 12rem;
-      left: 61vw;
+      height: 17rem;
+      width: 10rem;
+      left: calc(60vw);
       top: 11rem;
     }
   }

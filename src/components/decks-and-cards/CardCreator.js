@@ -47,7 +47,7 @@ const CardCreator = ({
       <button id="add" className="btn btn-tertiary highlighted"
         onClick={() => setIsOpen(false)}
       >
-        Add card <FontAwesomeIcon icon={faMinus} />
+        Add card <FontAwesomeIcon icon={faMinus} className="icon"/>
       </button>
       <form className="card-editor" onSubmit={createCard}>
         <div className="input-block">

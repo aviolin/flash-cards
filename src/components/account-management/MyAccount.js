@@ -40,8 +40,11 @@ const MyAccount = () => {
   if (!user) {
     return (
       <div className="dashboard">
-        <p>You are not logged in. To view your dashboard, log in or sign up here:</p>
-        <Link to="/">Home</Link>
+        <PageHeading
+          title=":( Not logged in."
+          subtitle="You are not logged in. To view your dashboard, log in or sign up."
+        />
+        <br/><br/><br/><br/><br/><br/>
       </div>
     );
   }

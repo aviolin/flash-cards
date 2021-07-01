@@ -48,11 +48,11 @@ const Nav = ({
           <nav className="large-screen-only">
             <Navlinks closeMenu={() => null}/>
           </nav>
-          { !user && 
+          {/* { !user && 
             <NavLink to="/log-in" className="btn btn-small nav-cta">
               Log in
             </NavLink>
-          }
+          } */}
           <button 
             className={btnClasses}
             name="toggle-menu"

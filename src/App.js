@@ -50,7 +50,7 @@ const App = () => {
     let _cards = [];
     shuffledCards.forEach(card => {
       cards.forEach((updatedCard) => {
-        if (updatedCard.id == card.id) {
+        if (updatedCard.id === card.id) {
           _cards.push(Object.assign({}, updatedCard)); 
         }
       })

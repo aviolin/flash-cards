@@ -30,6 +30,8 @@ const Deck = ({
      and checks whether it is private or not. */
   useEffect(() => {
     setIsLoaded(false);
+    setHashCards(null);
+    setCards(null);
 
     if (hash === undefined) return;
     if (shuffledCards.length > 0) return;
@@ -98,12 +100,16 @@ const Deck = ({
     </main>
   );
 
+  if (!cards) return (
+    <div className="container center">
+      <p>We couldn't find this deck. :(</p>
+    </div>
+  )
+
   if (!canView || cards.length === 0) return (
-    <main>
       <div className="container center">
-        <p>This deck is either private or has no cards! If you are the owner, you can view it or edit it from your dashboard.</p>
+        <p>This deck is either private or has no cards! If you are the owner, you can view it and edit it from your dashboard.</p>
       </div>
-    </main>
   );
 
   const slideCallback = () => {
