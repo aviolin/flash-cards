@@ -488,7 +488,7 @@ textarea:focus {
 }
 
 section {
-  max-width: 768px;
+  max-width: 1024px;
   margin: 5rem auto;
   padding: $general-padding;
   width: 100%;
@@ -648,8 +648,8 @@ form {
 .carousel {
   overflow: hidden;
   width: 100%;
-  height: calc(100vh - 8rem);
-  margin-top: 8rem;
+  height: calc(100vh - 4rem);
+  margin-top: 4rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -790,7 +790,6 @@ form {
 
     background-color: transparent;
     border: none;
-    transform: translateY(-1rem);
 
     .icon {
       color: $color-primary;
@@ -1116,7 +1115,7 @@ footer {
 
   .public-decks {
     text-align: center;
-    max-width: 768px;
+    max-width: 512px;
     p {
       font-size: 1.0rem;
     }

@@ -24,7 +24,7 @@ const Landing = () => {
         </div>
         <section>
         <div className="hero-content">
-          <h1>Easily create, study and share flashcards.</h1>
+          <h1>Easily create, study and share flash cards.</h1>
           <p>Join for free, or flip through some of our public flash cards.</p>
           <div className="buttons">
           {user ? 
