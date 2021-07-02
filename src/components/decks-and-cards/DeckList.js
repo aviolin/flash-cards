@@ -54,7 +54,7 @@ const DeckList = ({
 
   return (
     <div className="deck-list">
-      <p>You have <b>{deckList.length}</b> decks and <b>{totalCards}</b> cards:</p>
+      <p>You have <b>{deckList.length}</b> {deckList.length === 1 ? "deck" : "decks"} and <b>{totalCards}</b> {totalCards === 1 ? "card" : "cards"}:</p>
       <ul>
         {deckList.length > 0 ? 
           deckList

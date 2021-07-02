@@ -3,7 +3,7 @@
 
 An app created to easily create, study and share flash cards using React and Firebase.
 
-View the live project here: https://aviolin.github.io/flash-cards/
+View the live project here: https://arlocodes.com/flash-cards/
 
 **TEST ACCOUNT**: You may log in using these credentials to test the project:
 
